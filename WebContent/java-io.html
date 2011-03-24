@@ -36,7 +36,28 @@
 	.techlib-bold{
 		font-weight: bold;
 	}
-	pre{	font-family : "Lucida Grande", Verdana, Lucida, Arial, Helvetica, 宋体,sans-serif;	}
+
+	pre {
+	    font-size: 14px;
+	    padding: 0;
+	    margin: 0;
+	    background: #f0f0f0;
+	    border: 1px solid #ccc;
+	    /* border-left: 1px solid #ccc;
+	    border-bottom: 1px solid #ccc; */
+	    line-height: 20px; /*–Height of each line of code–*/
+	    /*background: url(pre_code_bg.gif) repeat-y left top; *//*–Background of linedpaper–*/
+	    width: 700px;
+	    overflow: auto; /*–If the Code exceeds the width, a scrolling is available–*/
+	    overflow-Y: hidden; /*–Hides vertical scroll created by IE–*/
+	}
+	pre code {	font-family : Consolas, "Lucida Grande", Courier, Verdana, Lucida, Arial, Helvetica, 宋体,sans-serif;    } 
+	pre code {
+	    margin: 0 0 0 20px; /*–Left Margin–*/
+	    padding: 18px 0 0 0;  /* 18px per row */
+	    display: block;
+	}
+		 
 	p{	text-indent: 2em;}
 	#tarena-tag a{ color:#000; text-decoration: none; }
 	#tarena-tag  a:hover, .selected a{ background-position: right bottom; color:#999; }
@@ -69,7 +90,9 @@
 	<p>1.	java.io.File 类可表示一个文件，也有可能是一个目录，在JAVA 中文件和目录都属于这个类中，而且区分不是非常的明显。</p>
 	<p>2.	Java.io 下的方法是对磁盘上的文件进行磁盘操作，但是无法读取文件的内容。
 	<p class="techlib-note">注意：创建一个文件对象和创建一个文件在JAVA 中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真  正地创建到OS 的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。</p>
-	<pre>	例如：
+
+	
+	<pre><code>例如：
 	File f=new File(“Tarena.txt”);//创建一个名为Tarena.txt 的文件对象
 	f.CreateNewFile(); //这才真正地创建文件
 	f.CreateMkdir();  //创建目录
@@ -77,35 +100,36 @@
 	f.getAbsolutePath();//获得文件绝对路径
 	f.getPath();       //获得文件相对路径
 	f.deleteOnExit();  //在进程退出的时候删除文件，这样的操作通常用在临时文件的删除。
-	</pre>
+	</code></pre>
+
 	<p>3.	对于跨平台：File f=new file("d:\\tarena\\test\\test.txt") ;这文件路径是windows的，"\"有转义功能，所以要两个这个命令不具备跨平台性，因为不同的OS的文件系统很不相同;如果想要跨平台，在file 类下有separtor()，返回锁出平台的文件分隔符。</p>
-	<pre>	例如：
+	<pre><code>例如：
 	String str=”Tarena”+File.separator+”tengbx”;
 	File fdir=new  File(str);
-	</pre>
+	</code></pre>
 	<p>4.	list()：显示文件的名(相对路径)；
-listFiles()：返回Files 类型数组，可以用getName()来访问到文件名。
-       使用isDirectory()和isFile()来判断究竟是文件还是目录。
+	listFiles()：返回Files 类型数组，可以用getName()来访问到文件名。
+	使用isDirectory()和isFile()来判断究竟是文件还是目录。
 	 </p>
-	 <pre>	例如：
+	 <pre><code>例如：
 	File f= new  File("tarena");//创建一个名为tarena的文件对象
 	f.list();//显示文件的名，返回String类型的数组
 	f.listFiles();//显示文件，返回File类型数组
 	System.out.println(f.isDirectory());//判断是否是目录
 	System.out.println(f.isAbsolute());//判断是否是文件
-	</pre>
+	</code></pre>
 	<a name="N00002"></a>
 	<div style="text-align: right;"><a href="#top">TOP</a></div>
 	<h2>使用I/O流访问file中的内容</h2>
 	<p>
 	1．字节输入流：java.io包中的InputStream为所有字节输入流的父类，子类包括：FileInputStream….
 	</p>
-	<pre>	例如：
+	<pre><code>例如：
 	File f=new File("tarena.txt");
 	FileInputStream in=new FileInputStream(f);
 	in.read();//读入一个字节(每次一个)；
 	in.read(new byte[4]);//返回值可以表示有效数；read (byte[])返回值为-1 表示结束。
-	</pre>
+	</code></pre>
 	<p>
 	2．字节输出流：io包中的OutputStream为所有字节输入流的父类。
        Write和输入流中的read相对应。
@@ -119,11 +143,11 @@ listFiles()：返回Files 类型数组，可以用getName()来访问到文件名
 	<p>
 	4. 总结字节流：以Stream结尾的类都是字节流；
 	</p>
-	<pre>	例如：
+	<pre><code>例如：
 	FileOutputStream f = new FileOutputStream("tarena.txt");//如果之前有这文件，将会覆盖
 	FileOutputStream f = new FileOutputStream("tengbx.txt",true);//如果有这文件，只会追加
 	DataOutputStream,DataInputStream:可以对八种基本类型加上String类型进行写入。
-	</pre>
+	</code></pre>
 	<p>
 	5. 过滤流：(装饰模式，油漆工模式，修饰字节流)；
 	</p>
@@ -135,16 +159,16 @@ listFiles()：返回Files 类型数组，可以用getName()来访问到文件名
 	</p>
 	<p>6.   管道流(非重点)：也是一种节点流，用于给两个线程交换数据。
      如：PipedOutputStream、PipedInputStream、</p>
-	<pre>	例如：
+	<pre><code>例如：
 	PipedOutputStream pos=new PipedOutputStream();
 	PipedInputStream pis=new PipedInputStream();
-	pis.connect(pos);//使此管道输入流连接到管道输出流	</pre>
+	pis.connect(pos);//使此管道输入流连接到管道输出流	</code></pre>
 	<p>RondomAccessFile 类允许随机访问文件同时拥有读和写的功能。</p>
-	<pre>	例如：
+	<pre><code>例如：
 	RandomAccessFile  ran=new RandomAccessFile（”tengbx”，”rw”）;
 	// 访问的模式 "r" 只读模式,"rw" 读写模式。
 	ran.seek(6);//定位到离文件开头6个位置
-	ran.get Filepoint();//获取文件中的指针位置	</pre>
+	ran.get Filepoint();//获取文件中的指针位置	</code></pre>
 	<p>7.   字节流的字符编码：</p>
 	<p>字符编码把字符转换成数字存储到计算机中，按ASCii 将字母映射为整数。把数字从计算机转换成相应的字符的过程称为解码。</p>
      <p>乱码的根源是编码方式不统一。任何一种编码方式中都会向上兼容ASCII码。所以英文没有乱码。</p>
@@ -160,18 +184,18 @@ listFiles()：返回Files 类型数组，可以用getName()来访问到文件名
 	<p class="techlib-note">原则：保证编解码方式的统一，才能不至于出现错误。</p>
 	<p>8.    字符流：以reader或writer结尾的流为字符流。Reader和Writer是所有字符流的父类。</p>
 	<p>Io 包的InputStreamReader、OutputStreamWriter 称为从字节流到字符流的桥转换类；这个类可以设定字符解码方式。</p>
-	<pre>	例如：
+	<pre><code>例如：
 	InputStreamReader in=new InputStreamReader(new FileinputStream
 	(“Tengbx.txt”),”GBK”);//指定输入流的编码
 	BufferedReader有readLine()使得字符输入更加方便。
-	</pre>
+	</code></pre>
 	<p>在I/O 流中，所有输入方法都是阻塞方法。</p>
 	<p class="techlib-note">	注意：
 	没有PrintReader，只有PrintWriter，PrintWriter有Println()方法。</p>
-	<pre>	例如：
+	<pre><code>例如：
 	PrintWriter prw=new PrintWriter(new File(“tengbx.txt”));
 	prw.print("滕宝鑫，您好！");
-	prw.println();//换行</pre>
+	prw.println();//换行</code></pre>
 	<p>虽然BufferWriter给输出字符加缓冲，但是它的方法很少；因此使用PrintWriter，它可以使用字节流对象构造，省了桥转换这一步，而且方法很多。</p>
 	<p>PrintWriter是带缓冲的。最常用的输出流。</p>
 	<p>9. 对象序列化：把一个对象通过I/O流写到文件(持久性介质)上的过程。</p>
@@ -182,12 +206,13 @@ listFiles()：返回Files 类型数组，可以用getName()来访问到文件名
 	<p>对象的持久化经常需要通过序列化来实现。</p>
 	<p>序列化接口：Serializable（此接口没有任何的方法，这种接口称为标记接口）。</p>     
 	<p>不是所有对象都能序列化的，只有实现了Serializable的类，他的实例对象才是可序列化的；Java种定义了一套序列化规范，对象的编码和解码方式都是已经定义好的，Class ObjectOutputStream和ObjectInputStream也是带缓冲的过滤流，使节点流直接获得输出对象可以用来向文件中写入八种基本数据类型和对象类型。</p>
-	<pre>	例如：
+	<pre><code>例如：
 	ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(“Tarena.txt”));
 	oos.writeObject(“滕宝鑫”);//写入一个String对象，序列化
 	oos.close();   //关闭流
 	ObjectInputStream ois=new ObjectInputStream(new FileInputStream(“Tarena.txt”));
-	ois.readObject();//读取一个String对象，反序列化	</pre>
+	ois.readObject();//读取一个String对象，反序列化
+	</code></pre>
 	<p class="techlib-note">注意：readObject()返回读到的一个对象，但是该方法不会以返回null表示读到文件末尾，而是当读到文件末尾时会抛出一个IOException。</p>
 	<p class="techlib-note">	切记：
 	<ul>
