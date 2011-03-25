@@ -4,19 +4,21 @@
 	 font-size: 14px;
 	}
 	body{
+		/*-一般中文Windows系统都支持宋体(默认, SimSun)
+		和黑体(SimHei)和楷体(kaiti_gb2312)-*/
 		font: 14px normal \5FAE\8F6F\96C5\9ED1,Verdana, Arial, Helvetica, sans-serif;
 	}
-	
 	H2 {	font-size: 20px;}
 	H3 {	font-size: 16px;}
 	H4 { font-size: 14px; }
 	div {	word-break: break-all; dispaly: block;}
 	#techlib-content{
+		/*border: 1px solid;*/
 		width:720px;
 		margin-left: auto; 
 		margin-right: auto;
+		padding: 5px 25px 5px 25px;
 	}
-
 	#techlib-menubar{
 		margin-top: 20px;
 		padding-top: 10px;
@@ -36,8 +38,13 @@
 	.techlib-menubar-ul a{ display: block; height:20px; line-height:20px; color:#000; text-decoration: none; }
 	.techlib-menubar-ul a:hover, .selected a{ background-position: right bottom; color:#999; }
 	.techlib-note{
-		font-style: oblique;
-		font-weight:bold;
+		font-family: SimHei;
+		font-size:16px;
+		color: red;
+		font-weight:600;
+		border: 1px solid;
+		margin-bottom: 0;
+		width: auto;
 	}
 	.techlib-bold{
 		font-weight: bold;
@@ -48,12 +55,12 @@
 	    padding: 0;
 	    margin: 0;
 	    background: #f0f0f0;
-	    border: 1px solid #ccc;
-	    /* border-left: 1px solid #ccc;
+	    /* border: 1px solid #ccc;
+	    border-left: 1px solid #ccc;
 	    border-bottom: 1px solid #ccc; */
 	    line-height: 20px; /*–Height of each line of code–*/
 	    /*background: url(pre_code_bg.gif) repeat-y left top; *//*–Background of linedpaper–*/
-	    width: 700px;
+	    width: auto;
 	    overflow: auto; /*–If the Code exceeds the width, a scrolling is available–*/
 	    overflow-Y: hidden; /*–Hides vertical scroll created by IE–*/
 	}
@@ -61,17 +68,17 @@
 	-*/ 
 	pre code {
 	    margin: 0 0 0 20px; /*–Left Margin–*/
-	    padding: 18px 0 0 0;  /* 18px per row */
+	    padding: 9px 0 0 0;  /* 18px per row */
 	    display: block;
 	}
 		 
-	p{	text-indent: 2em;}
+	p{text-indent: 2em;}/*-首行缩进两个字符-*/
 	#tarena-tag a{ color:#000; text-decoration: none; }
-	#tarena-tag  a:hover, .selected a{ background-position: right bottom; color:#999; }
+	#tarena-tag a:hover, .selected a{ background-position: right bottom; color:#999; }
 </STYLE>
 
 <div id="techlib-content">
-	<a name="top"></a>
+	<a name="top"></a><!-- 文件顶部锚点 -->
 	<div id="techlib-title">JAVA输入输出（I/O流）的浅析</div><!-- 标题 -->
 	<div id="techlib-subtitle"></div><!-- 副标题 -->
 	<div id="techlib-author">作者：达内总部中关村中心 腾宝鑫</div><!-- 作者信息 -->
@@ -95,10 +102,11 @@
 	<div style="text-align: right;"><a href="#top">TOP</a></div>
 	<h2>File文件</h2>
 	<p>1.	java.io.File 类可表示一个文件，也有可能是一个目录，在JAVA 中文件和目录都属于这个类中，而且区分不是非常的明显。</p>
-	<p>2.	Java.io 下的方法是对磁盘上的文件进行磁盘操作，但是无法读取文件的内容。
-	<p class="techlib-note">注意：创建一个文件对象和创建一个文件在JAVA 中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真  正地创建到OS 的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。</p>
-
-	
+	<p>2.	Java.io 下的方法是对磁盘上的文件进行磁盘操作，但是无法读取文件的内容。</p>
+	<p>
+	<span class="techlib-note">注意</span>
+	创建一个文件对象和创建一个文件在JAVA 中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真  正地创建到OS 的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。
+	</p>
 	<pre><code>例如：
 	File f=new File(“Tarena.txt”);//创建一个名为Tarena.txt 的文件对象
 	f.CreateNewFile(); //这才真正地创建文件
@@ -144,8 +152,8 @@
 	<p>
 	3．在流中close()方法由程序员控制。因为输入输出流已经超越了JVM的边界，所以有时可能无法回收资源。
 	</p>
-	<p class="techlib-note">
-	原则： 凡是跨出虚拟机边界的资源都要求程序员自己关闭，不要指望垃圾回收。
+	<p><span class="techlib-note">原则</span>
+	凡是跨出虚拟机边界的资源都要求程序员自己关闭，不要指望垃圾回收。
 	</p> 
 	<p>
 	4. 总结字节流：以Stream结尾的类都是字节流；
@@ -162,7 +170,8 @@
 	如：bufferedOutputStream、bufferedInputStream，在JVM的内部建立一个缓冲区，数据先写入缓冲区，直到缓冲区写满再一次性写出，效率提高很多。
      使用带缓冲区的输入输出流(节点流)会大幅提高速度，缓冲区越大，效率越高。(典型的牺牲空间换时间)
 	</p> 
-	<p class="techlib-note">切记：使用带缓冲区的流，如果数据数据输入完毕，使用flush方法将缓冲区中的内容一次性写入到外部数据源。用close()也可以达到相同的效果，因为每次close前都会使用flush。一定要注意关闭外部的过滤流。
+	<p><span class="techlib-note">切记</span>
+	使用带缓冲区的流，如果数据数据输入完毕，使用flush方法将缓冲区中的内容一次性写入到外部数据源。用close()也可以达到相同的效果，因为每次close前都会使用flush。一定要注意关闭外部的过滤流。
 	</p>
 	<p>6.   管道流(非重点)：也是一种节点流，用于给两个线程交换数据。
      如：PipedOutputStream、PipedInputStream、</p>
@@ -188,7 +197,8 @@
 	     <li>Unicode: 1 个字符占两个字节(网络传输速度慢)</li>
 	     <li>UTF-8：变长字节，对于英文一个字节，对于汉字两个或三个字节。</li>
      </ul>
-	<p class="techlib-note">原则：保证编解码方式的统一，才能不至于出现错误。</p>
+	<p><span  class="techlib-note">原则</span>
+	保证编解码方式的统一，才能不至于出现错误。</p>
 	<p>8.    字符流：以reader或writer结尾的流为字符流。Reader和Writer是所有字符流的父类。</p>
 	<p>Io 包的InputStreamReader、OutputStreamWriter 称为从字节流到字符流的桥转换类；这个类可以设定字符解码方式。</p>
 	<pre><code>例如：
@@ -197,7 +207,7 @@
 	BufferedReader有readLine()使得字符输入更加方便。
 	</code></pre>
 	<p>在I/O 流中，所有输入方法都是阻塞方法。</p>
-	<p class="techlib-note">	注意：
+	<p><span class="techlib-note">注意</span>
 	没有PrintReader，只有PrintWriter，PrintWriter有Println()方法。</p>
 	<pre><code>例如：
 	PrintWriter prw=new PrintWriter(new File(“tengbx.txt”));
@@ -220,8 +230,9 @@
 	ObjectInputStream ois=new ObjectInputStream(new FileInputStream(“Tarena.txt”));
 	ois.readObject();//读取一个String对象，反序列化
 	</code></pre>
-	<p class="techlib-note">注意：readObject()返回读到的一个对象，但是该方法不会以返回null表示读到文件末尾，而是当读到文件末尾时会抛出一个IOException。</p>
-	<p class="techlib-note">	切记：
+	<p><span class="techlib-note">注意</span>
+	readObject()返回读到的一个对象，但是该方法不会以返回null表示读到文件末尾，而是当读到文件末尾时会抛出一个IOException。</p>
+	<p><span class="techlib-note">切记</span>
 	<ul>
 		<li>序列化一个对象并不一定会序列化该对象的父类对象；</li>
 		<li>瞬间属性、静态属性不参与序列化过程（transient、static修饰的属性）；</li>
