@@ -5,13 +5,34 @@
 	}
 	body{
 		/*-一般中文Windows系统都支持宋体(默认, SimSun)
-		和黑体(SimHei)和楷体(kaiti_gb2312)-*/
+		和黑体(SimHei)和楷体(kaiti_gb2312)
+		\5FAE\8F6F\96C5\9ED1 是指微软雅黑-*/
 		font: 14px normal \5FAE\8F6F\96C5\9ED1,Verdana, Arial, Helvetica, sans-serif;
 	}
-	H2 {	font-size: 20px;}
-	H3 {	font-size: 16px;}
-	H4 { font-size: 14px; }
-	div {	word-break: break-all; dispaly: block;}
+	H2 { font-size: 20px;} /*-每章标题的样式-*/
+	H3 { font-size: 16px;} /*-每节的样式-*/
+	H4 { font-size: 14px; } /*-每节中点的样式-*/
+	div { word-break: break-all; dispaly: block;}
+
+	/*注意、切记、提示等内容的样式
+	* 如
+	* <p class="techlib-note">
+	* 	<span class="techlib-note-head">注意</span>
+	* </p>
+	*/
+	.techlib-note-head{
+		font-family: SimHei;
+		font-size:16px;
+		color: red;
+		font-weight:600;
+		border: 1px solid;
+		margin-bottom: 0;
+		width: auto;
+	}
+	
+	#tarena-tags a{ color:#000; text-decoration: none; }
+	#tarena-tags a:hover, .selected a{ background-position: right bottom; color:#999; }
+	
 	#techlib-content{
 		/*border: 1px solid;*/
 		width:720px;
@@ -37,18 +58,7 @@
 	.techlib-menubar-ul { margin: 0; padding: 0; list-style-type: none; }
 	.techlib-menubar-ul a{ display: block; height:20px; line-height:20px; color:#000; text-decoration: none; }
 	.techlib-menubar-ul a:hover, .selected a{ background-position: right bottom; color:#999; }
-	.techlib-note{
-		font-family: SimHei;
-		font-size:16px;
-		color: red;
-		font-weight:600;
-		border: 1px solid;
-		margin-bottom: 0;
-		width: auto;
-	}
-	.techlib-bold{
-		font-weight: bold;
-	}
+
 
 	pre {
 	    font-size: 12px;
@@ -73,8 +83,7 @@
 	}
 		 
 	p{text-indent: 2em;}/*-首行缩进两个字符-*/
-	#tarena-tag a{ color:#000; text-decoration: none; }
-	#tarena-tag a:hover, .selected a{ background-position: right bottom; color:#999; }
+
 </STYLE>
 
 <div id="techlib-content">
@@ -97,14 +106,18 @@
 	<p>对于任何编程语言，处理数据的输入、输出操作都占有极其重要的地位。Java语言以流的形式进行数据的输入、输出的处理。按照操作类型，Java语言中的按流向分为输入流和输出流；按传输单位分为字节流和字符流；按功能还可以分为节点流和过滤流。</p> 
 	<p>Java输入、输出I/O流指的是java如何实现与外界数据的交流；这里的输入、输出是针对JVM而言的；字节、字符是针对于输入、输出流处理数据而言的；节点流是负责数据源和程序之间建立连接，过滤流是用于给节点增加功能。</p>
 	<p>下面针对这些知识逐一浅析。</p>
-	<div id="techlib-tagsline"><span class="techlib-bold">标签：</span><span id="tarena-tag"><a href="http://www.chinatarena.com/">Java培训</a></span><span id="techlib-tags"> Java IO File </span></div>
+	<div id="techlib-tagsline">
+		<strong>标签：</strong>
+		<span id="tarena-tags"><a href="http://www.chinatarena.com/">Java培训</a></span>
+		<span id="techlib-tags"> Java IO File </span>
+	</div>
 	<a name="N00001"></a>
 	<div style="text-align: right;"><a href="#top">TOP</a></div>
 	<h2>File文件</h2>
 	<p>1.	java.io.File 类可表示一个文件，也有可能是一个目录，在JAVA 中文件和目录都属于这个类中，而且区分不是非常的明显。</p>
 	<p>2.	Java.io 下的方法是对磁盘上的文件进行磁盘操作，但是无法读取文件的内容。</p>
-	<p>
-	<span class="techlib-note">注意</span>
+	<p class="techlib-note">
+	<span class="techlib-note-head">注意</span>
 	创建一个文件对象和创建一个文件在JAVA 中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真  正地创建到OS 的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。
 	</p>
 	<pre><code>例如：
@@ -152,7 +165,8 @@
 	<p>
 	3．在流中close()方法由程序员控制。因为输入输出流已经超越了JVM的边界，所以有时可能无法回收资源。
 	</p>
-	<p><span class="techlib-note">原则</span>
+	<p class="techlib-note">
+	<span class="techlib-note-head">原则</span>
 	凡是跨出虚拟机边界的资源都要求程序员自己关闭，不要指望垃圾回收。
 	</p> 
 	<p>
@@ -170,7 +184,8 @@
 	如：bufferedOutputStream、bufferedInputStream，在JVM的内部建立一个缓冲区，数据先写入缓冲区，直到缓冲区写满再一次性写出，效率提高很多。
      使用带缓冲区的输入输出流(节点流)会大幅提高速度，缓冲区越大，效率越高。(典型的牺牲空间换时间)
 	</p> 
-	<p><span class="techlib-note">切记</span>
+	<p class="techlib-note">
+	<span class="techlib-note-head">切记</span>
 	使用带缓冲区的流，如果数据数据输入完毕，使用flush方法将缓冲区中的内容一次性写入到外部数据源。用close()也可以达到相同的效果，因为每次close前都会使用flush。一定要注意关闭外部的过滤流。
 	</p>
 	<p>6.   管道流(非重点)：也是一种节点流，用于给两个线程交换数据。
@@ -197,7 +212,8 @@
 	     <li>Unicode: 1 个字符占两个字节(网络传输速度慢)</li>
 	     <li>UTF-8：变长字节，对于英文一个字节，对于汉字两个或三个字节。</li>
      </ul>
-	<p><span  class="techlib-note">原则</span>
+	<p class="techlib-note">
+	<span  class="techlib-note-head">原则</span>
 	保证编解码方式的统一，才能不至于出现错误。</p>
 	<p>8.    字符流：以reader或writer结尾的流为字符流。Reader和Writer是所有字符流的父类。</p>
 	<p>Io 包的InputStreamReader、OutputStreamWriter 称为从字节流到字符流的桥转换类；这个类可以设定字符解码方式。</p>
@@ -207,7 +223,8 @@
 	BufferedReader有readLine()使得字符输入更加方便。
 	</code></pre>
 	<p>在I/O 流中，所有输入方法都是阻塞方法。</p>
-	<p><span class="techlib-note">注意</span>
+	<p class="techlib-note">
+	<span class="techlib-note-head">注意</span>
 	没有PrintReader，只有PrintWriter，PrintWriter有Println()方法。</p>
 	<pre><code>例如：
 	PrintWriter prw=new PrintWriter(new File(“tengbx.txt”));
@@ -230,9 +247,11 @@
 	ObjectInputStream ois=new ObjectInputStream(new FileInputStream(“Tarena.txt”));
 	ois.readObject();//读取一个String对象，反序列化
 	</code></pre>
-	<p><span class="techlib-note">注意</span>
+	<p class="techlib-note">
+	<span class="techlib-note-head">注意</span>
 	readObject()返回读到的一个对象，但是该方法不会以返回null表示读到文件末尾，而是当读到文件末尾时会抛出一个IOException。</p>
-	<p><span class="techlib-note">切记</span>
+	<p class="techlib-note">
+	<span class="techlib-note-head">切记</span>
 	<ul>
 		<li>序列化一个对象并不一定会序列化该对象的父类对象；</li>
 		<li>瞬间属性、静态属性不参与序列化过程（transient、static修饰的属性）；</li>
