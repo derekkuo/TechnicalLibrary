@@ -17,15 +17,21 @@
 		var $notes = $(".techlib-note");
 		var $blockNote = $("#techlib-block-note");
 		if( $notes.length > 0){
-			$blockNote.append("<a name='note'></a>");
-			$blockNote.append("<menu><h2>NOTE</h2></menu>");
+			$blockNote.append("<a name='notelist'></a>");
+			$blockNote.append("<menu><h2>NOTE LIST</h2></menu>");
 		}
 		$notes.each(function(i){
 			j=i+1;
-			$blockNote.append("<div style='margin-bottom:10px;'>"+ $(this).html()+"</div>");
+			$blockNote.append("<div style='margin-bottom:10px;'>NOTE&nbsp;"+ j + ":&nbsp;"+$(this).html()+"</div>");
 		});
-		//生成文章末尾的NOTE部分END
-
+		var $blockNoteHeads = $("#techlib-block-note > div > .techlib-note-head");
+		//alert($blockNoteHeads.length);
+		$blockNoteHeads.each(function(i){
+			$(this).removeAttr("class");
+			//$(this).css("font-weight","bold");
+			$(this).append("<br>");
+		});
+	
 		//生成目录
 		var $menus = $("menu");
 		var $menubarBlock = $("#techlib-block-menubar");
