@@ -17,7 +17,7 @@
 	menu h3{ font-size:16px; margin-left:-40px; }
 	menu h4{ font-size:14px; margin-left:-40px; }
 	
-	.techlib-note{ margin-left:2em; margin-top: 15px; margin-bottom: 15px; }
+	.techlib-note{ margin-left:2em; margin-top: 6px; margin-bottom: 0px; }
 	/*注意、切记、提示等内容的样式
 	* 如
 	* <p class="techlib-note">
@@ -26,13 +26,14 @@
 	*/
 	.techlib-note-head{
 		font-family: SimHei;
-		font-size:16px;
+		/*font-size:16px;*/
 		color: red;
 		/*font-weight:bold;*/
 		border: 1px solid;
 		margin-bottom: 0;
 		width: auto;
 	}
+	.techlib-note-body p{ margin-top:6px; }
 	
 	#techlib-content,#techlib-block-note{
 		/*border: 1px solid;*/
