@@ -5,6 +5,9 @@
 		var removeAD = false;//是否去除广告
 		var topDirectIndex = 3;//<h3>章、节上添加TOP  <h4>章、节、点上添加TOP
 		
+		
+		
+		
 		//去除广告
 		if(removeAD){
 			var $ad = $("#ad-topic-tags");
@@ -14,17 +17,17 @@
 		}
 		
 		//生成文章末尾的NOTE部分BEGIN
-		var $notes = $(".techlib-note");
+		var $notes = $(".note");
 		var $blockNote = $("#techlib-block-note");
 		if( $notes.length > 0){
 			$blockNote.append("<a name='notelist'></a>");
-			$blockNote.append("<menu><h2>NOTE LIST</h2></menu>");
+			$blockNote.append("<span class='menu'><h2>NOTE LIST</h2></span>");
 		}
 		$notes.each(function(i){
 			j=i+1;
 			$blockNote.append("<div style='margin-bottom:10px;'>NOTE&nbsp;"+ j + ":&nbsp;"+$(this).html()+"</div>");
 		});
-		var $blockNoteHeads = $("#techlib-block-note > div > .techlib-note-head");
+		var $blockNoteHeads = $("#techlib-block-note > div > .note-head");
 		//alert($blockNoteHeads.length);
 		$blockNoteHeads.each(function(i){
 			$(this).removeAttr("class");
@@ -32,8 +35,14 @@
 			$(this).append("<br>");
 		});
 	
+		//生成没有级别的目录
+		/*
+		var $headers = $(":header");
+		$headers.each(function(i){
+			alert($(this).html());
+		});*/
 		//生成目录
-		var $menus = $("menu");
+		var $menus = $(".menu");
 		var $menubarBlock = $("#techlib-block-menubar");
 		$menubarBlock.append("<div id='techlib-menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='techlib-menubar-ul'></UL></div>");
 		var $menubarUl = $(".techlib-menubar-ul");
