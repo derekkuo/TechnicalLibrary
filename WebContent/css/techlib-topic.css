@@ -35,7 +35,7 @@
 	}
 	.note-body p{ margin-top:6px; }
 	
-	#techlib-content,#techlib-block-note{
+	#techlib-topic,#techlib-topic-notelist{
 		/*border: 1px solid;*/
 		width:720px;
 		margin-top: 5px;

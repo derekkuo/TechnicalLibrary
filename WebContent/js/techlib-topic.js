@@ -18,7 +18,7 @@
 		
 		//生成文章末尾的NOTE部分BEGIN
 		var $notes = $(".note");
-		var $blockNote = $("#techlib-block-note");
+		var $blockNote = $("#techlib-topic-notelist");
 		if( $notes.length > 0){
 			$blockNote.append("<a name='notelist'></a>");
 			$blockNote.append("<span class='menu'><h2>NOTE LIST</h2></span>");
@@ -27,7 +27,7 @@
 			j=i+1;
 			$blockNote.append("<div style='margin-bottom:10px;'>NOTE&nbsp;"+ j + ":&nbsp;"+$(this).html()+"</div>");
 		});
-		var $blockNoteHeads = $("#techlib-block-note > div > .note-head");
+		var $blockNoteHeads = $("#techlib-topic-notelist > div > .note-head");
 		//alert($blockNoteHeads.length);
 		$blockNoteHeads.each(function(i){
 			$(this).removeAttr("class");
