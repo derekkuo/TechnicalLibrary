@@ -6,33 +6,32 @@
 <script type="text/javascript" src="../js/techlib-topic.js"></script>
 </head>
 
-<div id="techlib-content">
-	<!-- 不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
 	
-	<!-- 文章头BEGIN -->
-	<div id="techlib-title"><h1>
-		JAVA输入输出（I/O流）的浅析</h1></div><!-- 标题 -->
-	<div id="techlib-subtitle"></div><!-- 副标题 -->
-	<div id="techlib-author">作者：<span id="ad-topic-author">达内总部中关村中心&nbsp;</span>
-		滕宝鑫</div><!-- 作者信息 -->
-	<!-- 文章头END -->
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="techlib-title"><h1>JAVA输入输出（I/O流）的浅析</h1></div><!-- 标题 -->
+		<div id="techlib-subtitle"></div><!-- 副标题 -->
+		<div id="techlib-author">
+			作者：<span id="ad-topic-author">达内总部中关村中心&nbsp;</span>
+			滕宝鑫</div><!-- 作者信息 -->
+	</div>
 	
-	<!-- 不用编辑 --><div id="techlib-block-menubar"></div><!-- 目录 将会由jquery程序填充 -->
+	<!-- 此行不用编辑 --><div id="techlib-topic-menubar"></div><!-- 目录 将会由jquery程序填充 -->
 	
 	<!-- 正文内容开始 -->
 	<!-- 
-		章的写法	如：<menu><h2>引言</h2></menu>
+		章的写法	如：<span class="menu"><h2>引言</h2></span>
 				解释：前后添加上<menu></menu>后，可在目录中生成
 		段落写法	如：<p>对于任何编程语言，处理数据的输入、
 					输出操作都占有极其重要的地位。Java语言以流的形式进行数据的输入、输出的处理。
 					按照操作类型，Java语言中的按流向分为输入流和输出流；按传输单位分为字节流和字符流；
 					按功能还可以分为节点流和过滤流。
 					</p>
-		注意写法	如：	<div class="techlib-note">
-						<span class="techlib-note-head">注意</span>
-						<span class="techlib-note-body">
-							<p>
-							创建一个文件对象和创建一个文件在JAVA 中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真  正地创建到OS 的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。
+		注意写法	如：	<div class="note">
+						<span class="note-head">注意</span>
+						<span class="note-body">
+							<p>创建一个文件对象和创建一个文件在JAVA 中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真  正地创建到OS 的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。
 							</p>
 						</span>
 					</div>
@@ -42,32 +41,32 @@
 					</code></pre>
 				解释：在编写代码时，代码可直接采用本身的缩进方式，直接粘贴进来；也就是说代码原样贴进来即可
 	 -->
-	<div><!-- 内容开始 -->
-	<menu><h2>引言</h2></menu>
-	<p>对于任何编程语言，处理数据的输入、输出操作都占有极其重要的地位。Java语言以流的形式进行数据的输入、输出的处理。按照操作类型，Java语言中的按流向分为输入流和输出流；按传输单位分为字节流和字符流；按功能还可以分为节点流和过滤流。</p> 
-	<p>Java输入、输出I/O流指的是java如何实现与外界数据的交流；这里的输入、输出是针对JVM而言的；字节、字符是针对于输入、输出流处理数据而言的；节点流是负责数据源和程序之间建立连接，过滤流是用于给节点增加功能。</p>
-	<p>下面针对这些知识逐一浅析。</p>
-
-	<!-- 标签行BEGIN -->
-	<div id="techlib-tagsline">
-		<strong>标签：</strong>
-		<span id="ad-topic-tags"><a href="http://www.chinatarena.com/">Java培训</a></span>
-		<span id="techlib-topic-tags">Java IO File</span>
-	</div>
-	<!-- 标签行END -->
-
-	<menu><h2>File文件</h2></menu>
-	<p>1.	java.io.File类可表示一个文件，也有可能是一个目录，在JAVA中文件和目录都属于这个类，而且区分不是非常的明显。</p>
-	<p>2.	Java.io包下的方法是对磁盘上的文件进行磁盘操作，但是无法读取文件的内容。</p>
-	<div class="techlib-note">
-		<span class="techlib-note-head">注意</span>
-		<span class="techlib-note-body">
-			<p>
-			创建一个文件对象和创建一个文件在JAVA中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真正地创建到OS的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。
-			</p>
-		</span>
-	</div>
-	<pre><code>例如：
+	<div id="techlib-topic-content"><!-- 内容开始 -->
+		<span class="menu"><h2>引言</h2></span>
+		<p>对于任何编程语言，处理数据的输入、输出操作都占有极其重要的地位。Java语言以流的形式进行数据的输入、输出的处理。按照操作类型，Java语言中的按流向分为输入流和输出流；按传输单位分为字节流和字符流；按功能还可以分为节点流和过滤流。</p> 
+		<p>Java输入、输出I/O流指的是java如何实现与外界数据的交流；这里的输入、输出是针对JVM而言的；字节、字符是针对于输入、输出流处理数据而言的；节点流是负责数据源和程序之间建立连接，过滤流是用于给节点增加功能。</p>
+		<p>下面针对这些知识逐一浅析。</p>
+	
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+			<span id="ad-topic-tags"><a href="http://www.chinatarena.com/">Java培训</a></span>
+			<span id="techlib-topic-tags">
+				Java IO File</span>
+		</div><!-- 标签行END -->
+	
+		<span class="menu"><h2>File文件</h2></span>
+		<p>1.	java.io.File类可表示一个文件，也有可能是一个目录，在JAVA中文件和目录都属于这个类，而且区分不是非常的明显。</p>
+		<p>2.	Java.io包下的方法是对磁盘上的文件进行磁盘操作，但是无法读取文件的内容。</p>
+		<div class="note">
+			<span class="note-head">注意</span>
+			<span class="note-body">
+				<p>
+				创建一个文件对象和创建一个文件在JAVA中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真正地创建到OS的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。
+				</p>
+			</span>
+		</div>
+		<pre><code>例如：
 	File f=new File(“Tarena.txt”);//创建一个名为Tarena.txt的文件对象
 	f.createNewFile(); //这才真正地创建文件
 	f.createMkdir();  //创建目录
@@ -75,169 +74,173 @@
 	f.getAbsolutePath();//获得文件绝对路径
 	f.getPath();       //获得文件相对路径
 	f.deleteOnExit();  //在虚拟机终止时删除文件，这样的操作通常用在临时文件的删除。
-	</code></pre>
-
-	<p>3.	对于跨平台：File f=new File("d:\\tarena\\test\\test.txt");
-	这文件路径是windows的，"\"有转义功能，所以这样编写不具备跨平台性，因为不同的OS的文件系统很不相同;
-	 如果想要跨平台，在File类下有separtor字段，返回平台的文件分隔符。</p>
-	<pre><code>例如：
+		</code></pre>
+	
+		<p>3.	对于跨平台：File f=new File("d:\\tarena\\test\\test.txt");
+		这文件路径是windows的，"\"有转义功能，所以这样编写不具备跨平台性，因为不同的OS的文件系统很不相同;
+		 如果想要跨平台，在File类下有separtor字段，返回平台的文件分隔符。</p>
+		<pre><code>例如：
 	String str=”Tarena”+File.separator+”tengbx”;
 	File fdir=new  File(str);
-	</code></pre>
-	<p>4.	list()：显示文件的名(相对路径)；
-	listFiles()：返回Files 类型数组，可以用getName()来访问到文件名。
-	使用isDirectory()和isFile()来判断究竟是文件还是目录。
-	</p>
-	<pre><code>例如：
+		</code></pre>
+		<p>4.	list()：显示文件的名(相对路径)；
+		listFiles()：返回Files 类型数组，可以用getName()来访问到文件名。
+		使用isDirectory()和isFile()来判断究竟是文件还是目录。
+		</p>
+		<pre><code>例如：
 	File f= new File("tarena");//创建一个名为tarena的文件对象
 	f.list();//显示文件的名，返回String类型的数组
 	f.listFiles();//显示文件，返回File类型数组
 	System.out.println(f.isDirectory());//判断是否是目录
 	System.out.println(f.isAbsolute());//判断是否是文件
-	</code></pre>
-	
-	<menu><h2>使用I/O流访问file中的内容</h2></menu>
-	<p>
-	1．字节输入流：java.io包中的InputStream为所有字节输入流的父类，子类包括：FileInputStream….
-	</p>
-	<pre><code>例如：
+		</code></pre>
+		
+		<span class="menu"><h2>使用I/O流访问file中的内容</h2></span>
+		<p>
+		1．字节输入流：java.io包中的InputStream为所有字节输入流的父类，子类包括：FileInputStream….
+		</p>
+		<pre><code>例如：
 	File f=new File("tarena.txt");
 	FileInputStream in=new FileInputStream(f);
 	in.read();//读入一个字节(每次一个)；
 	in.read(new byte[4]);//返回值可以表示有效数；read (byte[])返回值为-1 表示结束。
-	</code></pre>
-	<p>
-	2．字节输出流：io包中的OutputStream为所有字节输入流的父类。
-       Write和输入流中的read相对应。
-	</p>
-	<p>
-	3．在流中close()方法由程序员控制。因为输入输出流已经超越了JVM的边界，所以有时可能无法回收资源。
-	</p>
-	<div class="techlib-note">
-		<span class="techlib-note-head">原则</span>
-		<span class="techlib-note-body">
-			<p>
-			凡是跨出虚拟机边界的资源都要求程序员自己关闭，不要指望垃圾回收。
-			</p>
-		</span>
-	</div> 
-	<p>
-	4. 总结字节流：以Stream结尾的类都是字节流；
-	</p>
-	<pre><code>例如：
+		</code></pre>
+		<p>
+		2．字节输出流：io包中的OutputStream为所有字节输入流的父类。
+	       Write和输入流中的read相对应。
+		</p>
+		<p>
+		3．在流中close()方法由程序员控制。因为输入输出流已经超越了JVM的边界，所以有时可能无法回收资源。
+		</p>
+		<div class="note">
+			<span class="note-head">原则</span>
+			<span class="note-body">
+				<p>
+				凡是跨出虚拟机边界的资源都要求程序员自己关闭，不要指望垃圾回收。
+				</p>
+			</span>
+		</div> 
+		<p>
+		4. 总结字节流：以Stream结尾的类都是字节流；
+		</p>
+		<pre><code>例如：
 	FileOutputStream f = new FileOutputStream("tarena.txt");//如果之前有这文件，将会覆盖
 	FileOutputStream f = new FileOutputStream("tengbx.txt",true);//如果有这文件，只会追加
 	DataOutputStream,DataInputStream:可以对八种基本类型加上String类型进行写入。
-	</code></pre>
-	<p>
-	5. 过滤流：(装饰模式，油漆工模式，修饰字节流)；
-	</p>
-	<p>
-	如：bufferedOutputStream、bufferedInputStream，在JVM的内部建立一个缓冲区，数据先写入缓冲区，直到缓冲区写满再一次性写出，效率提高很多。
-     使用带缓冲区的输入输出流(节点流)会大幅提高速度，缓冲区越大，效率越高。(典型的牺牲空间换时间)
-	</p> 
-	<div class="techlib-note">
-		<span class="techlib-note-head">切记</span>
-		<span class="techlib-note-body">
-			<p>
-			使用带缓冲区的流，如果数据数据输入完毕，使用flush方法将缓冲区中的内容一次性写入到外部数据源。用close()也可以达到相同的效果，因为每次close前都会使用flush。一定要注意关闭外部的过滤流。
-			</p>
-		</span>
-	</div>
-	<p>6.   管道流(非重点)：也是一种节点流，用于给两个线程交换数据。
-     如：PipedOutputStream、PipedInputStream、</p>
-	<pre><code>例如：
+		</code></pre>
+		<p>
+		5. 过滤流：(装饰模式，油漆工模式，修饰字节流)；
+		</p>
+		<p>
+		如：bufferedOutputStream、bufferedInputStream，在JVM的内部建立一个缓冲区，数据先写入缓冲区，直到缓冲区写满再一次性写出，效率提高很多。
+	     使用带缓冲区的输入输出流(节点流)会大幅提高速度，缓冲区越大，效率越高。(典型的牺牲空间换时间)
+		</p> 
+		<div class="note">
+			<span class="note-head">切记</span>
+			<span class="note-body">
+				<p>
+				使用带缓冲区的流，如果数据数据输入完毕，使用flush方法将缓冲区中的内容一次性写入到外部数据源。用close()也可以达到相同的效果，因为每次close前都会使用flush。一定要注意关闭外部的过滤流。
+				</p>
+			</span>
+		</div>
+		<p>6.   管道流(非重点)：也是一种节点流，用于给两个线程交换数据。
+	     如：PipedOutputStream、PipedInputStream、</p>
+		<pre><code>例如：
 	PipedOutputStream pos=new PipedOutputStream();
 	PipedInputStream pis=new PipedInputStream();
 	pis.connect(pos);//使此管道输入流连接到管道输出流	</code></pre>
 	<p>RondomAccessFile 类允许随机访问文件同时拥有读和写的功能。</p>
-	<pre><code>例如：
+		<pre><code>例如：
 	RandomAccessFile  ran=new RandomAccessFile（”tengbx”，”rw”）;
 	// 访问的模式 "r" 只读模式,"rw" 读写模式。
 	ran.seek(6);//定位到离文件开头6个位置
-	ran.get Filepoint();//获取文件中的指针位置	</code></pre>
-	<p>7.   字节流的字符编码：</p>
-	<p>字符编码把字符转换成数字存储到计算机中，按ASCii 将字母映射为整数。把数字从计算机转换成相应的字符的过程称为解码。</p>
-     <p>乱码的根源是编码方式不统一。任何一种编码方式中都会向上兼容ASCII码。所以英文没有乱码。</p>
-	<p>编码方式的分类：</p>
-	<ul>
-		<li>ASCII(数字、英文):1个字符占一个字节(所有的编码集都兼容ASCII)</li>
-	    <li>ISO8859-1(欧洲，拉丁语派)：1个字符占一个字节</li>
-	    <li>GB-2312/GBK：1 个字符占两个字节。GB代表国家标准。</li>
-	    <li>GBK是在GB－2312上增加的一类新的编码方式，也是现在最常用的汉字编码方式。</li>
-	    <li>Unicode: 1 个字符占两个字节(网络传输速度慢)</li>
-	    <li>UTF-8：变长字节，对于英文一个字节，对于汉字两个或三个字节。</li>
-     </ul>
-	<div class="techlib-note">
-		<span  class="techlib-note-head">原则</span>
-		<span class="techlib-note-body">
-			<p>
-			保证编解码方式的统一，才能不至于出现错误。
-			</p>
-		</span>
-	</div>
-	<p>8.    字符流：以reader或writer结尾的流为字符流。Reader和Writer是所有字符流的父类。</p>
-	<p>Io 包的InputStreamReader、OutputStreamWriter 称为从字节流到字符流的桥转换类；这个类可以设定字符解码方式。</p>
-	<pre><code>例如：
+	ran.get Filepoint();//获取文件中的指针位置
+		</code></pre>
+		<p>7.   字节流的字符编码：</p>
+		<p>字符编码把字符转换成数字存储到计算机中，按ASCii 将字母映射为整数。把数字从计算机转换成相应的字符的过程称为解码。</p>
+	    <p>乱码的根源是编码方式不统一。任何一种编码方式中都会向上兼容ASCII码。所以英文没有乱码。</p>
+		<p>编码方式的分类：</p>
+		<ul>
+			<li>ASCII(数字、英文):1个字符占一个字节(所有的编码集都兼容ASCII)</li>
+		    <li>ISO8859-1(欧洲，拉丁语派)：1个字符占一个字节</li>
+		    <li>GB-2312/GBK：1 个字符占两个字节。GB代表国家标准。</li>
+		    <li>GBK是在GB－2312上增加的一类新的编码方式，也是现在最常用的汉字编码方式。</li>
+		    <li>Unicode: 1 个字符占两个字节(网络传输速度慢)</li>
+		    <li>UTF-8：变长字节，对于英文一个字节，对于汉字两个或三个字节。</li>
+	     </ul>
+		<div class="note">
+			<span  class="note-head">原则</span>
+			<span class="note-body">
+				<p>
+				保证编解码方式的统一，才能不至于出现错误。
+				</p>
+			</span>
+		</div>
+		<p>8.    字符流：以reader或writer结尾的流为字符流。Reader和Writer是所有字符流的父类。</p>
+		<p>Io 包的InputStreamReader、OutputStreamWriter 称为从字节流到字符流的桥转换类；这个类可以设定字符解码方式。</p>
+		<pre><code>例如：
 	InputStreamReader in=new InputStreamReader(new FileinputStream
 	(“Tengbx.txt”),”GBK”);//指定输入流的编码
 	BufferedReader有readLine()使得字符输入更加方便。
-	</code></pre>
-	<p>在I/O 流中，所有输入方法都是阻塞方法。</p>
-	<div class="techlib-note">
-		<span class="techlib-note-head">注意</span>
-		<span class="techlib-note-body">
-			<p>
-			没有PrintReader，只有PrintWriter，PrintWriter有Println()方法。
-			</p>
-		</span>
-	</div>
-	<pre><code>例如：
+		</code></pre>
+		<p>在I/O 流中，所有输入方法都是阻塞方法。</p>
+		<div class="note">
+			<span class="note-head">注意</span>
+			<span class="note-body">
+				<p>
+				没有PrintReader，只有PrintWriter，PrintWriter有Println()方法。
+				</p>
+			</span>
+		</div>
+		<pre><code>例如：
 	PrintWriter prw=new PrintWriter(new File(“tengbx.txt”));
 	prw.print("滕宝鑫，您好！");
-	prw.println();//换行</code></pre>
-	<p>虽然BufferWriter给输出字符加缓冲，但是它的方法很少；因此使用PrintWriter，它可以使用字节流对象构造，省了桥转换这一步，而且方法很多。</p>
-	<p>PrintWriter是带缓冲的。最常用的输出流。</p>
-	<p>9. 对象序列化：把一个对象通过I/O流写到文件(持久性介质)上的过程。</p>
-    <ul>
-		<li>对象的持久化：把对象保存文件，数据库；</li>
-		<li>对象的序列化：把对象放到流中进行传输；</li>
-    </ul> 
-	<p>对象的持久化经常需要通过序列化来实现。</p>
-	<p>序列化接口：Serializable（此接口没有任何的方法，这种接口称为标记接口）。</p>     
-	<p>不是所有对象都能序列化的，只有实现了Serializable的类，他的实例对象才是可序列化的；Java种定义了一套序列化规范，对象的编码和解码方式都是已经定义好的，Class ObjectOutputStream和ObjectInputStream也是带缓冲的过滤流，使节点流直接获得输出对象可以用来向文件中写入八种基本数据类型和对象类型。</p>
-	<pre><code>例如：
+	prw.println();//换行
+		</code></pre>
+		<p>虽然BufferWriter给输出字符加缓冲，但是它的方法很少；因此使用PrintWriter，它可以使用字节流对象构造，省了桥转换这一步，而且方法很多。</p>
+		<p>PrintWriter是带缓冲的。最常用的输出流。</p>
+		<p>9. 对象序列化：把一个对象通过I/O流写到文件(持久性介质)上的过程。</p>
+	    <ul>
+			<li>对象的持久化：把对象保存文件，数据库；</li>
+			<li>对象的序列化：把对象放到流中进行传输；</li>
+	    </ul> 
+		<p>对象的持久化经常需要通过序列化来实现。</p>
+		<p>序列化接口：Serializable（此接口没有任何的方法，这种接口称为标记接口）。</p>     
+		<p>不是所有对象都能序列化的，只有实现了Serializable的类，他的实例对象才是可序列化的；Java种定义了一套序列化规范，对象的编码和解码方式都是已经定义好的，Class ObjectOutputStream和ObjectInputStream也是带缓冲的过滤流，使节点流直接获得输出对象可以用来向文件中写入八种基本数据类型和对象类型。</p>
+		<pre><code>例如：
 	ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(“Tarena.txt”));
 	oos.writeObject(“滕宝鑫”);//写入一个String对象，序列化
 	oos.close();   //关闭流
 	ObjectInputStream ois=new ObjectInputStream(new FileInputStream(“Tarena.txt”));
 	ois.readObject();//读取一个String对象，反序列化
-	</code></pre>
-	<div class="techlib-note">
-		<span class="techlib-note-head">注意</span>
-		<span class="techlib-note-body">
-			<p>
-			readObject()返回读到的一个对象，但是该方法不会以返回null表示读到文件末尾，而是当读到文件末尾时会抛出一个IOException。
-			</p>
-		</span>
-	</div>
-	<div class="techlib-note">
-		<span class="techlib-note-head">切记</span>
-		<span class="techlib-note-body">
-			<ul>
-				<li>序列化一个对象并不一定会序列化该对象的父类对象；</li>
-				<li>瞬间属性、静态属性不参与序列化过程（transient、static修饰的属性）；</li>
-				<li>所有属性必须都是可序列化的，特别是当有些属性本身也是对象的时候，要尤其注意这一点。</li>
-				<li>序列化的集合就要求集合中的每一个元素都是可序列化的。</li>
-				<li>用两次序列化把两个对象写到文件中(以追加的方式)，与用一次序列化把两个对象写进文件的大小是不同的。</li>
-			</ul>
-		</span>
-	</div>
+		</code></pre>
+		<div class="note">
+			<span class="note-head">注意</span>
+			<span class="note-body">
+				<p>
+				readObject()返回读到的一个对象，但是该方法不会以返回null表示读到文件末尾，而是当读到文件末尾时会抛出一个IOException。
+				</p>
+			</span>
+		</div>
+		<div class="note">
+			<span class="note-head">切记</span>
+			<span class="note-body">
+				<ul>
+					<li>序列化一个对象并不一定会序列化该对象的父类对象；</li>
+					<li>瞬间属性、静态属性不参与序列化过程（transient、static修饰的属性）；</li>
+					<li>所有属性必须都是可序列化的，特别是当有些属性本身也是对象的时候，要尤其注意这一点。</li>
+					<li>序列化的集合就要求集合中的每一个元素都是可序列化的。</li>
+					<li>用两次序列化把两个对象写到文件中(以追加的方式)，与用一次序列化把两个对象写进文件的大小是不同的。</li>
+				</ul>
+			</span>
+		</div>
+		
+		<span class="menu"><h2>小结</h2></span>
+		<p>本文介绍了File类对文件的操作，并介绍了java语言中主要的字节输入输出流和字符输入输出流对数据的读写操作，
+		以及随机存储读写文件的RandomAccessFIle类，最后简单的介绍了对象的序列化与反序列化的内容。
+		由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。</p>
 	
-	<menu><h2>小结</h2></menu>
-	<p>本文介绍了File类对文件的操作，并介绍了java语言中主要的字节输入输出流和字符输入输出流对数据的读写操作，以及随机存储读写文件的RandomAccessFIle类，最后简单的介绍了对象的序列化与反序列化的内容。由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。</p>
-	
-	</div><!-- 内容结束 -->
-</div>
-<!-- 不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
-<!-- 不用编辑 --><div id="techlib-block-note"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
