@@ -18,12 +18,6 @@
 	menu h4{ font-size:14px; margin-left:-40px; }
 	
 	.note{ margin-left:2em; margin-top: 6px; margin-bottom: 0px; }
-	/*注意、切记、提示等内容的样式
-	* 如
-	* <p class="techlib-note">
-	* 	<span class="techlib-note-head">注意</span>
-	* </p>
-	*/
 	.note-head{
 		font-family: SimHei;
 		/*font-size:16px;*/

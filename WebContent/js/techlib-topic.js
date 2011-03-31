@@ -6,8 +6,6 @@
 		var topDirectIndex = 3;//<h3>章、节上添加TOP  <h4>章、节、点上添加TOP
 		
 		
-		
-		
 		//去除广告
 		if(removeAD){
 			var $ad = $("#ad-topic-tags");
@@ -43,7 +41,7 @@
 		});*/
 		//生成目录
 		var $menus = $(".menu");
-		var $menubarBlock = $("#techlib-block-menubar");
+		var $menubarBlock = $("#techlib-topic-menubar");
 		$menubarBlock.append("<div id='techlib-menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='techlib-menubar-ul'></UL></div>");
 		var $menubarUl = $(".techlib-menubar-ul");
 		$menus.each(function(i){
