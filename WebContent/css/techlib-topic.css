@@ -11,11 +11,11 @@
 	}
 	H2 { font-size: 20px;} /*-每章标题的样式-*/
 	H3 { font-size: 16px;} /*-每节的样式-*/
-	H4 { font-size: 14px; } /*-每节中点的样式-*/
+	H4,H5 { font-size: 14px; } /*-h4每节中点的样式, h5每节中点中的小点样式-*/
 	div { word-break: break-all; dispaly: block;}
 	menu h2{ font-size:20px; margin-left:-40px; }
 	menu h3{ font-size:16px; margin-left:-40px; }
-	menu h4{ font-size:14px; margin-left:-40px; }
+	menu h4, menu h5{ font-size:14px; margin-left:-40px; }
 	
 	.note{ margin-left:2em; margin-top: 6px; margin-bottom: 0px; }
 	.note-head{
@@ -58,7 +58,7 @@
 	.techlib-menubar-ul a:hover, .selected a{ background-position: right bottom; color:#999; }
 	.techlib-menubar-ul h2{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px;}
 	.techlib-menubar-ul h3{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px; margin-left:2em; }
-	.techlib-menubar-ul h4{ font-weight:normal; font-size: 14px; margin-top:0px; margin-bottom:0px; margin-left:2em; }
+	.techlib-menubar-ul h4, .techlib-menubar-ul h5{ font-weight:normal; font-size: 14px; margin-top:0px; margin-bottom:0px; margin-left:2em; }
 	
 	#ad-topic-tags a{ color:#000; text-decoration: none; }
 	#ad-topic-tags a:hover, .selected a{ background-position: right bottom; color:#999; }
