@@ -1,6 +1,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Java 内存</title>
+<title>Java内存介绍</title>
 <link rel="stylesheet" type="text/css" href="../css/techlib-topic.css">
 <script type="text/javascript" src="../js/jquery-1.4.3.min.js"></script>
 <script type="text/javascript" src="../js/techlib-topic.js"></script>
@@ -10,7 +10,7 @@
 	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
 	
 	<div id="techlib-topic-head"><!-- 文章头 -->
-		<div id="techlib-title"><h1>Java 内存</h1></div><!-- 标题 -->
+		<div id="techlib-title"><h1>Java内存介绍</h1></div><!-- 标题 -->
 		<div id="techlib-subtitle"></div><!-- 副标题 -->
 		<div id="techlib-author">
 			作者：<span id="ad-topic-author">达内总部中关村中心&nbsp;</span>
@@ -65,13 +65,13 @@
 		一般简单理解为内存分为堆内存和栈内存，但JVM中内存是很复杂的，下面简要说明一下。在此，将内存分为程序计数器（Program Counter Register，栈空间，堆空间，方法区。
 		</p>		
 		
-		<span class="menu"><h2>程序计数器</h2></span>
+		<span class="menu"><h3>程序计数器</h3></span>
 		<p>每一个Java线程都有一个程序计数器来用于保存程序执行到当前方法的哪一个指令，对于非Native方法，这个区域记录的是正在执行的VM原语的地址，如果正在执行的是Natvie方法，这个区域则为空（undefined）。</p>
 		
-		<span class="menu"><h2>Java堆</h2></span>
+		<span class="menu"><h3>Java堆</h3></span>
 		<p>堆内存用来存放由new创建的对象和数组。 在堆中分配的内存，由Java虚拟机的自动垃圾回收器来管理。Java堆是被所有线程共享的，在虚拟机启动时创建。如果在堆中无法分配内存，并且堆也无法再扩展时，将会抛出OutOfMemoryError异常。堆的优势是可以动态分配内存大小，生寸期不必事先告诉编译器，因为它是在运行时动态分配内存的。缺点就是要在运行时分配内存，存取速度慢。</p>
 
-		<span class="menu"><h2>Java 栈</h2></span>
+		<span class="menu"><h3>Java 栈</h3></span>
 		<p>
 		在函数中定义的一些基本类型的变量数据和对象的引用变量都在函数的栈内存中分配。
 		当在一段代码块定义一个变量时，Java就在栈中 为这个变量分配内存空间，当该变量退出该作用域后，Java会自动释放掉为该变量所分配的内存空间，该内存空间可以立即被另作他用。
@@ -79,10 +79,10 @@
 		在堆中产生了一个数组或对象后，还可以 在栈中定义一个特殊的变量，让栈中这个变量的取值等于数组或对象在堆内存中的首地址，栈中的这个变量就成了数组或对象的引用变量。  引用变量就相当于是 为数组或对象起的一个名称，以后就可以在程序中使用栈中的引用变量来访问堆中的数组或对象。引用变量就相当于是为数组或者对象起的一个名称。
 		</p>
 
-		<span class="menu"><h2>方法区</h2></span>
+		<span class="menu"><h3>方法区</h3></span>
 		<p>当虚拟机装载类文件的时候，它解析其中的二进制数据所包含的类信息，并把它们放到方法域中即方法区中存放了每个Class的结构信息，包括常量池、字段描述、方法描述等等。相对与堆内存来说，垃圾收集行为在这个区域是相对比较少发生的，但并不是说不会发生GC，这里的GC主要是对常量池的回收和对类的卸载，只是相对比较少。</p>
 		
-		<span class="menu"><h2>常量池 (constant pool)</h2></span>
+		<span class="menu"><h3>常量池 (constant pool)</h3></span>
 		<p>
 			常量池指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。除了包含代码中所定义的各种基本类型（如int、long等等）和对象型（如String及数组）的常量值(final)还包含一些以文本形式出现的符号引用，比如：
 			<ul>
