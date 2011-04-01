@@ -42,8 +42,8 @@
 		//生成目录
 		var $menus = $(".menu");
 		var $menubarBlock = $("#techlib-topic-menubar");
-		$menubarBlock.append("<div id='techlib-menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='techlib-menubar-ul'></UL></div>");
-		var $menubarUl = $(".techlib-menubar-ul");
+		$menubarBlock.append("<div id='menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='menubar-ul'></UL></div>");
+		var $menubarUl = $(".menubar-ul");
 		$menus.each(function(i){
 			i++;
 			//添加目录

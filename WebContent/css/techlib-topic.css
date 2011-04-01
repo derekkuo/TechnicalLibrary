@@ -38,7 +38,7 @@
 		padding: 5px 25px 5px 25px;
 	}
 
-	#techlib-menubar{
+	#menubar{
 		margin-top: 20px;
 		padding-top: 10px;
 		padding-left: 20px;
@@ -49,16 +49,16 @@
 		border:2px solid #ddddff;
 		width:230px
 	}
-	#techlib-title,H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
-	#techlib-subtitle{ font-size: 16px;  font-weight: bold;}
-	#techlib-author{ font-size: 14px; padding-top: 10px;}
-	#techlib-tagsline{font-size: 14px; padding-top: 10px;}
-	.techlib-menubar-ul { margin: 0; padding: 0; list-style-type: none; }
-	.techlib-menubar-ul a{ display: block; height:20px; line-height:20px; color:#000; text-decoration: none; }
-	.techlib-menubar-ul a:hover, .selected a{ background-position: right bottom; color:#999; }
-	.techlib-menubar-ul h2{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px;}
-	.techlib-menubar-ul h3{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px; margin-left:2em; }
-	.techlib-menubar-ul h4, .techlib-menubar-ul h5{ font-weight:normal; font-size: 14px; margin-top:0px; margin-bottom:0px; margin-left:2em; }
+	#title,H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
+	#subtitle{ font-size: 16px;  font-weight: bold;}
+	#authorline{ font-size: 14px; padding-top: 10px;}
+	#tagsline{font-size: 14px; padding-top: 10px;}
+	.menubar-ul { margin: 0; padding: 0; list-style-type: none; }
+	.menubar-ul a{ display: block; height:20px; line-height:20px; color:#000; text-decoration: none; }
+	.menubar-ul a:hover, .selected a{ background-position: right bottom; color:#999; }
+	.menubar-ul h2{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px;}
+	.menubar-ul h3{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px; margin-left:2em; }
+	.menubar-ul h4, .techlib-menubar-ul h5{ font-weight:normal; font-size: 14px; margin-top:0px; margin-bottom:0px; margin-left:2em; }
 	
 	#ad-topic-tags a{ color:#000; text-decoration: none; }
 	#ad-topic-tags a:hover, .selected a{ background-position: right bottom; color:#999; }
