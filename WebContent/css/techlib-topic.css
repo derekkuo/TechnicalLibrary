@@ -42,7 +42,10 @@
  		/*border:1px solid #000000;*/
  		width: 255px;
 		float:right;
-		margin-bottom:20px;
+		padding-bottom:20px;
+		border:1px solid transparent;
+		overflow:hidden;
+		zoom:1;
  	}
 	#menubar{
 		margin-top: 20px;
@@ -59,7 +62,7 @@
 	#ad-topic-rightbar-bottom{
 		font-size: 13px;
 		margin-top:0px;
-		margin-left: 20px;
+		margin-left: 25px;
 		margin-bottom:10px;
 		paadding-top:0px;
 		padding-left:auto:
