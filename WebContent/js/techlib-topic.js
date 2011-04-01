@@ -8,11 +8,15 @@
 		
 		//去除广告
 		if(removeAD){
-			var $ad = $("#ad-topic-tags");
-			$ad.remove();
-			$ad = $("#ad-topic-author");
+			var $ad = $(".ad");
 			$ad.remove();
 		}
+		
+		//添加可搜索文字的链接
+		var $search = $(".search");
+		$search.each(function(i){
+			$(this).attr("href","search?"+$(this).text());
+		});
 		
 		//生成文章末尾的NOTE部分BEGIN
 		var $notes = $(".note");
@@ -41,8 +45,8 @@
 		});*/
 		//生成目录
 		var $menus = $(".menu");
-		var $menubarBlock = $("#techlib-topic-menubar");
-		$menubarBlock.append("<div id='menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='menubar-ul'></UL></div>");
+		var $menubarBlock = $("#techlib-topic-rightbar");
+		$menubarBlock.prepend("<div id='menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='menubar-ul'></UL></div>");
 		var $menubarUl = $(".menubar-ul");
 		$menus.each(function(i){
 			i++;

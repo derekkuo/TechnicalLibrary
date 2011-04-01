@@ -38,17 +38,39 @@
 		padding: 5px 25px 5px 25px;
 	}
 
+ 	#techlib-topic-rightbar{
+ 		/*border:1px solid #000000;*/
+ 		width: 255px;
+		float:right;
+		margin-bottom:20px;
+ 	}
 	#menubar{
 		margin-top: 20px;
 		padding-top: 10px;
 		padding-left: 20px;
-		padding-bottom: 40px;
+		padding-bottom: 20px;
 		margin-left: 10px;
 		margin-bottom:10px;
 		float:right;
 		border:2px solid #ddddff;
 		width:230px
 	}
+	
+	#ad-topic-rightbar-bottom{
+		font-size: 13px;
+		margin-top:0px;
+		margin-left: 20px;
+		margin-bottom:10px;
+		paadding-top:0px;
+		padding-left:auto:
+		padding-right:auto:
+		float:right;
+		width:230px
+		border:2px solid #ddddff;
+	}
+	#ad-topic-rightbar-bottom a{ font-size:14px; }
+	#ad-topic-rightbar-bottom a:hover{ font-size:14px; }
+	
 	#title,H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
 	#subtitle{ font-size: 16px;  font-weight: bold;}
 	#authorline{ font-size: 14px; padding-top: 10px;}
@@ -56,12 +78,17 @@
 	.menubar-ul { margin: 0; padding: 0; list-style-type: none; }
 	.menubar-ul a{ display: block; height:20px; line-height:20px; color:#000; text-decoration: none; }
 	.menubar-ul a:hover, .selected a{ background-position: right bottom; color:#999; }
-	.menubar-ul h2{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px;}
-	.menubar-ul h3{ font-weight:normal; font-size: 14px; margin-top:5px; margin-bottom:0px; margin-left:2em; }
+	.menubar-ul h2{ font-weight:normal; font-size: 14px; margin-top:2px; margin-bottom:0px;}
+	.menubar-ul h3{ font-weight:normal; font-size: 14px; margin-top:2px; margin-bottom:0px; margin-left:2em; }
 	.menubar-ul h4, .techlib-menubar-ul h5{ font-weight:normal; font-size: 14px; margin-top:0px; margin-bottom:0px; margin-left:2em; }
 	
-	#ad-topic-tags a{ color:#000; text-decoration: none; }
-	#ad-topic-tags a:hover, .selected a{ background-position: right bottom; color:#999; }
+	
+	.ad, .search, #ad-topic-tags a,#ad-topic-author{
+		color:#000; text-decoration: none;
+	}
+	.ad:hover, .search:hover, #ad-topic-tags a:hover,#ad-topic-author a:hover, .selected a{
+		background-position: right bottom; color:#999;
+	}
 
 	pre {
 	    font-size: 12px;
