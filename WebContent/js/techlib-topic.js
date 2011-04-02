@@ -15,7 +15,7 @@
 		//添加可搜索文字的链接
 		var $search = $(".search");
 		$search.each(function(i){
-			$(this).attr("href","search?"+$(this).text());
+			$(this).attr("href","search?topictag="+$(this).text());
 		});
 		
 		//生成文章末尾的NOTE部分BEGIN
@@ -53,7 +53,7 @@
 			//添加目录
 			$menubarUl.append("<LI><A href='#"+i+"'>"+$(this).html()+"</A></LI>");
 			//正文中添加锚点
-			if(i!=1 && i!=$menus.length)//开头和最后附录不加TOP跳转
+			if(i>=3 && i!=$menus.length)//开头第一章和第二章和最后附录不加TOP跳转
 				if( $(this).html().substring(2,3) <= topDirectIndex)
 					$(this).prepend("<div style='text-align: right\;'><a href='#top'>TOP</a></div>");
 			$(this).prepend("<a name='"+i+"'></a>");
