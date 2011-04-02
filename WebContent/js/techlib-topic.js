@@ -8,11 +8,15 @@
 		
 		//去除广告
 		if(removeAD){
-			var $ad = $("#ad-topic-tags");
-			$ad.remove();
-			$ad = $("#ad-topic-author");
+			var $ad = $(".ad");
 			$ad.remove();
 		}
+		
+		//添加可搜索文字的链接
+		var $search = $(".search");
+		$search.each(function(i){
+			$(this).attr("href","search?topictag="+$(this).text());
+		});
 		
 		//生成文章末尾的NOTE部分BEGIN
 		var $notes = $(".note");
@@ -41,15 +45,15 @@
 		});*/
 		//生成目录
 		var $menus = $(".menu");
-		var $menubarBlock = $("#techlib-topic-menubar");
-		$menubarBlock.append("<div id='techlib-menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='techlib-menubar-ul'></UL></div>");
-		var $menubarUl = $(".techlib-menubar-ul");
+		var $menubarBlock = $("#techlib-topic-rightbar");
+		$menubarBlock.prepend("<div id='menubar'><div style='font-size:16px\; font-weight:bold\; margin-top:15px\; margin-bottom:15px\;'>目录</div><UL class='menubar-ul'></UL></div>");
+		var $menubarUl = $(".menubar-ul");
 		$menus.each(function(i){
 			i++;
 			//添加目录
 			$menubarUl.append("<LI><A href='#"+i+"'>"+$(this).html()+"</A></LI>");
 			//正文中添加锚点
-			if(i!=1 && i!=$menus.length)//开头和最后附录不加TOP跳转
+			if(i>=3 && i!=$menus.length)//开头第一章和第二章和最后附录不加TOP跳转
 				if( $(this).html().substring(2,3) <= topDirectIndex)
 					$(this).prepend("<div style='text-align: right\;'><a href='#top'>TOP</a></div>");
 			$(this).prepend("<a name='"+i+"'></a>");

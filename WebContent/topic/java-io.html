@@ -1,6 +1,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JAVA输入输出（I/O流）的浅析</title>
+<title>JAVA输入输出IO流的浅析</title>
 <link rel="stylesheet" type="text/css" href="../css/techlib-topic.css">
 <script type="text/javascript" src="../js/jquery-1.4.3.min.js"></script>
 <script type="text/javascript" src="../js/techlib-topic.js"></script>
@@ -10,38 +10,20 @@
 	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
 	
 	<div id="techlib-topic-head"><!-- 文章头 -->
-		<div id="techlib-title"><h1>JAVA输入输出（I/O流）的浅析</h1></div><!-- 标题 -->
-		<div id="techlib-subtitle"></div><!-- 副标题 -->
-		<div id="techlib-author">
-			作者：<span id="ad-topic-author">达内总部中关村中心&nbsp;</span>
-			滕宝鑫</div><!-- 作者信息 -->
+		<div id="title"><h1>JAVA输入输出IO流的浅析</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">滕宝鑫</span>
+		</div><!-- 作者信息 -->
 	</div>
 	
-	<!-- 此行不用编辑 --><div id="techlib-topic-menubar"></div><!-- 目录 将会由jquery程序填充 -->
-	
+	<!-- 此行不用编辑 -->
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+		
 	<!-- 正文内容开始 -->
-	<!-- 
-		章的写法	如：<span class="menu"><h2>引言</h2></span>
-				解释：前后添加上<menu></menu>后，可在目录中生成
-		段落写法	如：<p>对于任何编程语言，处理数据的输入、
-					输出操作都占有极其重要的地位。Java语言以流的形式进行数据的输入、输出的处理。
-					按照操作类型，Java语言中的按流向分为输入流和输出流；按传输单位分为字节流和字符流；
-					按功能还可以分为节点流和过滤流。
-					</p>
-		注意写法	如：	<div class="note">
-						<span class="note-head">注意</span>
-						<span class="note-body">
-							<p>创建一个文件对象和创建一个文件在JAVA 中是两个不同的概念。前者是在虚拟机中创建了一个文件，但却并没有将它真  正地创建到OS 的文件系统中，随着虚拟机的关闭，这个创建的对象也就消失了。而创建一个文件是指在系统中真正地建立一个文件。
-							</p>
-						</span>
-					</div>
-		代码写法	如：	<pre><code>例如：
-					String str=”Tarena”+File.separator+”tengbx”;
-					File fdir=new  File(str);
-					</code></pre>
-				解释：在编写代码时，代码可直接采用本身的缩进方式，直接粘贴进来；也就是说代码原样贴进来即可
-	 -->
-	<div id="techlib-topic-content"><!-- 内容开始 -->
+	<div id="techlib-topic-content">
 		<span class="menu"><h2>引言</h2></span>
 		<p>对于任何编程语言，处理数据的输入、输出操作都占有极其重要的地位。Java语言以流的形式进行数据的输入、输出的处理。按照操作类型，Java语言中的按流向分为输入流和输出流；按传输单位分为字节流和字符流；按功能还可以分为节点流和过滤流。</p> 
 		<p>Java输入、输出I/O流指的是java如何实现与外界数据的交流；这里的输入、输出是针对JVM而言的；字节、字符是针对于输入、输出流处理数据而言的；节点流是负责数据源和程序之间建立连接，过滤流是用于给节点增加功能。</p>
@@ -50,9 +32,12 @@
 		<!-- 标签行BEGIN -->
 		<div id="techlib-tagsline">
 			<strong>标签：</strong>
-			<span id="ad-topic-tags"><a href="http://www.chinatarena.com/">Java培训</a></span>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
 			<span id="techlib-topic-tags">
-				Java IO File</span>
+				<a class="search" href="#">Java</a>
+				<a class="search" href="#">IO</a>
+				<a class="search" href="#">File</a>
+			</span>
 		</div><!-- 标签行END -->
 	
 		<span class="menu"><h2>File文件</h2></span>
