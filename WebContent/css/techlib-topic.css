@@ -40,36 +40,40 @@
 
  	#techlib-topic-rightbar{
  		/*border:1px solid #000000;*/
- 		width: 255px;
+ 		width: 250px;
 		float:right;
 		padding-bottom:20px;
+		/*解决空白内容合并
 		border:1px solid transparent;
 		overflow:hidden;
 		zoom:1;
+		*/
  	}
 	#menubar{
 		margin-top: 20px;
 		padding-top: 10px;
 		padding-left: 20px;
 		padding-bottom: 20px;
+		padding-right: 0px;
+		margin-right: 0px;
 		margin-left: 10px;
 		margin-bottom:10px;
 		float:right;
 		border:2px solid #ddddff;
-		width:230px
+		width:225px
 	}
 	
 	#ad-topic-rightbar-bottom{
 		font-size: 13px;
 		margin-top:0px;
-		margin-left: 25px;
+		margin-left: 20px;
 		margin-bottom:10px;
 		paadding-top:0px;
 		padding-left:auto:
 		padding-right:auto:
 		float:right;
 		width:230px
-		border:2px solid #ddddff;
+		/*border:2px solid #ddddff;*/
 	}
 	#ad-topic-rightbar-bottom a{ font-size:14px; }
 	#ad-topic-rightbar-bottom a:hover{ font-size:14px; }
