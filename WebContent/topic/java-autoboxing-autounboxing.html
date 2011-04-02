@@ -23,26 +23,250 @@
 	
 	<!-- 正文内容开始 -->
 	<div id="techlib-topic-content">
-		<span class="menu"><h2>简介</h2></span>
-		<p>在Java中，程序员不需要为每次new一个对象去分配内存，也不需要每次释放对象时去回收资源。因为内存的分配是由程序完成的，程序员只需要通过 new 关键字为每个对象申请内存空间（除了基本类型外），同时对象的释放是由垃圾回收机制决定和执行的。这样就简便了程序员的工作，但是，当出现内存泄露等问题时，如果对内存管理一无所知，那绝对是不能理解的。</p>
+
+	<span class="menu"><h2>简介</h2></span>
+	<p>在Java中，程序员不需要为每次new一个对象去分配内存，也不需要每次释放对象时去回收资源。因为内存的分配是由程序完成的，程序员只需要通过 new 关键字为每个对象申请内存空间（除了基本类型外），同时对象的释放是由垃圾回收机制决定和执行的。这样就简便了程序员的工作，但是，当出现内存泄露等问题时，如果对内存管理一无所知，那绝对是不能理解的。</p>
+
+	<!-- 标签行BEGIN -->
+	<div id="techlib-tagsline">
+		<strong>标签：</strong>
+		<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+		<span id="tags">
+			<a class="search" href='#'>Java</a>
+			<a class="search" href='#'>Autoboxing</a>
+			<a class="search" href='#'>Auto-Unboxing</a>
+			<a class="search" href='#'>拆箱</a>
+			<a class="search" href='#'>装箱</a>
+		</span>
+	</div><!-- 标签行END -->
+
+	<span class="menu"><h2>引言</h2></span>
+	<p>“Autoboxing”和“Auto-Unboxing”，可以让编译器来自动完成在基本类型和它们的包裹对象之间的转化工作，从而能够用一种更简单的方式，来避免同时存在两套类型系统所带来的一些麻烦。下面介绍一下Autoboxing/Auto-Unboxing机制的部分问题。</p>
+	<p>传统上，在Java程序中，可以往一个容器类（无论是Collection还是Map）里直接放入一个对象；但是如果打算放入的是一个数字、字符或布尔值的话，就要先加入一个“生成包裹它们的对象”的步骤。造成这种现象的原因是，在Java语言当中一直存在着两套非常不同的类型系统：</p>
+	<ul>
+		<li>所谓的“引用类型”（Reference Types），包括所有的类和接口。这些类型的数据被看作对象，所以可以用一个Object型的变量来保存。、</li>
+		<li>所谓的“基本类型”（Primitive Types），包括：byte、short、int、long、float、double、char和boolean。这些类型的数据不是对象，因此也不能用Object型的变量来保存。</li>
+	</ul>
+	<p>同时采用这样两套类型系统，可以得到一些性能方面的好处——因为基本类型的数据不是对象，所以创建得更快、占用的空间更少、收回它们占用的资源也更容易；但是，这样的做法同时也会造成一些编码方面的问题——例如，不能定义一个变量（或数组），让它既能保存基本类型的数据，又能保存引用类型的数据（类似的，也不能定义一个同时能匹配这两种类型的数据的形参，不过这个问题可以借助Java里的重载机制来回避）。</p>
+	<p>下面对Autoboxing与Auto-Unboxing的使用做一下简单的介绍。</p>
 	
-		<!-- 标签行BEGIN -->
-		<div id="techlib-tagsline">
-			<strong>标签：</strong>
-			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
-			<span id="tags">
-				<a class="search" href='#'>Java</a>
-				<a class="search" href='#'>Autoboxing</a>
-				<a class="search" href='#'>Auto-Unboxing</a>
-				<a class="search" href='#'>拆箱</a>
-				<a class="search" href='#'>装箱</a>
-			</span>
-		</div><!-- 标签行END -->
+	<span class="menu"><h2>Autoboxing与Auto-Unboxing的使用</h2></span>
+	<span class="menu"><h3>1) 自动封装（Autoboxing）</h3></span>
+	<p>在J2SE 5.0之前，要使用以下语句才能将int包装为一个Integer对象：</p>
+	<p>Integer integer = new Integer(10);</p>
+	<p>在 J2SE 5.0之后提供了自动装箱的功能，就可以直接使用以下语句来打包基本数据类型：</p>
+	<p>Integer integer = 10;</p>
+	<p>在进行编译时，编译器再自动根据您写下的语句，判断是否进行自动装箱动作。在上例中integer参考的会是Integer类的实例。同样的动作可以适用于 boolean、byte、short、char、long、float、double等基本数据类型，分别会使用对应的打包类型(Wrapper Types)Boolean、Byte、Short、Character、Long、Float或Double。</p>
+	<pre><code>例：
+public class AutoBoxDemo {
+    public static void main(String[] args) {
+        Integer data1 = 10;
+        Integer data2 = 20; 
+       System.out.println(data1.doubleValue() / 3);// 转为double值再除以3
+        System.out.println(data1.compareTo(data2));// 进行两个值的比较
+    }
+}
+	</code></pre>
+	<p>程序看来简洁了许多，data1与data2在运行时就是Integer的实例，可以直接进行对象操作。执行的结果如下：</p>
+	<pre><code>3.3333333333333335
+–1
+	</code></pre>
+	<p>自动装箱运用的方法还可以如下：</p>
+	<pre><code>	int i = 10;
+	Integer integer = i;
+	也可以使用更一般化的java.lang.Number类来自动装箱。例如：
+	Number number = 3.14f;
+	</code></pre>
+	<p>3.14f会先被自动装箱为Float，然后指定给number。</p>
+
+	<span class="menu"><h3>2) 自动拆箱（Auto-Unboxing）</h3></span>
+	<p>从J2SE 5.0开始可以自动装箱，也可以自动拆箱(unboxing)，也就是将对象中的基本数据形态信息从对象中自动取出。例如下面这样写是可以的：</p>
+	<pre><code>
+	Integer fooInteger = 10;
+	int fooPrimitive = fooInteger;
+	</code></pre>
+	<p>fooInteger引用至自动装箱为Integer的实例后，如果被指定给一个int类型的变量fooPrimitive，则会自动变为int类型再指定给fooPrimitive。在运算时，也可以进行自动装箱与拆箱。例如：</p>
+	<pre><code>
+	Integer i = 10;
+	System.out.println(i + 10);
+	System.out.println(i++);
+	</code></pre>
+	<p>上例中会显示20与10，编译器会自动进行自动装箱与拆箱，也就是10会先被装箱，然后在i + 10时会先拆箱，进行加法运算；i++该行也是先拆箱再进行递增运算。再来看一个例子：</p>
+	<pre><code>
+	Boolean boo = true;
+	System.out.println(boo && false);	
+	</code></pre>
+	<p>同样的boo原来是Boolean的实例，在进行AND运算时，会先将boo拆箱，再与false进行AND运算，结果会显示false。</p>
+
+	<span class="menu"><h2>发生自动拆装箱的具体时机</h2></span>
+	<span class="menu"><h3>1) 发生Autoboxing的具体时机</h3></span>
+	<p>主要有这么三种：</p>
+	<p>1)	把基本类型的数据赋给引用类型的变量时。例如把一个int型的数据赋给一个Integer型变量。</p>
+	<pre><code>例：赋给引用类型的变量基本类型的数据
+	Integer i = 31415;
+	</code></pre>
+	<p>2)	把基本类型的数据传给引用类型的参数时。例如给一个定义成Object的参数传递一个boolean型的数据。</p>
+	<pre><code>例：传给引用类型的参数基本类型的数据
+	HashMap map = new HashMap();
+	map.put(true, null);
+	</code></pre>
+	<p>3）把基本类型的数据往引用类型上强制转化时。例如在一个long型的数据前面加上(Long)。</p>
+	<pre><code>例：从基本类型的数据到引用类型上强制转化
+	System.out.println((Long) 27828L);
+	</code></pre>
+
+	<p>4）Autoboxing的局限</p>
+	<p>Autoboxing的机制有一个局限——只能把基本类型的数据往它们自己的包裹类（以及包裹类的上级类）上转化。</p>
+	<p>类似这样的代码是不能工作的，尽管int型的数据完全可以用一个Long对象来表示：</p>
+	<pre><code>例：不能同时进行自动向上转型和Autoboxing
+	int i = 27828;
+	System.out.println((Long) i);/* 编译时出错 */
+	</code></pre>
+
+	<p>这是因为这段代码实际上相当于：</p>
+
+	<pre><code>例：Autoboxing操作会在自动向上转型之前发生
+	int i = 27828;
+	System.out.println((Long) Integer.valueOf(i));/* 编译时出错 */
+	</code></pre>
+
+	<p>而Integer并不是Long的子类，所以这个转化无法进行。如果一定要进行这种操作，需要手工追加一次转型：</p>
+	<pre><code>例：需要先强制向上转型，再作Boxing
+	int i = 27828;
+	System.out.println((Long)(long) i);
+	</code></pre>
 	
-		<span class="menu"><h2>引言</h2></span>
-				
+	<span class="menu"><h3>2) 发生Auto-Unboxing的具体时机</h3></span>
+	<p>则主要有这么七种：</p>
+	<p>1)	把包裹类对象赋给基本类型的变量时。例如把一个Integer型的数据赋给一个int型变量。
+
+	<pre><code>例：赋给基本类型的变量包裹类对象
+	int i = new Integer(32);
+	</code></pre>
 	
-		
+	<p>2）	把包裹类对象传给基本类型的参数时。例如给一个定义成boolean的参数传递一个Boolean型的数据。
+
+	<pre><code>例：传给基本类型的参数包裹类对象
+	JFrame frame = new JFrame("^_^");
+	frame.setSize(320, 200);
+	frame.setVisible(new Boolean(true));
+	</code></pre>
+
+	<p>3）把包裹类对象往基本类型上强制转化时。例如在一个Long型的数据前面加上(long)。
+
+	<pre><code>例：从包裹类对象到基本类型的强制转化
+	Long l = new Long(31415L);
+	System.out.println((long) l);
+	</code></pre>
+	
+	<p>4）把包裹类对象当作运算符的操作数时。例如在两个Byte型的数据之间放上“+”号。
+
+	<pre><code>例：把包裹类对象当作运算符的操作数
+	Byte a = new Byte((byte) 1);
+	Byte b = new Byte((byte) -1);
+	System.out.println(((a++) << 2) + (~b));/* 输出“4” */
+	System.out.println(a);/* 输出“2” */
+	</code></pre>
+	
+	<P>5）用包裹类对象来指定数组的大小时。当然，从语义上说，这个对象的类型必须是Byte、Short、Integer或Character。</P>
+	<pre><code>例：用包裹类对象来指定数组的大小
+	Character size = new Character('★');/* Unicode: 9733 */
+	int[] integers = new int[size];/* 生成一个可放9733个int元素的数组 */
+	</code></pre>
+
+	<p>6）把包裹类对象在switch语句里使用时。当然，从语义上说，这个对象的类型必须是Byte、Short、Integer或Character。</p>
+	<pre><code>例：在switch语句里使用包裹类对象
+	Character c = new Character('a');
+	switch (c) {
+	    case 'a':
+	    case 'e':
+	    case 'i':
+	    case 'o':
+	    case 'u':
+	        System.out.println("A Vowel in English");
+	        break;
+	    default:
+	        System.out.println("Not A Vowel in English");
+	        break;
+	}
+	</code></pre>
+	
+	<p>7）把Boolean对象在if/for/while/do-while语句中作为条件表达式使用时。</p>
+	<pre><code>例：把Boolean对象作为条件表达式
+	Boolean bool = new Boolean(Math.random() > 0.5);
+	if (bool) {
+	    System.out.println("Aye!");
+	} else {
+	    System.out.println("Nay!");
+	}
+	</code></pre>
+	
+	<span class="menu"><h2>Auto-Unboxing的局限</h2></span>
+	<p>Auto-Unboxing的机制则有这样一个局限——只能把包裹类对象往它们对应的基本类型（以及容纳范围更广的类型）上转化。</p>
+
+	<p>类似这样的代码是不能工作的，尽管32并未超出byte所能表示的范围：</p>
+	
+	<pre><code>例：不能同时进行Auto-Unboxing和强制向下转型
+	Integer i = new Integer(32);
+	System.out.println((byte) i);/* 编译时出错 */
+	</code></pre>
+	<p>这是因为编译器并不认可同时进行Auto-Unboxing和强制向下转型的操作，所以这个转化无法进行。如果一定要进行这种操作，需要手工补充一次转型：</p>
+
+	<pre><code>例：需要先作Unboxing，再强制向下转型
+	Integer i = new Integer(32);
+	System.out.println((byte)(int) i);
+	</code></pre>
+	
+	<p>不过同时进行Auto-Unboxing和强制向上转型的操作是没有问题的，所以下面的代码工作得很正常：</p>
+
+	<pre><code>例：可以同时进行Auto-Unboxing和强制向上转型
+	Integer i = new Integer(32);
+	System.out.println((double) i);
+	</code></pre>
+
+	<span class="menu"><h2>其它不能自动转化的情况</h2></span>
+	<p>除去强制类型转化时的限制之外，还有这样一些情况下不会发生Autoboxing/Auto-Unboxing：</p>
+
+	<p>1)基本类型的数组和包裹类数组之间不会自动转化。这样的代码完全不被编译器接受：</p>
+
+	<pre><code>例：元素可以，容器不行
+	int[] ints = {1, 2, 3};
+	Integer[] integers = ints;/* 编译时出错 */
+	</code></pre>
+
+	<p>2）不能对着基本类型的表达式来调用包裹类里的方法。这样的申请会被编译器彻底拒绝：</p>
+
+	<pre><code>例：没有方法，就是没有方法
+	int i = 1;
+	byte b = i.byteValue();/* 编译时出错 */
+	</code></pre>
+
+	<span class="menu"><h2>null的转化问题</h2></span>
+	<p>Java里的引用类型可以有一个特别的取值——“null”。试图对null进行Auto-Unboxing操作会导致一个“NullPointerException”。</p>
+
+	<p>例如这段代码就会在运行时抛出异常，尽管在编译期间会表现得非常正常：</p>
+	<pre><code>例：表面上，只是普通的赋值
+	Integer i = null;
+	int j = i;/* 运行时错误 */
+	</code></pre>
+	
+	<p>这是因为这段代码实际上相当于：</p>
+
+	<pre><code>例：实际上，是在试图调用null的方法
+	Integer i = null;
+	int j = i.intValue();/* 运行时错误 */
+	</code></pre>
+	
+	<p>而试图调用null的方法是一种不被虚拟机认可的行为。</p>
+
+	<span class="menu"><h2>归纳总结</h2></span>
+	<p>借助Autoboxing/Auto-Unboxing机制，可以用一种更简单的方式，来解决同时存在两套类型系统而造成的一些不方便。不过，这种机制并没有解决所有的相关问题，有些工作还是需要靠手工操作来进行。另外，由于不恰当的使用这一机制会造成一些性能方面的负面影响，所以在使用的时候需要谨慎。</p>
+
+
+
+
+
+
 	</div><!-- #techlib-topic-content 内容结束 -->
 </div><!-- #techlib-topic 结束 -->
 <!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->

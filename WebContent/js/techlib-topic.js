@@ -3,9 +3,8 @@
  */
 	$(function(){
 		var removeAD = false;//是否去除广告
-		var topDirectIndex = 3;//<h3>章、节上添加TOP  <h4>章、节、点上添加TOP
-		
-		
+		var topDirectIndex = 2;//<h3>章、节上添加TOP  <h4>章、节、点上添加TOP
+
 		//去除广告
 		if(removeAD){
 			var $ad = $(".ad");
