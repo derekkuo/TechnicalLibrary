@@ -40,7 +40,7 @@
 
  	#techlib-topic-rightbar{
  		/*border:1px solid #000000;*/
- 		width: 250px;
+ 		width: 300px;
 		float:right;
 		padding-bottom:20px;
 		/*解决空白内容合并
@@ -60,7 +60,7 @@
 		margin-bottom:10px;
 		float:right;
 		border:2px solid #ddddff;
-		width:225px
+		width:275px
 	}
 	
 	#ad-topic-rightbar-bottom{
@@ -72,7 +72,7 @@
 		padding-left:auto:
 		padding-right:auto:
 		float:right;
-		width:230px
+		width:250px
 		/*border:2px solid #ddddff;*/
 	}
 	#ad-topic-rightbar-bottom a{ font-size:14px; }
