@@ -133,10 +133,9 @@ public class AutoBoxDemo {
 	<p>而Integer并不是Long的子类，所以这个转化无法进行。如果一定要进行这种操作，需要手工追加一次转型：</p>
 	<pre><code>例：需要先强制向上转型，再作Boxing
 	int i = 27828;
-	System.out.println((Long)(long) i);
-	</code></pre>
+	System.out.println((Long)(long) i);</code></pre>
 	
-	<span class="menu"><h3>2) 发生Auto-Unboxing的具体时机</h3></span>
+	<span class="menu"><h3>2) 发生Auto-Unboxing的具体时机</h3></span>
 	<p>则主要有这么七种：</p>
 	<p>1)	把包裹类对象赋给基本类型的变量时。例如把一个Integer型的数据赋给一个int型变量。
 
