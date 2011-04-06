@@ -51,7 +51,7 @@ $ git push 		//不可这样写命令，不可将本地所有分支推送到远�
 	<span class="menu"><h2>3 更新项目</h2></span>
 	<span class="menu"><h3>3.1 更新下载master主分支</h3></span>
 	<p>更新下载项目的主分支，有fetch更新和pull更新两种方式，以下详细介绍。</p>
-	<span class="menu"><h4>3.1.1 fetch抓取更新，再手动合并</h3></span>
+	<span class="menu"><h4>方式一：fetch抓取更新，再手动合并</h3></span>
 	<pre><code>$ git checkout master
 $ git fetch origin master
 $ git diff FETCH_HEAD
@@ -59,7 +59,7 @@ $ git merge FETCH_HEAD
 	</code></pre>
 	<p>建议分支开发人员使用fetch更新方式，这样在每次更新时，可详细了解每次更新的内容。</p>
 	
-	<span class="menu"><h4>3.1.2 pull直接下载自动合并更新</h3></span>
+	<span class="menu"><h4>方式二：pull直接下载自动合并更新</h3></span>
 	<pre><code>$ git checkout master
 $ git pull origin master
 	</code></pre>
