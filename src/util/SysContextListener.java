@@ -15,7 +15,7 @@ public class SysContextListener implements ServletContextListener{
         timer=new Timer();
         event.getServletContext().log("Tomcat定时器已经启动.....");
         //调用exportHistoryBean,0表示任务无延迟,5*1000表示每隔5秒执行任务,60*60*1000表示一个小时
-        //timer.schedule(new SpecifiedTask(), 0, 5*1000);
+        timer.schedule(new SpecifiedTask(event.getServletContext()), 0, 5*1000);
         //timer.schedule(new Task(), 0, 10*1000);
         event.getServletContext().log("任务已经添加.....");
     }

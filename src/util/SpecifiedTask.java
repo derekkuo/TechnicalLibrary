@@ -14,8 +14,8 @@ public class SpecifiedTask extends TimerTask {
     public void run() {
         if(!isRunning){
                 isRunning=true;
-                System.out.println("定时打印...........");
-                //SendMail.sendMail();//定时发送邮件
+                System.out.println("生成目录...........");
+                
         }
     }
 
