@@ -4,7 +4,8 @@
 	$(function(){
 		var removeAD = false;//是否去除广告
 		var topDirectIndex = 2;//<h3>章、节上添加TOP  <h4>章、节、点上添加TOP
-
+		var menuListLevel = 3;//3目录树中显示 章 节
+		
 		//去除广告
 		if(removeAD){
 			var $ad = $(".ad");
@@ -50,7 +51,8 @@
 		$menus.each(function(i){
 			i++;
 			//添加目录
-			$menubarUl.append("<LI><A href='#"+i+"'>"+$(this).html()+"</A></LI>");
+			if( $(this).html().substring(2,3) <= menuListLevel)
+				$menubarUl.append("<LI><A href='#"+i+"'>"+$(this).html()+"</A></LI>");
 			//正文中添加锚点
 			if(i>=3 && i!=$menus.length)//开头第一章和第二章和最后附录不加TOP跳转
 				if( $(this).html().substring(2,3) <= topDirectIndex)
