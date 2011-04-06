@@ -12,7 +12,7 @@
 		}
 		
 		//添加可搜索文字的链接
-		var $search = $(".search");
+		var $search = $("#tags > .search");
 		$search.each(function(i){
 			$(this).attr("href","search?topictag="+$(this).text());
 		});
