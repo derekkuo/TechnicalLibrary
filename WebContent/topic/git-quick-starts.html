@@ -1,6 +1,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Git快速实战入门</title>
+<title>Git实战快速入门</title>
 <link rel="stylesheet" type="text/css" href="../css/techlib-topic.css">
 <script type="text/javascript" src="../js/jquery-1.4.3.min.js"></script>
 <script type="text/javascript" src="../js/techlib-topic.js"></script>
@@ -10,7 +10,7 @@
 	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
 	
 	<div id="techlib-topic-head"><!-- 文章头 -->
-		<div id="title"><h1>Git快速实战入门</h1></div><!-- 标题 -->
+		<div id="title"><h1>Git实战快速入门</h1></div><!-- 标题 -->
 		<div id="subtitle"></div><!-- 副标题 -->
 		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
 			<span id="author"></span>
@@ -45,8 +45,8 @@ $ git branch -v
 	<pre><code>$ git push origin dev-someone
 	</code></pre>
 	<p>要注意的是，在推送时，不可推送本地的master主分支到远程服务器。</p>
-	<pre><code>$ git push origin master 	//不可这样写命令，分支开发人员，不可直接上传合并master主分支
-$ git push 		//不可这样写命令，不可将本地所有分支推送到远程服务器
+	<pre><code>X $ git push origin master //不可这样写命令，分支开发人员，不可直接上传合并master主分支
+X $ git push 	//不可这样写命令，不可将本地所有分支推送到远程服务器
 	</code></pre>
 	<span class="menu"><h2>3 更新项目</h2></span>
 	<span class="menu"><h3>3.1 更新下载master主分支</h3></span>
@@ -63,7 +63,13 @@ $ git merge FETCH_HEAD
 	<pre><code>$ git checkout master
 $ git pull origin master
 	</code></pre>
-
+	<div class="note">
+		<span class="note-head">注意</span>
+		<span class="note-body">
+			<p>应该经常或定期的从服务器中更新项目，下载到最新的代码，并且可以了解整个项目的开发进度。</p>
+		</span>
+	</div>
+	
 	<span class="menu"><h3>3.2 合并master到自己的开发分支，继续自己分支开发</h3></span>
 	<pre><code>$ git checkout dev-someone
 $ git merge master
