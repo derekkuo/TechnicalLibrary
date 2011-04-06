@@ -1,4 +1,4 @@
-package util;
+package util.topic;
 
 public class TopicHeader {
 	private String path;

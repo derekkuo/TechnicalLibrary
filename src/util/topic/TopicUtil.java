@@ -1,9 +1,10 @@
-package util;
+package util.topic;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -22,9 +23,13 @@ public class TopicUtil {
 		Set topicSet = null;
 
 		topicSet = context.getResourcePaths("/topic");
-		Iterator<String> it = topicSet.iterator();
+		List topicList = new ArrayList(topicSet);
+		Collections.sort(topicList);
+		Iterator<String> it = topicList.iterator();
 		while (it.hasNext()) {
 			String path = it.next();
+			if( path.indexOf("index.html")>-1 )
+				continue;
 			//System.out.println(path);
 			try {
 				is = context.getResourceAsStream( path );
@@ -45,19 +50,19 @@ public class TopicUtil {
 						break;
 					}
 				}
-				try {
+				if(titleLine!=null){
 					title = titleLine.substring(
 							titleLine.indexOf("<title>") + 7,
 							titleLine.indexOf("</title>"));
-				} catch (NullPointerException e) {
-					title = null;
 				}
-				try {
-					author = authorLine.substring(
+				if(authorLine!=null){
+					//System.out.println(authorLine);
+					if(authorLine.length()>18)
+						author = authorLine.substring(
 							authorLine.indexOf("<span id=\"author\">") + 18,
 							authorLine.indexOf("</span>"));
-				} catch (NullPointerException e) {
-					author = null;
+					else
+						author = null;
 				}
 				//System.out.println(title == null ? "" : title);
 				//System.out.println(author == null ? "" : author);
