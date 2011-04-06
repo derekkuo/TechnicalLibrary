@@ -3,6 +3,7 @@ package util;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,10 @@ public class TopicUtil {
 	private static List<TopicHeader> allTopicHeader;
 	
 	public static List<TopicHeader> getAllTopicHeader(ServletContext context) {
+		if(allTopicHeader==null)
+			allTopicHeader = new ArrayList<TopicHeader>();
+		else
+			allTopicHeader.clear();
 		InputStream is = null;
 		Set topicSet = null;
 
@@ -20,6 +25,7 @@ public class TopicUtil {
 		Iterator<String> it = topicSet.iterator();
 		while (it.hasNext()) {
 			String path = it.next();
+			//System.out.println(path);
 			try {
 				is = context.getResourceAsStream( path );
 
