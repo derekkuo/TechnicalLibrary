@@ -39,9 +39,224 @@
 	</div><!-- 标签行END -->
 
 	<span class="menu"><h2>HTML基础知识</h2></span>
+	<span class="menu"><h3>1) 什么是HTML</h3></span>
+	<ul>
+		<li>HTML 指超文本标签语言。</li> 
+		<li>HTML 文件是包含一些标签的文本文件。 这些标签告诉 WEB 浏览器如何	显示页面。</li> 
+		<li>HTML 文件必须使用 htm 或者 html 作为文件扩展名。</li> 
+		<li>HTML 文件可以通过简单的文本编辑器来创建.</li>
+	</ul>
+	<span class="menu"><h3>2) HTML文件的基本结构</h3></span>
+	<p>首先，我们要明白HTML的<..>的意思：在HTML中,每行<..>开头的我们称之为 标签。
+	这些标签是固定写死的，并且有着自己独特的含义。
+	比如：&lt;!—注释内容 --&gt;表示这是一个注释。</p>
+	<p>一个HTML文件的结构如下所示：</p>
+	<pre><code><xmp>
+<!--表示这是一个HTML文件，并且有开始的含义-->
+<html>
+<head>
+	<title>标题</title>
+	<!--用于模拟http消息头-->
+	<!--比如，以下消息头的作用，是告诉浏览器，返回的是一个html，
+	并且，应该以utf-8的编码来显示该页面,html文件保存的编码应该与meta声明的编码一致-->
+	<meta http-equiv="content-type"content="text/html;charset=#">
+	<!--引入脚本，定义行为-->
+	<script>
+	</script>
+	<!--定义样式-->
+	<style>
+	</style>
+	<!--引入外部样式-->
+	<link>
+</head>
+<body>
+	<!--页面显示的数据,我们需要写的内容-->
+</body>
+</html></xmp></code></pre>
 	
+	<p>通过对以上HTML文件结构的观察，我们发现有如下的特点：</p>
+	<ul>
+		<li>标签的出现时成对出现的。有&lt;..&gt;表示开始，一般都有&lt;/..&gt;表示结束.我们可以形象的称&lt;..&gt;为标签头，&lt;/..&gt;为标签尾。</li>
+		<li>某些标记没有尾.HTML的语法要求是比较宽松的。</li>
+	</ul>
+	<p>好的。HTML的文件结构就是这样。可是为什么是这样呢？ 我们往下看。</p>
+
+	<span class="menu"><h3>3) web开发标准</h3></span>
+	<p>什么是w3c?</p>
+	<p>中文意思是W3C理事会或万维网联盟。W3C组织是对网络标准制定的一个非赢利组织，像HTML、XHTML、CSS、XML的标准就是由W3C来定制。</p>
+	<p>上面展示了HTML文件的结构。这样的结构是有一定的设计规定的。w3c建议，开发一个页面，应该这样设计：</p>
+	<ul>
+		<li>页面的结构（包括了数据），由html文档来负责。就是各种标签。</li>
+		<li>页面的外观，由css文档来负责。</li>
+		<li>页面的行为，由javascript文档来负责。</li>
+	</ul>
+	<p>以上三条我们可以形象的理解为：一个html文档是一台有了结构的机器。这台机器的组成零件是各种各样的标签。可能这台机器不太好看，于是			我们想给它进行装饰一番，于是我们用到CSS文档。现在这台机器好看			了，但是不够灵活，死气沉沉的，于是我们用java script文档来预设			一些指令，让它能够听我们的话，完成我们指派的任务。</p>
+
+
+	<span class="menu"><h2>HTML常用的标签</h2></span>
+	<p>好的，现在，我们对HTML的基本结构和起源有了一定的了解，接下来，我们开始学习常用的一些标签。这些标签对于我们非专业美工的开发人员，足以满足工作的需要。</p>
+	<span class="menu"><h3>1) 链接</h3></span>
+	<span class="menu"><h4>a. 基本使用</h4></span>
+	<pre><code><xmp>
+<a href="url地址" target="_blank">描述</a></xmp></code></pre>
+	<ul>
+		<li>_blank:在新的窗口中打开url地址所对应的内容</li>
+		<li>_self: 在当前窗口打开（默认）</li>
+	</ul>
+
+	<span class="menu"><h4>b. 使用图片作为链接</h4></span>
+	<pre><code><xmp>
+<a href="url地址"><img src="图片地址" width="" 
+height="" border=""/></a></xmp></code></pre>
 	
-	<span class="menu"><h2>HTML基础知识</h2></span>
+	<span class="menu"><h4>c. 使用热点</h4></span>
+	<pre><code><xmp>
+<img src="index04.jpg" width="500" height="500" border="0" usemap="#m1" />
+<map name="m1" id="m1">
+	<area shape="rect" coords="…" href="#" />
+	<area shape="circle" coords="…" href="#" />
+	<area shape="poly" coords="…" href="#" />
+</map></xmp></code></pre>
+	<p>当shape="rect"（矩形）时，coords的值为左上角和右下角的坐标值; 当shape="poly"（多边形）时，为各顶点值;
+	 当shape="circle"（圆形）时，为圆心坐标值和半径值。coords值依照图片大小的不同和所希望链接区域的不同而有所不同</p>
+	
+	<span class="menu"><h4>d. 使用锚点:在同一个页面内部跳转</h4></span>
+	<pre><code><xmp>
+<a name="top"></a>
+<a href="#top"></a></xmp></code></pre>	
+	
+	<span class="menu"><h4>e. 发送邮件</h4></span>
+	<pre><code><xmp>
+<a href="mailto:sally@126.com?subject=hello">
+</a></xmp></code></pre>
+
+	<span class="menu"><h4>f. 链接中的伪样式（css中再讲）</h4></span>
+	
+
+	<span class="menu"><h3>2) 列表</h2></span>	
+	<span class="menu"><h4>a. 无序列表</h4></span>
+	<pre><code><xmp>
+<ul>
+	<li><a href="#">item1</a></li>
+	<li>item2</li>
+	<li>item3</li>
+</ul></xmp></code></pre>
+
+	<span class="menu"><h4>b. 有序列表</h4></span>
+	<pre><code><xmp>
+<ol>
+	<li><a href="#">item1</a></li>
+	<li>item2</li>
+	<li>item3</li>
+</ol></xmp></code></pre>
+
+	<span class="menu"><h4>c. 列表嵌套</h4></span>
+	<pre><code><xmp>
+<ul>
+	<li><a href="#">item1</a></li>
+	<ul>
+		<li>item1_1</li>
+		<li>item1_2</li>
+	</ul>
+	<li>item3</li>
+</ul></xmp></code></pre>
+
+	<span class="menu"><h3>3) 表格</h3></span>
+	<span class="menu"><h4>a. 基本使用</h4></span>
+	<pre><code><xmp>	
+<table border="" cellpadding="" cellspacing="" width="">
+	<tr>
+		<td align="">id</td><td>name</td><td>salary</td>
+	</tr>
+	<tr>
+		<td>1</td><td>zs</td><td>2000</td>
+	</tr>
+</table></xmp></code></pre>
+	<ul>
+		<li>border:边框的宽度</li>
+		<li>cellpadding:单元格里面的数据与单元格边框之间的距离</li>
+		<li>cellspacing:单元格之间的距离</li>
+		<li>width:60%/600 宽度</li>
+		<li>align: 水平位置 left/center/right</li>
+		<li>valign:垂直位置 top/middle/bottom</li>
+	</ul>
+
+	<span class="menu"><h4>b. 不规则的表格</h4></span>
+	<ul>
+		<li>cospan:跨列合并</li>
+		<li>rowspan:跨行合并</li>
+	</ul>
+	<span class="menu"><h4>c. 表格的另一种写法</h4></span>
+	<pre><code><xmp><table>
+	<caption>标题</caption>
+	<thead></thead>
+	<tfoot></tfoot>
+	<tbody></tbody>
+	<tbody></tbody>
+</table></xmp></code></pre>
+	<ul>
+		<li>thead:表头，0/1</li>
+		<li>tfoot:表脚,0/1</li>
+		<li>tbody:表体,1/n</li>
+	</ul>
+
+	<span class="menu"><h4>d. 表格可以嵌套</h4></span>
+
+	<span class="menu"><h3>4) 表单</h3></span>
+	<p>什么是表单：用于收集用户的信息，比如
+	登录表单可以让用户输入登录的用户名、密码，
+	这些信息会提交给服务器来验证。</p>
+	<pre><code><xmp><form>
+	<input type="text"/>
+</form></xmp></code></pre>
+	<p>input标记:</p>
+	<ul>
+		<li>type="text": 文本输入框</li>
+		<li>type="submit":提交按钮</li>
+		<li>type="reset":重置按钮</li>
+		<li>type="password":密码输入框</li>
+		<li>type="radio":单选</li>
+		<li>type="checkbox":多选</li>
+		<li>type="file":上传文件(必须给form添加 enctype="multipart/form-data")</li>
+		<li>type="hidden":隐藏域</li>
+	</ul>
+	<p>非input标记:</p>
+		<ul>
+			<li>&lt;textarea&gt;:多行文本输入框</li>
+			<li>&lt;select&gt;:下拉列表/多选框</li>
+		</ul>
+
+	<span class="menu"><h3>5) 框架</h3></span>
+	<p>什么是框架，用来将一个窗口划分成多个子窗口。</p>
+	<span class="menu"><h4>a. &lt;frameset&gt;,&lt;frame&gt;</h4></span>
+	<p>注意：frameset不能写在&lt;body&gt;里,可以嵌套使用。</p>
+	<span class="menu"><h4>b. &lt;iframe&gt;</h4></span>
+	<p>可以使用在&lt;body&gt;里，表示嵌入一个子窗口。</p>
+
+	<span class="menu"><h3>6) 其它标记</h3></span>
+	<pre><code><xmp><h1>...<h6>:标题
+行内标记:
+	不单独占一行的标记
+	<span></span>
+	<strong></strong>
+块级标记:
+	另起一行的标记
+	<h1>...<h6>
+	<table>
+	<form>
+	<p>
+	<div></xmp></code></pre>
+	
+	<span class="menu"><h3>7) 实体</h3></span>
+	<p>在html页面中，出现了空格、>,<,",&,应该使用实体来代替。</p>
+	<pre><code><xmp>&nbsp; 空格
+&gt; >
+&lt; <
+&quot; "
+&amp;</xmp></code></pre>
+
+	<span class="menu"><h2> 小结</h2></span>
+	<p>本文主要介绍了HTML的一些基础知识。内容简单易懂。还列举了部分常用的标签，并对这些标签进行了简单的介绍。HTML的标签和标签的属性都是非常的多，并且比较零碎。如果想要进行专业的学习，本文还是远远不够的。篇幅所限，文中提及的CSS文档和java script文档将会在下一章节出现。由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。</p>
 
 	</div><!-- #techlib-topic-content 内容结束 -->
 </div><!-- #techlib-topic 结束 -->
