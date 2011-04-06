@@ -25,6 +25,7 @@ atlassian-ide-plugin.xml
 #.settings
 .metadata
 */bin
+*/build
 
 # NetBeans specific files/directories
 .nbattrs
