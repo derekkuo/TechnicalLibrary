@@ -5,18 +5,15 @@
 body {
 	font: normal 14px auto "Trebuchet MS", Verdana, Arial, Helvetica,
 		sans-serif;
-	/*
-	color: #4f6b72;
-	background: #E6EAE9;
-	*/
 }
 H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
 #techlib-content,#techlib-head{
-	width:720px; margin-left:auto; margin-right:auto; 
-	}
+	width:720px;
+	margin-left:auto;
+	margin-right:auto; 
+}
 #techlib-content{padding-top:15px;}
 
-/*a {	color: #c75f3e;}*/
 a {height:20px; line-height:20px; color:#000; text-decoration: none; }
 a:hover, .selected a{ background-position: right bottom; color:#999; }
 #mytable {
@@ -42,11 +39,10 @@ th {
 	text-transform: uppercase;
 	text-align: left;
 	padding: 6px 6px 6px 12px;
-	/*background: #CAE8EA no-repeat;*/
 	background: #f0f0f0 no-repeat;
 }
 
-/*power by www.winshell.cn*/
+
 th.nobg {
 	border-top: 0;
 	border-left: 0;
@@ -90,7 +86,7 @@ html>body td {
 }
 
 body,td,th {
-	font-family: ËÎÌå, Arial;
+	font-family: å®‹ä½“, Arial;
 	font-size: 14px;
 }
 /*
