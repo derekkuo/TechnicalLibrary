@@ -80,6 +80,15 @@ public class TopicUtil {
 						author = null;						
 					}
 				}
+				String tagStr;
+				if(tags!=null){
+					for(int i=0; i<tags.size(); i++){
+						tagStr = tags.get(i);
+						tagStr = tagStr.substring(tagStr.indexOf(">")+1, tagStr.indexOf("</"));
+						tags.set(i, tagStr );
+					}
+				}
+					
 				title = title == null ? "" : title;
 				author = author == null ? "" : author;
 				allTopicHeader.add(new TopicHeader(path, title, author, tags));

@@ -68,10 +68,12 @@ public class GenTopicIndexPageTask extends TimerTask {
 			pw.println("<a href=\""+th.getPath()+"\">"+th.getPath()+"</a><br>");
 			if(!th.getTitle().equals(""))
 				pw.println( "《"+th.getTitle()+"》" );
-			if(!th.getAuthor().equals(""))
+			if(!th.getAuthor().equals("")){
 				pw.println( "作者："+th.getAuthor() );
+				pw.println( "<br>" );
+			}
 			if(th.getTags().size()>0){
-				pw.write( " 标签：" );
+				pw.write( "标签：" );
 				Iterator tagsIt = th.getTags().iterator();
 				while(tagsIt.hasNext())
 					pw.write( ((String)(tagsIt.next())).trim() + " ");
