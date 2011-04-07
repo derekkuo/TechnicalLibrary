@@ -3,6 +3,7 @@ package util.topic;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
@@ -43,10 +44,13 @@ public class GenTopicIndexPageTask extends TimerTask {
 			e.printStackTrace();
 		}
 		try {
-			pw = new PrintWriter( file );
+			pw = new PrintWriter( file, "utf-8" );
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
+
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
 				"<title>Technical Library Topic List</title>"+
