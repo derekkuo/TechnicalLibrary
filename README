@@ -5,7 +5,13 @@ Technical Library 技术资料库项目用于汇集技术资料
 二、介绍
 index.html	系统首页，导航整个系统
 topic/		技术文章目录
-topic/index.html	技术文章目录（当本web工程启动时，动态从topic目录中更新）
-
+topic/index.html
+			技术文章目录（当本web工程启动时，动态从topic目录中更新）
+			要注意的是，该功能依赖web.xml中的初始化参数配置
+			  <context-param>
+			  	<param-name>workspacePath</param-name>
+			  	<param-value>D:/workspace</param-value>
+			  </context-param>
+			  
 三、版权说明
 本项目
