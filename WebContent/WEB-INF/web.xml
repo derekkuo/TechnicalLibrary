@@ -4,8 +4,8 @@
   	<listener-class>util.topic.GenPagesListener</listener-class>
   </listener>
   <context-param>
-  	<param-name>topicIndexHtmlPath</param-name>
-  	<param-value>D:/workspace/TechnicalLibrary/WebContent/topic/index.html</param-value>
+  	<param-name>workspacePath</param-name>
+  	<param-value>D:/workspace</param-value>
   </context-param>
   <display-name>TechnicalLibrary</display-name>
   <welcome-file-list>
