@@ -23,6 +23,7 @@ public class TopicUtil {
 		Set topicSet = null;
 
 		topicSet = context.getResourcePaths("/topic");
+		
 		List topicList = new ArrayList(topicSet);
 		Collections.sort(topicList);
 		Iterator<String> it = topicList.iterator();
@@ -30,7 +31,6 @@ public class TopicUtil {
 			String path = it.next();
 			if( path.indexOf("index.html")>-1 )
 				continue;
-			//System.out.println(path);
 			try {
 				is = context.getResourceAsStream( path );
 
@@ -42,31 +42,33 @@ public class TopicUtil {
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(is, "utf-8"));
 				while ((str = br.readLine()) != null) {
-					// System.out.println(str);
 					if (str.indexOf("<title>") > -1)
 						titleLine = str;
-					if (str.indexOf("作者：") > -1) {
-						authorLine = br.readLine();
+					if (str.indexOf("\"author\"") > -1) {
+						authorLine = str;
 						break;
 					}
 				}
 				if(titleLine!=null){
-					System.out.println(titleLine);
-					title = titleLine.substring(
-							titleLine.indexOf("<title>") + 7,
-							titleLine.indexOf("</title>"));
+					try {
+						title = titleLine.substring(
+								titleLine.indexOf("<title>") + 7,
+								titleLine.indexOf("</title>")).trim();
+					} catch ( StringIndexOutOfBoundsException e) {
+						title = null;
+					}
 				}
 				if(authorLine!=null){
-					//System.out.println(authorLine);
-					if(authorLine.length()>18)
+					try{
 						author = authorLine.substring(
-							authorLine.indexOf("<span id=\"author\">") + 18,
-							authorLine.indexOf("</span>"));
-					else
-						author = null;
+							authorLine.indexOf("\"author\"")+9,
+							authorLine.indexOf("</span>")).trim();
+						if(author.indexOf('>')==0)
+							author = author.substring(1,author.length()).trim();
+					}catch( StringIndexOutOfBoundsException e){
+						author = null;						
+					}
 				}
-				//System.out.println(title == null ? "" : title);
-				//System.out.println(author == null ? "" : author);
 				title = title == null ? "" : title;
 				author = author == null ? "" : author;
 				allTopicHeader.add(new TopicHeader(path, title, author));

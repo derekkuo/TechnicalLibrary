@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimerTask;
@@ -14,10 +14,9 @@ import javax.servlet.ServletContext;
 public class GenTopicIndexPageTask extends TimerTask {
 	private static boolean isRunning = false;
 	private ServletContext context;
-	private List<TopicHeader> allTopicHeader;
+	private String workspacePath;
 
-	public GenTopicIndexPageTask() {
-	}
+	public GenTopicIndexPageTask() {}
 	public GenTopicIndexPageTask(ServletContext context) {
 		this.context = context;
 	}
@@ -26,24 +25,20 @@ public class GenTopicIndexPageTask extends TimerTask {
 	public void run() {
 		if (!isRunning) {
 			isRunning = true;
-			System.out.println("生成topic/index.html .... ....");
-			allTopicHeader = TopicUtil.getAllTopicHeader( context );
-			String path = context.getInitParameter("topicIndexHtmlPath");
+			System.out.println(new Date()+" 生成topic/index.html ........");
+			workspacePath = context.getInitParameter( "workspacePath" );
 			GenTopicIndexPageTask gipt = new GenTopicIndexPageTask();
-			gipt.writeHtml( path, allTopicHeader);
+			String topicIndexHtmlPath = workspacePath+context.getContextPath()+"/WebContent/topic/index.html";
+			List<TopicHeader> allTopicHeader = TopicUtil.getAllTopicHeader( context );
+			gipt.writeTopicIndexHtml( topicIndexHtmlPath, allTopicHeader );
 		}
 	}
 	
-	public <E> void writeHtml(String path, List<E> list){
+	public <E> void writeTopicIndexHtml(String path, List<TopicHeader> allTopicHeader){
 		File file=null;
 		PrintWriter pw =null;
-		List<TopicHeader> allTopicHeader = (List<TopicHeader>) list;
 		try {
 			file = new File( path );
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
 			pw = new PrintWriter( file, "utf-8" );
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -71,7 +66,8 @@ public class GenTopicIndexPageTask extends TimerTask {
 				continue;
 			pw.println("<li>");
 			pw.println("<a href=\""+th.getPath()+"\">"+th.getPath()+"</a><br>");
-			pw.println( "《"+th.getTitle()+"》" );
+			if(!th.getTitle().equals(""))
+				pw.println( "《"+th.getTitle()+"》" );
 			if(!th.getAuthor().equals(""))
 				pw.println( "作者："+th.getAuthor() );
 			pw.println("</li>");
