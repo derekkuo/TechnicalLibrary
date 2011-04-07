@@ -5,7 +5,7 @@
   </listener>
   <context-param>
   	<param-name>topicIndexHtmlPath</param-name>
-  	<param-value>D:/Workspace/eclipse3.6-j2ee/TechnicalLibrary/WebContent/topic/index.html</param-value>
+  	<param-value>D:/workspace/TechnicalLibrary/WebContent/topic/index.html</param-value>
   </context-param>
   <display-name>TechnicalLibrary</display-name>
   <welcome-file-list>
