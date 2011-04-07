@@ -4,14 +4,14 @@
 	 font-size: 14px;
 	}
 	body{
-		/*-涓�埇涓枃Windows绯荤粺閮芥敮鎸佸畫浣�榛樿, SimSun)
-		鍜岄粦浣�SimHei)鍜屾シ浣�kaiti_gb2312)
-		\5FAE\8F6F\96C5\9ED1 鏄寚寰蒋闆呴粦-*/
+		/*-一般中文Windows系统都支持宋体(默认, SimSun)
+		和黑体(SimHei)和楷体(kaiti_gb2312)
+		\5FAE\8F6F\96C5\9ED1 是指微软雅黑-*/
 		font: 14px normal \5FAE\8F6F\96C5\9ED1,Verdana, Arial, Helvetica, sans-serif;
 	}
-	H2 { font-size: 20px;} /*-姣忕珷鏍囬鐨勬牱寮�*/
-	H3 { font-size: 16px;} /*-姣忚妭鐨勬牱寮�*/
-	H4,H5 { font-size: 14px; } /*-h4姣忚妭涓偣鐨勬牱寮� h5姣忚妭涓偣涓殑灏忕偣鏍峰紡-*/
+	H2 { font-size: 20px;} /*-每章标题的样式-*/
+	H3 { font-size: 16px;} /*-每节的样式-*/
+	H4,H5 { font-size: 14px; } /*-h4每节中点的样式, h5每节中点中的小点样式-*/
 	div { word-break: break-all; dispaly: block;}
 	menu h2{ font-size:20px; margin-left:-40px; }
 	menu h3{ font-size:16px; margin-left:-40px; }
@@ -43,7 +43,7 @@
  		width: 275px;
 		float:right;
 		padding-bottom:20px;
-		/*瑙ｅ喅绌虹櫧鍐呭鍚堝苟
+		/*解决空白内容合并
 		border:1px solid transparent;
 		overflow:hidden;
 		zoom:1;
@@ -105,21 +105,21 @@
 	    /* border: 1px solid #ccc;
 	    border-left: 1px solid #ccc;
 	    border-bottom: 1px solid #ccc; */
-	    line-height: 20px; /*鈥揌eight of each line of code鈥�/
-	    /*background: url(pre_code_bg.gif) repeat-y left top; *//*鈥揃ackground of linedpaper鈥�/
+	    line-height: 20px; /*–Height of each line of code–*/
+	    /*background: url(pre_code_bg.gif) repeat-y left top; *//*–Background of linedpaper–*/
 	    width: auto;
-	    overflow: auto; /*鈥揑f the Code exceeds the width, a scrolling is available鈥�/
-	    overflow-Y: hidden; /*鈥揌ides vertical scroll created by IE鈥�/
+	    overflow: auto; /*–If the Code exceeds the width, a scrolling is available–*/
+	    overflow-Y: hidden; /*–Hides vertical scroll created by IE–*/
 	}
-	/*-pre code {	font-family : Consolas, "Lucida Grande", Courier, Verdana, Lucida, Arial, Helvetica, 瀹嬩綋,sans-serif;    }
+	/*-pre code {	font-family : Consolas, "Lucida Grande", Courier, Verdana, Lucida, Arial, Helvetica, 宋体,sans-serif;    }
 	-*/ 
 	pre code {
-	    margin: 0 0 0 20px; /*鈥揕eft Margin鈥�/
+	    margin: 0 0 0 20px; /*–Left Margin–*/
 	    padding: 9px 0 0 0;  /* 18px per row */
 	    display: block;
 	}
 		 
-	p{text-indent: 2em;}/*-棣栬缂╄繘涓や釜瀛楃-*/
+	p{text-indent: 2em;}/*-首行缩进两个字符-*/
 /*
 </STYLE>
 */
