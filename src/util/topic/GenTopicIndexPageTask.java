@@ -48,19 +48,25 @@ public class GenTopicIndexPageTask extends TimerTask {
 		}
 
 		
+//		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
+//				"<title>Technical Library Topic List</title>"+
+//			"<style type=\"text/css\">"+
+//			"BODY,P,UL,LI,a,a:hover,th,tr,td {font-size: 14px;}"+
+//				"H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}"+
+//				"ul li{margin-bottom: 25px;}"+
+//				"#techlib-content,#techlib-head{width:720px; margin-left:auto; margin-right:auto; }"+
+//				"#techlib-content{padding-top:15px;}"+
+//				"a {height:20px; line-height:20px; color:#000; text-decoration: none; }"+
+//				"a:hover, .selected a{ background-position: right bottom; color:#999; }"+
+//			"</style></head>"+
+//			"<div id=\"techlib-head\"><h1>Technical Library Topic List</h1></div>"+
+//			"<div id=\"techlib-content\">";
+		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
-				"<title>Technical Library Topic List</title>"+
-			"<style type=\"text/css\">"+
-			"BODY,P,UL,LI,a,a:hover,th,tr,td {font-size: 14px;}"+
-				"H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}"+
-				"ul li{margin-bottom: 25px;}"+
-				"#techlib-content,#techlib-head{width:720px; margin-left:auto; margin-right:auto; }"+
-				"#techlib-content{padding-top:15px;}"+
-				"a {height:20px; line-height:20px; color:#000; text-decoration: none; }"+
-				"a:hover, .selected a{ background-position: right bottom; color:#999; }"+
-			"</style></head>"+
-			"<div id=\"techlib-head\"><h1>Technical Library Topic List</h1></div>"+
-			"<div id=\"techlib-content\">";
+		"<title>Technical Library Topic List</title>"+
+		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+
+		"<div id=\"techlib-head\"><h1>Technical Library Topic List</h1></div>"+
+		"<div id=\"techlib-content\">";
 		pw.write(htmlHead);
 		
 		//writeULStyle(allTopicHeader);
@@ -72,9 +78,9 @@ public class GenTopicIndexPageTask extends TimerTask {
 	}
 
 	public void writeTableStyle(List<TopicHeader> allTopicHeader){
-		pw.println("<table border=1px>");
+		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
-		pw.println("<th>编号</th><th width=\"300px\">标题</th><th>作者</th><th width=\"170px\">标签</th>");
+		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">标题</th><th scope=\"col\">作者</th><th scope=\"col\">标签</th>");
 		int topicId = 0;
 		while(it.hasNext()){
 			TopicHeader th = it.next();
@@ -83,21 +89,21 @@ public class GenTopicIndexPageTask extends TimerTask {
 				continue;
 			pw.println("<tr>");
 			topicId++;
-			pw.println("<td>");
+			pw.println("<td class=\"row\">");
 			pw.println(topicId);
 			pw.println("</td>");
 			
 			
-			pw.println("<td>");
+			pw.println("<td class=\"row\">");
 			pw.println( "<a href=\""+th.getPath()+"\">"+th.getTitle()+"</a>" );
 			pw.println("</td>");
 			
-			pw.println("<td>");
+			pw.println("<td class=\"row\">");
 			pw.println( th.getAuthor().equals("")?"&nbsp;":th.getAuthor() );
 
 			pw.println("</td>");
 			
-			pw.println("<td>");
+			pw.println("<td class=\"row\">");
 			if(th.getTags().size()>0){
 				Iterator tagsIt = th.getTags().iterator();
 				while(tagsIt.hasNext())
