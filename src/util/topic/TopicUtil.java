@@ -39,6 +39,7 @@ public class TopicUtil {
 				String authorLine = null;
 				String title = null;
 				String author = null;
+				List<String> tags = new ArrayList<String>();
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(is, "utf-8"));
 				while ((str = br.readLine()) != null) {
@@ -46,9 +47,19 @@ public class TopicUtil {
 						titleLine = str;
 					if (str.indexOf("\"author\"") > -1) {
 						authorLine = str;
+					}
+					if (str.indexOf("id=\"tags\"") >-1){
+						while(true){
+							str = br.readLine();
+							if( str.indexOf("</span>") >-1 )
+								break;
+							tags.add(str);
+						}
 						break;
 					}
+					
 				}
+				
 				if(titleLine!=null){
 					try {
 						title = titleLine.substring(
@@ -71,7 +82,7 @@ public class TopicUtil {
 				}
 				title = title == null ? "" : title;
 				author = author == null ? "" : author;
-				allTopicHeader.add(new TopicHeader(path, title, author));
+				allTopicHeader.add(new TopicHeader(path, title, author, tags));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

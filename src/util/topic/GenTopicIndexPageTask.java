@@ -70,6 +70,13 @@ public class GenTopicIndexPageTask extends TimerTask {
 				pw.println( "《"+th.getTitle()+"》" );
 			if(!th.getAuthor().equals(""))
 				pw.println( "作者："+th.getAuthor() );
+			if(th.getTags().size()>0){
+				pw.write( " 标签：" );
+				Iterator tagsIt = th.getTags().iterator();
+				while(tagsIt.hasNext())
+					pw.write( ((String)(tagsIt.next())).trim() + " ");
+			}
+				
 			pw.println("</li>");
 		}
 		pw.println("</ul>");
