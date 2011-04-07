@@ -40,7 +40,7 @@ public class TopicUtil {
 				String title = null;
 				String author = null;
 				BufferedReader br = new BufferedReader(
-						new InputStreamReader(is));
+						new InputStreamReader(is, "utf-8"));
 				while ((str = br.readLine()) != null) {
 					// System.out.println(str);
 					if (str.indexOf("<title>") > -1)
@@ -51,6 +51,7 @@ public class TopicUtil {
 					}
 				}
 				if(titleLine!=null){
+					System.out.println(titleLine);
 					title = titleLine.substring(
 							titleLine.indexOf("<title>") + 7,
 							titleLine.indexOf("</title>"));
