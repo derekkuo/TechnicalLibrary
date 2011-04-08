@@ -32,7 +32,7 @@ public class TopicUtil {
 			if( path.indexOf("index.html")>-1 )
 				continue;
 			try {
-				is = context.getResourceAsStream( path );
+				is = context.getResourceAsStream( path + "index.html" );
 
 				String str;
 				String titleLine = null;

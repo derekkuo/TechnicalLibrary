@@ -95,7 +95,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 			
 			
 			pw.println("<td class=\"row\">");
-			pw.println( "<a href=\""+th.getPath()+"\">"+th.getTitle()+"</a>" );
+			pw.println( "<a href=\""+th.getPath()+"index.html\">"+th.getTitle()+"</a>" );
 			pw.println("</td>");
 			
 			pw.println("<td class=\"row\">");
