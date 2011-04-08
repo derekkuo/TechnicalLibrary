@@ -81,6 +81,7 @@
 	#title,H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
 	#subtitle{ font-size: 16px;  font-weight: bold;}
 	#authorline{ font-size: 14px; padding-top: 10px;}
+	#techlib-tagsline{margin-top:10px;}
 	#tagsline{font-size: 14px; padding-top: 10px;}
 	.menubar-ul { margin: 0; padding: 0; list-style-type: none; }
 	.menubar-ul a{ /*display: block;*/ height:20px; line-height:20px; color:#000; text-decoration: none; }
