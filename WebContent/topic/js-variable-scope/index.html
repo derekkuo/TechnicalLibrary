@@ -1,0 +1,112 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>javascript变量作用域</title>
+<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title"><h1>javascript变量作用域</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">姜延鑫</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+	
+	<!-- 正文内容开始 -->
+	<div id="techlib-topic-content">
+	<span class="menu"><h2>引言</h2></span>
+	<p>javascript变量的作用域，是一个较简单的问题，但是我们需要对其有较透彻的理解。本文就当全局变量和局部变量命名相同，即产生命名冲突时javascript是如何处理的进行了阐述。</p>
+
+	<!-- 标签行BEGIN -->
+	<div id="techlib-tagsline">
+		<strong>标签：</strong>
+		<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+		<span id="tags">
+			<a class="search" href='#'>js</a>
+			<a class="search" href='#'>javascript</a>
+			<a class="search" href='#'>variable scope</a>
+			<a class="search" href='#'>scope</a>
+		</span>
+	</div><!-- 标签行END -->
+
+	<span class="menu"><h2>定义变量时的三种情况</h2></span>
+	<p>介绍undefined，null，未定义的含义</p>
+	<img src="js-define-variable-3-cases.jpg"/>
+	<p>由上面的测试结果可得：</p>
+	<ul>
+		<li>变量未定义：值这个变量根本就不存在。该变量不会被打印出来是错误的。</li>
+		<li>undefined：指定义变量了，但是并没有赋任何值，即这个值是不确定的。</li>
+		<li>null：变量已经定义了，并赋予null值。</li>
+	</ul>
+	
+	<span class="menu"><h2>javascript中局部变量和全局变量命名冲突</h2></span>
+	<pre><code><xmp>例1.
+<script>
+	var  a = 10;
+	var  b = 100;
+	function test(){
+		alert(a);
+		alert(b);
+	 	b = 1000;
+		alert(b);
+		var  a = 200;
+		alert(a/2);
+		alert(++Math.PI);
+	}
+	test();
+</script></xmp></code></pre>
+	<p>运行代码结果为：</p>
+	<p>undefined，100,1000,100,4.141592653589793</p>
+	<p>我们都明白局部变量的优先级大于全局变量，或者说内围作用域的变量的优先级比外围的高。当JS引擎在当前作用域找不到此变量时，它就往外围的作用域找。不过，在这之前，有一个严肃的问题是，究竟当前作用域存不存在这个变量。像javascript这样的解释型语言，基本分为两个阶段，预编译阶段与运行期。在预编译阶段，它是用函数来划分作用域，然后逐层为其以 var 声明的变量与函数定义开辟内存空间，再然后对var变量进行特殊处理，统统赋初始值为undefined，如下图：</p>
+	<img src="js-variable-scope-example-1.jpg"/>
+	<p>由上图，我们可推知，当前网页拥有两个a,一个b，一个test函数。如果在运行期用到除此以外的变量或函数，就会报未定义错误。
+javascript的运行期是在为var变量与函数定义分配空间后立即执行并且是逐行往下执行的。</p>
+	<ul class="ul-plain">
+		<li>第1行它为外围作用域的a赋值为10</li>
+		<li>第2行它为外围作用域的b赋值为1000</li>
+		<li>第3行进行test的作用域，我们简称为内围作用域。</li> 
+		<li>第4行就立即调用内围作用域的a，这时它还没有来得及赋值！不过它已经声明过了，因此默认为其赋值为undefined（在预编译阶段，见图），于是alert为undefined</li> 
+		<li>第5行就调用b时，JS引擎会参考预编译的结果，发现test的作用域内没有b，但是在外围作用域中，发现b了，而b在第二行就赋值为100，于是alert为100。</li>
+		<li>第6行为一个赋值操作，把外围的b变量改赋为1000。于是到第7行时，alert为1000。</li>
+		<li>第8行将函数作用域中的a赋值，会覆盖外围作用域中的a所以第9行alert为100.</li>
+	</ul>
+		
+	<pre><code><xmp>例2.
+<script>
+	var a = 100;
+	var b = 1000;
+	function test(){
+		alert(a);
+		alert(b);
+		var b = 2000;
+		alert(b);
+		var a = 200;
+		alert(a);
+	}
+	test();
+</script></xmp></code></pre>
+	<p>此时在test函数的作用域内变量b也被声明了。</p>
+	<img src="js-variable-scope-example-2.jpg"/>
+	<p>所以根据上面的解释得到的结果为：</p>
+	<p>undefined，undefined，2000,200</p>
+
+	<span class="menu"><h2>核心思想</h2></span>
+	<p>预编译时为var变量赋值undefined，以函数定义来分配空间。
+	掌握这个思想后其余问题都可迎刃而解的。</p>
+	
+
+
+
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
