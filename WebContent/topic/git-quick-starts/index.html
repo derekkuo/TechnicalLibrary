@@ -24,9 +24,20 @@
 	<!-- 正文内容开始 -->
 	<div id="techlib-topic-content">
 
-	<span class="menu"><h2>引言</h2></span>
-	<p>Git。</p>
-
+	<span class="menu"><h2>介绍</h2></span>
+	<p>Git --- The stupid content tracker, 傻瓜内容跟踪器。Linus 是这样给我们介绍 Git 的。</p>
+	<p>Git 是用于 Linux 内核开发的版本控制工具。与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，
+	不必服务器端软件支持，使源代码的发布和交流极其方便。 Git 的速度很快，这对于诸如Linux kernel 
+	这样的大项目来说自然很重要。 Git 最为出色的是它的合并跟踪（merge tracing）能力。
+	详情请看http://www.kernel.org/git</p>
+	<p>Git 目前主要由寻找 CVS 或专有代码管理解决方案替代物的软件开发人员所使用。Git 与 CVS 有很多区别：</p>
+	<ul>
+		<li>分支更快、更容易。</li>
+		<li>支持离线工作；本地提交可以稍后提交到服务器上。</li>
+		<li>Git 提交都是原子的，且是整个项目范围的，而不像 CVS 中一样是对每个文件的。</li>
+		<li>Git 中的每个工作树都包含一个具有完整项目历史的仓库。</li>
+		<li>没有哪一个 Git 仓库会天生比其他仓库更重要。</li>
+	</ul>
 	<!-- 标签行BEGIN -->
 	<div id="techlib-tagsline">
 		<strong>标签：</strong>
@@ -38,7 +49,43 @@
 	</div><!-- 标签行END -->
 
 	<span class="menu"><h2>1 搭建环境</h2></span>
-	<span class="menu"><h2>2 开始工程开发</h2></span>
+	<span class="menu"><h3>1.1 下载安装软件</h2></span>
+	<p>在 Linux 上安装</p>
+	<p>如果要在 Linux 上安装预编译好的 Git 二进制安装包，可以直接用系统提供的包管理工具。在 Fedora 上用 yum 安装：</p>
+	<pre><code>$ yum install git-core
+	</code></pre>
+	<p>在 Ubuntu 这类 Debian 体系的系统上，可以用 apt-get 安装：</p>
+	<pre><code>$ apt-get instal git-core
+	</code></pre>
+	<p>对于Windows用户，可下载msysGit和Git这两个程序。先安装msysGit程序，再安装Git程序。</p>
+	<p>同时强烈推荐安装eclipse插件EGit。</p>
+	
+	<span class="menu"><h3>1.2 环境配置</h3></span>
+	<span class="menu"><h4>1) 申请github帐号</h4></span>
+	<p>到github.com上注册一个帐号。</p>
+
+	<span class="menu"><h4>2) 全局变量设置</h4></span>
+	<p>在使用Git 之前，你需要面对Git 来一番自我介绍。Git 不喜欢不愿透漏姓名的人，
+	因为它要求每个人在向仓库提交数据时，都应当承担一定的责任。要向Git 进行自我介绍，请使用以下命令：</p>
+	<pre><code>$ git config --global user.name = "用户名或者用户ID"
+$ git config --global user.email = "邮箱"
+	</code></pre>
+	<p>这两个选项会在以后的使用过程中自动添加到代码中。</p>
+
+	<span class="menu"><h4>3)  创建验证用的公钥</h4></span>
+	<p>git是通过 ssh 的方式访问资源库的，所以需要在本地创建验证用的文件。</p>
+	<p>使用命令：</p>
+	<pre><code>$ ssh-keygen -C 'you email address@gmail.com' -t rsa
+	</code></pre>
+	<p>会在用户目录 ~/.ssh/ 下建立相应的密钥文件。</p>
+	<p>可以使用 $ ssh -v git@github.com 命令，来测试链接是否畅通</p>
+
+	<span class="menu"><h4>4) 上传公钥</h4></span>
+	<p>在 github.com界面中，选择右上角的 Account Settings，然后选择 SSH Public Keys ，选择新加。</p>
+	<p>Title 可以随便命名，Key 的内容拷贝自 ~/.ssh/id_rsa.pub 中的内容，
+	完成后，可以再使用 $ ssh -v git@github.com 进行测试验证成功。</p>
+
+	<span class="menu"><h2>2 开始工程开发</h2></span>	
 	<span class="menu"><h3>2.1 下载工程</h3></span>
 	<pre><code>$ cd /d
 $ mkdir worksapce
@@ -104,30 +151,33 @@ $ git commit README
 	<p>完成阶段性工作并且测试无误后，推送自己的开发分支到服务器。</p>
 	
 	<span class="menu"><h3>4.1 从服务器更新合并，以避免管理员在合并时出现冲突</h3></span>
-	<pre><code>	$ git checkout master
-	$ git pull origin master
-	$ git checkout dev-someone
-	$ git merge master
+	<pre><code>$ git checkout master
+$ git pull origin master
+$ git checkout dev-someone
+$ git merge master
 	</code></pre>
-	
+	<p>如出现合并冲突，参见3.3节。</p>
 	
 	<span class="menu"><h3>4.2 推送自己的开发分支</h3></span>
-	<pre><code>	$ git push origin dev-someone
+	<pre><code>$ git push origin dev-someone
 	</code></pre>
 	<div class="note">
 		<span class="note-head">注意</span>
 		<span class="note-body">
 			<p>开发人员在推送时，不可推送本地的master主分支到远程服务器。</p>
-			<pre><code>	X $ git push origin master //分支开发人员，不可直接上传合并master主分支
-	X $ git push 	//不可将本地所有分支推送到远程服务器
+			<pre><code>X $ git push origin master //分支开发人员，不可直接上传合并master主分支
+X $ git push 	//不可将本地所有分支推送到远程服务器
 			</code></pre>
 		</span>
 	</div>
 
-
-	<p>将自己的开发分支推送到服务器后，管理员会合并你的开发分支，同时你也还是可以继续向自己的开发分支中添加更新。
-	分支合并后，管理员会将你的开发分支删除，如想自己删除分支，可使用如下命令。</p>
-	<pre><code>	$ git push origin :dev-someone
+	<span class="menu"><h3>4.3 等待或提醒管理员合并</h3></span>
+	<p>将自己的开发分支推送到服务器后，管理员会下载合并你的开发分支。在管理员合并的过程中，
+	你可以继续开发，并将自己的更新提交到你自己机器本地的代码库中，在下次阶段性提交时再去一起合并；
+	如果是比较紧急重要的更新，可联系管理员，询问是否还可继续向服务器分支中更新。</p>
+	<p>分支合并完后，管理员会将你在服务器中的请求合并分支清除；
+	如想取消本次的合并，可询问管理员是否已经合并完成，如还没有进行合并，你可删除服务器的分支，使用如下命令。</p>
+	<pre><code>$ git push origin :dev-someone
 	</code></pre>
 
 	
