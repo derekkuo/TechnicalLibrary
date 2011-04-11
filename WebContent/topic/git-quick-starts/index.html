@@ -82,17 +82,28 @@ $ git pull origin master
 $ git merge master
 	</code></pre>
 
-	<div class="note">
-		<span class="note-head">注意</span>
-		<span class="note-body">
-			<p>在合并分支时，如出现对同一个文件同一部分进行修改，会产生合并冲突，需要手工进行修改和提交文件。</p>
-		</span>
-	</div>
-
+	<span class="menu"><h3>3.3 合并时，冲突的处理</h3></span>
+	<p>在合并分支时，如出现对同一个文件同一部分进行修改，会产生合并冲突，需要手工进行修改后，再提交文件。</p>
+	<pre><code>$ git merge master
+Auto-merging README
+CONFLICT (content): Merge conflict in README
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+	<p>此时打开冲突的README文件，会在相应冲突的部分出现如下内容。</p>
+	<pre><code><<<<<<< HEAD
+项目说明
+=======
+这个项目
+>>>>>>> refs/heads/master
+</code></pre>
+	<p>此时需要手工的进行合并，将文件中冲突标记删除，修改内容至正确后，手工add添加修改后的文件，再commit提交文件。</p>
+	<pre><code>$ git add README
+$ git commit README
+	</code></pre>
 	<span class="menu"><h2>4 推送自己的开发分支到服务器</h2></span>
 	<p>完成阶段性工作并且测试无误后，推送自己的开发分支到服务器。</p>
 	
-	<span class="menu"><h3>4.1 从服务器更新合并，以避免提交冲突</h3></span>
+	<span class="menu"><h3>4.1 从服务器更新合并，以避免管理员在合并时出现冲突</h3></span>
 	<pre><code>	$ git checkout master
 	$ git pull origin master
 	$ git checkout dev-someone
