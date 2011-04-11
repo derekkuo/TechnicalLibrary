@@ -54,13 +54,7 @@ $ git branch -v
   master      de59645 Merge branch 'dev-derekkuo'
 	</code></pre>
 	<p>根据项目任务要求，开发自己的模块。</p>
-	<span class="menu"><h3>2.3 测试无误后，推送自己的开发分支到服务器</h3></span>
-	<pre><code>$ git push origin dev-someone
-	</code></pre>
-	<p>要注意的是，在推送时，不可推送本地的master主分支到远程服务器。</p>
-	<pre><code>X $ git push origin master //不可这样写命令，分支开发人员，不可直接上传合并master主分支
-X $ git push 	//不可这样写命令，不可将本地所有分支推送到远程服务器
-	</code></pre>
+
 	<span class="menu"><h2>3 更新项目</h2></span>
 	<span class="menu"><h3>3.1 更新下载master主分支</h3></span>
 	<p>更新下载项目的主分支，有fetch更新和pull更新两种方式，以下详细介绍。</p>
@@ -88,6 +82,44 @@ $ git pull origin master
 $ git merge master
 	</code></pre>
 
+	<div class="note">
+		<span class="note-head">注意</span>
+		<span class="note-body">
+			<p>在合并分支时，如出现对同一个文件同一部分进行修改，会产生合并冲突，需要手工进行修改和提交文件。</p>
+		</span>
+	</div>
+
+	<span class="menu"><h2>4 推送自己的开发分支到服务器</h2></span>
+	<p>完成阶段性工作并且测试无误后，推送自己的开发分支到服务器。</p>
+	
+	<span class="menu"><h3>4.1 从服务器更新合并，以避免提交冲突</h3></span>
+	<pre><code>	$ git checkout master
+	$ git pull origin master
+	$ git checkout dev-someone
+	$ git merge master
+	</code></pre>
+	
+	
+	<span class="menu"><h3>4.2 推送自己的开发分支</h3></span>
+	<pre><code>	$ git push origin dev-someone
+	</code></pre>
+	<div class="note">
+		<span class="note-head">注意</span>
+		<span class="note-body">
+			<p>开发人员在推送时，不可推送本地的master主分支到远程服务器。</p>
+			<pre><code>	X $ git push origin master //分支开发人员，不可直接上传合并master主分支
+	X $ git push 	//不可将本地所有分支推送到远程服务器
+			</code></pre>
+		</span>
+	</div>
+
+
+	<p>将自己的开发分支推送到服务器后，管理员会合并你的开发分支，同时你也还是可以继续向自己的开发分支中添加更新。
+	分支合并后，管理员会将你的开发分支删除，如想自己删除分支，可使用如下命令。</p>
+	<pre><code>	$ git push origin :dev-someone
+	</code></pre>
+
+	
 	</div><!-- #techlib-topic-content 内容结束 -->
 </div><!-- #techlib-topic 结束 -->
 <!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
