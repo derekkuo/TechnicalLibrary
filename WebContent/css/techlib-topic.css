@@ -17,6 +17,12 @@
 	menu h3{ font-size:16px; margin-left:-40px; }
 	menu h4, menu h5{ font-size:14px; margin-left:-40px; }
 	
+	.ul-plain{
+		margin: 0 0 0 2em;
+		padding: 0;
+		list-style-type: none;
+	}
+	
 	.note{ margin-left:2em; margin-top: 6px; margin-bottom: 0px; }
 	.note-head{
 		font-family: SimHei;
