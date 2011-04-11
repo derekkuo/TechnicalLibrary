@@ -54,7 +54,7 @@
 			if( $(this).html().substring(2,3) <= menuListLevel)
 				$menubarUl.append("<LI><A href='#"+i+"'>"+$(this).html()+"</A></LI>");
 			//正文中添加锚点
-			if(i>=3 && i!=$menus.length)//开头第一章和第二章和最后附录不加TOP跳转
+			if(i>=2 && i!=$menus.length+1)//开头第一章和第二章和最后附录不加TOP跳转
 				if( $(this).html().substring(2,3) <= topDirectIndex)
 					$(this).prepend("<div style='text-align: right\;'><a href='#top'>TOP</a></div>");
 			$(this).prepend("<a name='"+i+"'></a>");
