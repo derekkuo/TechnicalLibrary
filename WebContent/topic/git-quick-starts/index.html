@@ -24,12 +24,10 @@
 	<!-- 正文内容开始 -->
 	<div id="techlib-topic-content">
 
-	<span class="menu"><h2>介绍</h2></span>
-	<p>Git --- The stupid content tracker, 傻瓜内容跟踪器。Linus 是这样给我们介绍 Git 的。</p>
+	<span class="menu"><h2>0 Git介绍</h2></span>
 	<p>Git 是用于 Linux 内核开发的版本控制工具。与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，
 	不必服务器端软件支持，使源代码的发布和交流极其方便。 Git 的速度很快，这对于诸如Linux kernel 
-	这样的大项目来说自然很重要。 Git 最为出色的是它的合并跟踪（merge tracing）能力。
-	详情请看http://www.kernel.org/git</p>
+	这样的大项目来说自然很重要。 Git 最为出色的是它的合并跟踪（merge tracing）能力。</p>
 	<p>Git 目前主要由寻找 CVS 或专有代码管理解决方案替代物的软件开发人员所使用。Git 与 CVS 有很多区别：</p>
 	<ul>
 		<li>分支更快、更容易。</li>
@@ -45,6 +43,8 @@
 		<span id="tags">
 			<a class="search" href='#'>git</a>
 			<a class="search" href='#'>github</a>
+			<a class="search" href='#'>分布式开发</a>
+			<a class="search" href='#'>项目管理</a>
 		</span>
 	</div><!-- 标签行END -->
 
@@ -58,6 +58,8 @@
 	<pre><code>$ apt-get instal git-core
 	</code></pre>
 	<p>对于Windows用户，可下载msysGit和Git这两个程序。先安装msysGit程序，再安装Git程序。</p>
+	<p>下载: http://code.google.com/p/msysgit</p>
+	
 	<p>同时强烈推荐安装eclipse插件EGit。</p>
 	
 	<span class="menu"><h3>1.2 环境配置</h3></span>
@@ -92,7 +94,7 @@ $ mkdir worksapce
 $ cd worksapce
 $ git clone git@github.com:derekkuo/TechnicalLibrary.git
 	</code></pre>
-	<span class="menu"><h3>2.2 创建自己的开发分支，进行开发</h3></span>
+	<span class="menu"><h3>2.2 创建自己的开发分支</h3></span>
 	<pre><code>$ cd TechnicalLibrary/
 $ git branch dev-someone
 $ git checkout dev-someone
@@ -120,23 +122,23 @@ $ git pull origin master
 	<div class="note">
 		<span class="note-head">注意</span>
 		<span class="note-body">
-			<p>应该经常或定期的从服务器中更新项目，下载到最新的代码，可以了解到整个项目的开发进度。
+			<p>应该经常从服务器中更新项目，下载最新的代码，了解整个项目的开发进度。
 		</span>
 	</div>
 	
-	<span class="menu"><h3>3.2 合并master到自己的开发分支，继续自己分支开发</h3></span>
+	<span class="menu"><h3>3.2 合并master到自己的开发分支</h3></span>
 	<pre><code>$ git checkout dev-someone
 $ git merge master
 	</code></pre>
 
-	<span class="menu"><h3>3.3 合并时，冲突的处理</h3></span>
-	<p>在合并分支时，如出现对同一个文件同一部分进行修改，会产生合并冲突，需要手工进行修改后，再提交文件。</p>
+	<span class="menu"><h3>3.3 合并分支时，冲突的处理</h3></span>
+	<p>在合并分支时，如出现对同一个文件同一部分进行修改，这时需要手工合并。</p>
 	<pre><code>$ git merge master
 Auto-merging README
 CONFLICT (content): Merge conflict in README
 Automatic merge failed; fix conflicts and then commit the result.
 </code></pre>
-	<p>此时打开冲突的README文件，会在相应冲突的部分出现如下内容。</p>
+	<p>打开冲突文件README，文件中出现如下内容。</p>
 	<pre><code><<<<<<< HEAD
 项目说明
 =======
@@ -156,7 +158,7 @@ $ git pull origin master
 $ git checkout dev-someone
 $ git merge master
 	</code></pre>
-	<p>如出现合并冲突，参见3.3节。</p>
+	<p>如出现合并冲突，处理方法参见3.3节。</p>
 	
 	<span class="menu"><h3>4.2 推送自己的开发分支</h3></span>
 	<pre><code>$ git push origin dev-someone
@@ -165,21 +167,26 @@ $ git merge master
 		<span class="note-head">注意</span>
 		<span class="note-body">
 			<p>开发人员在推送时，不可推送本地的master主分支到远程服务器。</p>
-			<pre><code>X $ git push origin master //分支开发人员，不可直接上传合并master主分支
-X $ git push 	//不可将本地所有分支推送到远程服务器
+			<pre><code>X $ git push origin master //分支开发人员，不可直接推送合并master主分支
+X $ git push 	//不可将本地所有分支直接推送到服务器
 			</code></pre>
 		</span>
 	</div>
 
 	<span class="menu"><h3>4.3 等待或提醒管理员合并</h3></span>
 	<p>将自己的开发分支推送到服务器后，管理员会下载合并你的开发分支。在管理员合并的过程中，
-	你可以继续开发，并将自己的更新提交到你自己机器本地的代码库中，在下次阶段性提交时再去一起合并；
-	如果是比较紧急重要的更新，可联系管理员，询问是否还可继续向服务器分支中更新。</p>
+	你可以继续在本地开发，更新提交到你自己本地机器的代码库中；
+	如有紧急重要的更新，需要联系管理员，询问是否还可向服务器分支中更新。</p>
 	<p>分支合并完后，管理员会将你在服务器中的请求合并分支清除；
-	如想取消本次的合并，可询问管理员是否已经合并完成，如还没有进行合并，你可删除服务器的分支，使用如下命令。</p>
+	你如果想取消本次的合并请求，可询问管理员是否已经合并完成，如还没有进行合并，你才可删除服务器的分支，使用如下命令。</p>
 	<pre><code>$ git push origin :dev-someone
 	</code></pre>
 
+	<span class="menu"><h2>参考资料</h2></span>
+	<ul>
+		<li>《Pro Git中文版》<a href="http://progit.org/book/zh/index.html">http://progit.org/book/zh/index.html</a></li>
+		<li>http://www.kernel.org/git</li>
+	</ul>
 	
 	</div><!-- #techlib-topic-content 内容结束 -->
 </div><!-- #techlib-topic 结束 -->
