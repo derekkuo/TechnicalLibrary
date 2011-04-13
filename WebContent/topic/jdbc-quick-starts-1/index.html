@@ -34,8 +34,10 @@ API 使得开发人员可以使用纯Java的方式来连接数据库，并进行
 <!-- 标签行BEGIN -->
 <div id="techlib-tagsline"><strong>标签：</strong> <a class="ad"
 	href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad"
-	href="http://www.chinatarena.com/">达内</a> <span id="tags"> <a
-	class="search" href="#">Java</a> <a class="search" href="#">jdbc</a> </span></div>
+	href="http://www.chinatarena.com/">达内</a>
+	<span id="tags">
+		<a class="search" href="#">jdbc</a>
+	</span></div>
 
 <!-- 标签行END --> <span class="menu"><h2>采用JDBC访问数据库的基本步骤</h2></span>
 <p>A.载入JDBC驱动程序———————————（参考例子第1、5行）；</p>
@@ -73,7 +75,7 @@ API 使得开发人员可以使用纯Java的方式来连接数据库，并进行
 //更新，再返回int(更新、修改影响的条数) */
 </p>
 </span></div>
-<span class="menu"><h2>JDBC几个重要接口重点讲解：</h2></span>
+<span class="menu"><h2>重要接口讲解</h2></span>
 <p> 在JDBC 中包括了两个包：java.sql和javax.sql;</p>
 <p>A.java.sql 基本功能:这个包中的类和接口主要针对基本的数据库编程服务，如生成连接、执行语句以及准备语句和运行批处理查询等；同时也有一些高级的处理，比如批处理更新、事务隔离和可滚动结果集等。</p>
 <p>B.javax.sql 扩展功能：它主要为数据库方面的高级操作提供了接口和类。如为连接管理、分布式事务和旧有的连接提供了更好的抽象，它引入了容器管理的连接池、分布式事务和行集等。</p>
@@ -187,7 +189,7 @@ font-weight: bold;
 &emsp;&emsp;&emsp;&emsp;dbmd.getURL()；//数据库Url
 &emsp;&emsp;&emsp;&emsp;dbmd.getUserName();//该连接的登陆名</code></pre>
 </p>
-<span class="menu"><h2>JDBC 中使用Transaction编程(事务编程) </h2></span>
+<span class="menu"><h2>使用Transaction编程(事务编程)</h2></span>
 <p>1. 事务是具备以下特征(ACID)的工作单元：
 <ul>
 <li>原子性(Atomicity)—— 如果因故障而中断，则所有结果均被撤消；</li>
