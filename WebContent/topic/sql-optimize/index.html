@@ -1,0 +1,156 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SQL语句优化小结</title>
+<link rel="stylesheet" type="text/css" href="../css/techlib-topic.css">
+<script type="text/javascript" src="../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title"><h1>SQL语句优化小结</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">叶朋</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+	
+	<!-- 正文内容开始 -->   
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>简介</h2></span>
+		<p>SQL语句是与数据库沟通的唯一途径，独立于程序的逻辑语句，优化其成本很低。</p>
+	
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<span id="tags">
+				<a class="search" href='#'>SQL</a>
+				<a class="search" href='#'>SARG</a>
+			</span>
+		</div><!-- 标签行END -->
+	
+		<span class="menu"><h2>知识点概要</h2></span>
+		<ul>
+			<li>第一：ORACLE优化器</li>
+			<li>第二：SQL各部分优化</li>
+			<li>第三：SARG简介</li>
+		</ul>
+		
+		<span class="menu"><h2>SQL语句的书写习惯</h2></span>
+		<p>
+		固定的SQL书写习惯，相同的查询保持相同，存储过程的效率较高。
+		编写格式一致的语句，如字母的大小写、标点符号、换行的位置都要一致。
+		</p>		
+		
+		<span class="menu"><h2>oracle优化器</h2></span>
+		<p>如果结果表达式能够比源表达式更快或相同就把特定的语法结构转换成等价的结构。</p>
+		<span class="menu"><h3>常量的优化</h3></span>
+		<p>
+		检索月薪大于2000的表达式(sal>24000/12||sal>2000||sal*12>24000),3个常量会优化成第2个;
+		</p>
+		<span class="menu"><h3>操作符优化</h3></span>
+		<p>
+		<ul>
+		<li>1.把使用IN比较符的检索表达式替换为等价的使用“=”和“OR”操作符的检索表达式。</li>
+		<li>2.对于跟随子查询的ALL表达式，优化器用ANY和另外一个合适的比较符组成的表达式替换。</li>
+		<li>3.子查询的ANY和SOME检索条件转换成由“EXISTS”和一个相应的子查询组成的检索表达式。</li>
+		<li>4.“>=”和“=”比较符来等价的代替BETWEEN操作符。</li>
+		<li>5.简化检索条件以消除"not"逻辑操作符的影响，它尽量使"not"操作符后边的字句尽量的简单。</li>
+		<li>6.把使用like操作符和一个没有通配符的表达式转换成=操作符。</li>
+		</ul>
+		<h3>例子 : </h3>
+		<pre><code>
+		--1、IN 操作符优化： 
+			ename IN ('SMITH','KING','JONES')替换为 
+			ename = 'SMITH' OR ename = 'KING' OR ename = 'JONES‘		
+		--2、ALL操作符优化: 
+			sal &gt; ALL (:first_sal, :second_sal)替换为： 
+			sal &gt; :first_sal AND sal &gt; :second_sal 
+			x &gt; ALL (SELECT sal FROM emp WHERE deptno = 10)替换为： 
+			NOT (x &lt;= ANY (SELECT sal FROM emp WHERE deptno = 10))		
+		--3、ANY和SOME 操作符优化:
+			sal &gt; ANY (:first_sal, :second_sal) 
+			sal &gt; :first_sal OR sal &gt; :second_sal 
+			x &gt; ANY (SELECT sal FROM emp WHERE job = 'ANALYST') 
+			EXISTS (SELECT sal FROM emp WHERE job = 'ANALYST' AND x &gt; sal) 
+		--4、BETWEEN 操作符优化:  
+			优化器会把表达式sal BETWEEN 2000 AND 3000用sal &gt;= 2000 AND sal &lt;= 3000来代替。 
+		--5、NOT 操作符优化: 
+			NOT deptno = (SELECT deptno FROM emp WHERE ename = 'TAYLOR')替换为： 
+			deptno &lt;&gt; (SELECT deptno FROM emp WHERE ename = 'TAYLOR') 
+			NOT (sal &lt; 1000 OR comm IS NULL)替换为： 
+			NOT sal &lt; 1000 AND comm IS NOT NULL sal &gt;= 1000 AND comm IS NOT NULL 
+		</pre></code>
+		</p>
+		<span class="menu"><h2>SQL语句分解优化</h2></span>
+		<span class="menu"><h3>SQL语句SELECT部分</h3></span>
+		<p>
+		<ul>
+		<li>1.尽量明确的完成SQL语句，少让数据库工作，比如写select语句的时候，需要把查询的字段明确指出表名。</li>
+		<li>2.尽量不要使用select *语句。组织SQL语句的时候，应该按照数据库的习惯进行组织。</li>
+		</ul>
+		</p>
+		<span class="menu"><h3>SQL语句where部分</h3></span>
+		<p>
+		<ul>
+		<li>1.尽量不要在where中包含子查询或者or逻辑符号。</li>
+		<li>2.在过滤条件中，可以过滤掉最大数量记录的条件必须放在where子句的末尾，因为sql语句是从后向前扫描的。</li>
+		<li>3.避免在索引上使用"is null"和"is not null"和"!="以及对它的转型，因为这三种不会使用索引。</li>
+		</ul>
+		</p>
+		<span class="menu"><h3>SQL语句FROM部分</h3></span>
+		<p>
+		驱动表：就是一个语句首先检索的表，它的特点是在FROM语句的最后，因为SQL语句从后往前扫描。要合理的选择驱动表，如果是2个表的连接查询，那么要选择能快速查询的表，如果是3个表则要选择中间表。
+		</p>
+		<span class="menu"><h3>其他部分</h3></span>
+		<p>
+		<ul>
+		<li>1.order by按聚集索引列排序效率最高。</li>
+		<li>2.在查询和提取超大容量的数据集时，影响数据库响应时间的最大因素不是数据查找，而是物理的I/0操作。面对这种情况我们要用TOP查询也就是常说的分页查。</li>
+		</ul>
+		</p>
+		<span class="menu"><h2>SARG浅析</h2></span>
+		<p>
+		如果一个阶段可以被用作一个扫描参数（SPAG），那么就称为可优化的，并且可以利用索引快速获得所需数据。用于限制搜索的一个操作，因为它通常指特定的匹配，一个值的范围的匹配或者两个以上条件的AND连接。
+		</p>
+		<span class="menu"><h3>通配符</h3></span>
+		<p>
+		Like语句是否属于SARG取决于所使用的通配符的类型如：name like ‘张%’，这就属于SARG 而:name like ‘%张’,就不属于SARG。原因是通配符%在字符串的开通使得索引无法使用。
+		</p>
+		<span class="menu"><h3>全表扫描</h3></span>
+		<p>
+		如：Name=’张三’ and 价格>5000 符号SARG，而：Name=’张三’ or 价格>5000 则不符合SARG。使用or会引起全表扫描。（如果or两边的查询列不一样可以用union来代替or）	
+		</p>
+		<span class="menu"><h3>非操作符</h3></span>
+		<p>
+		不满足SARG形式的语句最典型的情况就是包括非操作符的语句，如：NOT、!=、<>、!<、!>、NOT EXISTS、NOT IN、NOT LIKE等。
+		</p>
+		<span class="menu"><h3>IN相当与OR</h3></span>
+		<p>
+		语句：Select * from table1 where tid in (2,3) 和 Select * from table1 where tid=2 or tid=3 是一样的，都会引起全表扫描。	
+		</p>
+		<h3>例子(正反) ：</h3>
+		<pre><code>
+		--1、不要对字段做运算
+			SELECT * FROM Sales.SalesOrderHeader WHERE CustomerID+1=2
+			SELECT * FROM Sales.SalesOrderHeader WHERE CustomerID=1
+		--2、不要对字段使用函数(数学函数、日期函数、字符串函数等)
+			SELECT * FROM Sales.SalesOrderHeader WHERE ABS(SalesOrderID-44659)<1
+			SELECT * FROM Sales.SalesOrderHeader WHERE SalesOrderID<44660 AND SalesOrderID>44658
+		--3、不要使用负向查询(NOT、!=、<>、!>、!<、NOT EXISTS、NOT IN)
+			SELECT * FROM Sales.SalesOrderDetail WHERE OrderQty!=1
+			SELECT * FROM Sales.SalesOrderDetail WHERE OrderQty>1 OR OrderQty<1
+		--4、小心使用OR(虽然有聚集索引但是因Status无索引可用只能进行表扫描)
+			SELECT * FROM Sales.SalesOrderHeader WHERE SalesOrderID=43659 OR [Status]=1	
+		</pre></code>
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
