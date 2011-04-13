@@ -20,7 +20,7 @@ buildSrc/.gradle
 atlassian-ide-plugin.xml
 
 # Eclipse specific files/directories
-#.classpath
+.classpath
 #.project
 #.settings
 .metadata
