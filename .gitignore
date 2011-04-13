@@ -20,12 +20,13 @@ buildSrc/.gradle
 atlassian-ide-plugin.xml
 
 # Eclipse specific files/directories
-.classpath
+#.classpath
 #.project
 #.settings
 .metadata
 */bin
 */build
+/bin
 
 # NetBeans specific files/directories
 .nbattrs
