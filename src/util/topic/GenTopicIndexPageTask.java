@@ -47,21 +47,6 @@ public class GenTopicIndexPageTask extends TimerTask {
 			e.printStackTrace();
 		}
 
-		
-//		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
-//				"<title>Technical Library Topic List</title>"+
-//			"<style type=\"text/css\">"+
-//			"BODY,P,UL,LI,a,a:hover,th,tr,td {font-size: 14px;}"+
-//				"H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}"+
-//				"ul li{margin-bottom: 25px;}"+
-//				"#techlib-content,#techlib-head{width:720px; margin-left:auto; margin-right:auto; }"+
-//				"#techlib-content{padding-top:15px;}"+
-//				"a {height:20px; line-height:20px; color:#000; text-decoration: none; }"+
-//				"a:hover, .selected a{ background-position: right bottom; color:#999; }"+
-//			"</style></head>"+
-//			"<div id=\"techlib-head\"><h1>Technical Library Topic List</h1></div>"+
-//			"<div id=\"techlib-content\">";
-		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
 		"<title>Technical Library Topic List</title>"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+
