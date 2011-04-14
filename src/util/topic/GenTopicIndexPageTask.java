@@ -11,6 +11,9 @@ import java.util.TimerTask;
 
 import javax.servlet.ServletContext;
 
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 public class GenTopicIndexPageTask extends TimerTask {
 	private static boolean isRunning = false;
 	private ServletContext context;
@@ -80,7 +83,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 			
 			
 			pw.println("<td class=\"row\">");
-			pw.println( "<a href=\""+th.getPath()+"index.html\">"+th.getTitle()+"</a>" );
+			pw.println( "<a href=\""+th.getPath()+"index.html\""+" title=\""+th.getSummary()+"\">"+th.getTitle()+"</a>" );
 			pw.println("</td>");
 			
 			pw.println("<td class=\"row\">");

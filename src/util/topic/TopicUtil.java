@@ -47,10 +47,10 @@ public class TopicUtil {
 				while(tagsElementIt.hasNext()){
 					tags.add( ((Element)tagsElementIt.next()).text() );
 				}
-				String summary = document.select("#summary").text();
+				String summary = document.select("#techlib-topic-content > p").first().text();
 				Elements menu = document.select(".menu");
 				TopicHeader topicHeader = new TopicHeader(path, title, subtitle, author, tags, summary, menu);
-				System.out.println(topicHeader);
+				//System.out.println(topicHeader);
 				allTopicHeader.add( topicHeader );
 			} catch (Exception e1) {
 				e1.printStackTrace();
