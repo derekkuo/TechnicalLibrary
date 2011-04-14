@@ -47,7 +47,7 @@ public class TopicUtil {
 				while(tagsElementIt.hasNext()){
 					tags.add( ((Element)tagsElementIt.next()).text() );
 				}
-				String summary = document.select("#techlib-topic-content > p").first().text();
+				String summary = document.select("p").first().text();
 				Elements menu = document.select(".menu");
 				TopicHeader topicHeader = new TopicHeader(path, title, subtitle, author, tags, summary, menu);
 				//System.out.println(topicHeader);
