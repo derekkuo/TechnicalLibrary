@@ -38,6 +38,87 @@
 	
 		<span class="menu"><h2></h2></span>
 		<p></p>
+		
+<pre><code>
+ 
+Java中使用的路径，分为两种：绝对路径和相对路径。归根结底，Java本质上只能使用绝对路径来寻找资源。所有的相对路径寻找资源的方法，都不过是一些便利方法。不过是API在底层帮助我们构建了绝对路径，从而找到资源的！
+
+在开发Web方面的应用时, 经常需要获取 服务器中当前WebRoot的物理路径。
+
+如果是Servlet , Action , Controller, 或则Filter , Listener , 拦截器等相关类时， 我们只需要获得ServletContext， 然后通过ServletContext.getRealPath("/")来获取当前应用在服务器上的物理地址。
+
+如果在类中取不到ServletContext时， 有两种方式可以做到：
+
+1. 利用Java的类加载机制 调用 XXX.class.getClassLoader().getResource(""); 方法来获取到ClassPath , 然后处理获得WebRoot目录，这种方式只能是该class在WebRoot/WEB-INF/classes下才能生效， 如果该class被打包到一个jar文件中， 则该方法失效。这时就应该用下面一种方式。
+
+2. spring框架的思路, 在WEB-INF/web.xml中 ， 创建一个webAppRootKey的param, 指定一个值（默认为webapp.root）作为键值， 然后通过Listener , 或者Filter , 或者Servlet 执行String webAppRootKey = getServletContext().getRealPath("/"); 并将webAppRootKey对应的webapp.root 分别作为Key , Value写到System Properties系统属性中。之后在程序中通过System.getProperty("webapp.root")来获得WebRoot的物理路径。
+
+根据第二种的思路，我们还可以再扩展一下。不过对于在部署在一台服务器中的应用来说，若还不是你所需请再往下看。
+
+下面是一些得到classpath和当前类的绝对路径的一些方法。你可使用其中的一些方法来得到你需要的资源的绝对路径:
+
+1. DebitNoteAction.class.getResource("")
+
+得到的是当前类FileTest.class文件的URI目录。不包括自己！
+
+如：file:/D:/eclipse/springTest/WebRoot/WEB-INF/classes/
+
+atacarnet/src/com/evi/modules/atacarnet/action/
+
+2. DebitNoteAction.class.getResource("/")
+
+得到的是当前的classpath的绝对URI路径。
+
+如：file:/D:/eclipse/springTest/WebRoot/WEB-INF/classes/
+
+3. Thread.currentThread().getContextClassLoader().getResource("")
+
+得到的也是当前ClassPath的绝对URI路径
+
+如：file:/D:/eclipse/springTest/WebRoot/WEB-INF/classes/
+
+4. DebitNoteAction.class.getClassLoader().getResource("") 或ClassLoader.getSystemResource("")
+
+得到的也是当前ClassPath的绝对URI路径。
+
+如：file:/D:/eclipse/springTest/WebRoot/WEB-INF/classes/
+
+5. 取得服务器相对路径
+
+System.getProperty("user.dir")
+
+例如:E:\apache-tomcat-5.5.16\apache-tomcat-5.5.16\bin
+
+我推荐使用Thread.currentThread().getContextClassLoader().getResource("")来得到当前的classpath的绝对路径的URI表示法
+
+6. 取得项目中的绝对路径
+
+一般用request.getRealPath("/")或request.getRealPath("/config/")
+
+但现在不提倡使用request.getRealPath("/")了，大家可试用ServletContext.getRealPath("/")方法得到Web应用程序的根目录的绝对路径
+
+要取得src的文件非常容易，因为src是默认的相对目录，比如你说要取得src下com目录的test.java文件，你只需要这样就够了
+
+File f = new File(com/test.java);
+
+但如果我要取得不在src目录或者WebRoot目录下的文件呢，而是要从src或者WebRoot同级的目录中取呢，比如说doc吧
+
+我的硬方法是这样实现的：
+
+String path = this.getServletContext().getRealPath("/");
+
+Properties p = new Properties();
+
+p.load(new FileInputStream(new File(path.substring(0,(path.lastIndexOf("\\WebRoot") + 1)) + "doc/db.properties")));
+
+System.out.println(p.getProperty("driverName"));
+
+原文链接:http://www.cn-java.com/www1/?action-viewnews-itemid-78354
+ 
+
+
+</code></pre>
+		
 	</div><!-- #techlib-topic-content 内容结束 -->
 </div><!-- #techlib-topic 结束 -->
 <!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
