@@ -42,7 +42,7 @@
 
 <span class="menu"><h2>并发性和联网</h2></span>
 <P>Android 应用程序一个最常见的任务就是检索数据或通过网络将数据发送到远程服务器。这一操作的结果通常是一些您想要展示给用户的新数据。这意味着您需要修改用户界面。大多数开发人员知道您将不会执行一个潜在的长期运行任务，例如，在主 UI 线程上通过网络访问数据（特别使用一个网络连接非常慢的手机）。冻结您的应用程序直至长期运行任务完成。事实上，如果这个任务超过5 秒，Android 操作系统将出现臭名昭著的 Application Not Responding 对话框，如图1所示。</P>
-<P style="TEXT-ALIGN: center"><IMG style="CURSOR: pointer" onclick="window.open('http://articles.csdn.net/uploads/allimg/101012/28_101012091248_1.jpg')" height=587 alt="" src="http://articles.csdn.net/uploads/allimg/101012/28_101012091248_1.jpg" width=480 border=0></P>
+<P style="TEXT-ALIGN: center"><IMG style="CURSOR: pointer" onclick="window.open('28_101012091248_1.jpg')" height=587 alt="" src="28_101012091248_1.jpg" width=480 border=0></P>
 <P style="TEXT-ALIGN: center">图 1. Android 臭名昭著的 Application Not Responding 对话框</P>
 <P style="TEXT-ALIGN: left">您不可能知道用户网络连接能有多慢。为了避免冒险，您必须在不同的线程上执行任务，或者至少不在主 UI 线程上执行。许多 Android 应用程序，但不是全部，需要处理多线程，由此引起并发。应用程序经常需要本地保存数据，Android 数据库是一个很好的选择。这三个场景（不同线程，并发和本地保存数据）在 Java 环境中有许多标准 方法可以用来处理。然而，正如您将要看到的，Android 提供不同的选择。让我们逐个看看，看看其优点和缺点。</P>
 
@@ -79,7 +79,7 @@
 
 <P><STRONG>作者简介：</STRONG></P>
 <P><STRONG>Michael Galpin</STRONG></P>
-<P><SPAN style="PADDING-RIGHT: 20px; PADDING-LEFT: 20px; FLOAT: left; PADDING-BOTTOM: 20px; PADDING-TOP: 20px; TEXT-ALIGN: center"><IMG style="DISPLAY: block" onclick="window.open('http://articles.csdn.net/uploads/allimg/101012/28_101012092227_1.jpg')" height=80 alt="" src="http://articles.csdn.net/uploads/allimg/101012/28_101012092227_1.jpg" width=64 border=0>Michael Galpin</SPAN></P>
+<P><SPAN style="PADDING-RIGHT: 20px; PADDING-LEFT: 20px; FLOAT: left; PADDING-BOTTOM: 20px; PADDING-TOP: 20px; TEXT-ALIGN: center"><IMG style="DISPLAY: block" onclick="window.open('28_101012092227_1.jpg')" height=80 alt="" src="28_101012092227_1.jpg" width=64 border=0>Michael Galpin</SPAN></P>
 <P>Michael Galpin 是 eBay 的一名架构师。他经常为 developerWorks 撰写文章，同时在 TheServerSide.com 和 Java Developer 期刊上发表文章，他还有自己的 <A href="http://fupeg.blogspot.com/"><FONT color=#4c6e94>博客</FONT></A>。他从 1998 年开始做职业程序员，并拥有加州理工学院数学专业的学士学位。</P>
 <P>原文链接：<A href="http://www.ibm.com/developerworks/cn/xml/x-gourmetandroid/#f1">http://www.ibm.com/developerworks/cn/xml/x-gourmetandroid/#f1</A></P>
 
