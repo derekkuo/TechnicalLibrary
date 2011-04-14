@@ -140,58 +140,67 @@ font-weight: bold;
        代表了一个数据库的状态，在向数据库发送相应的SQL语句时，都需要创建Statement接口或PreparedStatement接口。
        在具体应用中，Statement主要用于操作不带参数(可以直接运行)的SQL语句，比如删除语句、添加或更新。
 </p>
-<p>2. PreparedStatement:预编译的Statement
-       </br>&emsp;&emsp;&emsp;&emsp;第一步：通过连接获得PreparedStatement对象，用带占位符(?)的sql语句构造。
-            PreparedStatement  pstm = con.preparedStatement(“select * from test where id=?”);
-       </br>&emsp;&emsp;&emsp;&emsp;第二步：设置参数 
-            pstm.setString(1，“ganbin”);//第一个字段是“ganbin”；需一个个字段写
-      </br>&emsp;&emsp;&emsp;&emsp;第三步：执行sql语句
-            Rs  =  pstm.excuteQuery();
-        statement发送完整的Sql语句到数据库不是直接执行而是由数据库先编译，再运行。每次都需要编译。
-        而PreparedStatement是先发送带参数的Sql语句，由数据库先编译，再发送一组组参数值。(同构时不需重复编译) 
-        如果是同构的sql语句，PreparedStatement的效率要比statement高。而对于异构的sql则两者效率差不多。
-        </br>&emsp;&emsp;&emsp;&emsp;一般都用PreparedStatement代替Statement，因为它是类型安全的。Statement对参数类型不作检查，故不够安全。
-        </br>&emsp;&emsp;&emsp;&emsp;同构：两个Sql语句可编译部分是相同的，只有参数值不同。
-       </br>&emsp;&emsp;&emsp;&emsp;异构：整个sql语句的格式是不同的。
-</p>
-<div class="note"><span class="note-head">注意点</span> <span
-	class="note-body">
+<p>2. PreparedStatement:预编译的Statement</p>
+<p>第一步：通过连接获得PreparedStatement对象，用带占位符(?)的sql语句构造。</p>
+	<pre><code>PreparedStatement  pstm = con.preparedStatement(“select * from test where id=?”);
+	</code></pre>
+<p>第二步：设置参数</p> 
+	<pre><code>pstm.setString(1，“ganbin”);//第一个字段是“ganbin”；需一个个字段写
+	</code></pre>
+<p>第三步：执行sql语句</p>
+	<pre><code>Rs  =  pstm.excuteQuery();
+	</code></pre>
+	<p>statement发送完整的Sql语句到数据库不是直接执行而是由数据库先编译，再运行。每次都需要编译。
+	而PreparedStatement是先发送带参数的Sql语句，由数据库先编译，再发送一组组参数值。(同构时不需重复编译) 
+	如果是同构的sql语句，PreparedStatement的效率要比statement高。而对于异构的sql则两者效率差不多。</p>
+	<p>一般都用PreparedStatement代替Statement，因为它是类型安全的。Statement对参数类型不作检查，故不够安全。</p>
 	<ul>
-<li>1、使用预编译的Statement编译多条Sql语句一次执行；</li>
-<li>2、可以跨数据库使用，编写通用程序；</li>
-<li>3、能用预编译时尽量用预编译；</li>
-<li>4、如果第二个SQL语句与前一个是异构的，需要再次编译con.prepareStatement(sql);。</li>
-</p>
+		<li>同构：两个Sql语句可编译部分是相同的，只有参数值不同。</li>
+		<li>异构：整个sql语句的格式是不同的。</li>
 	</ul>
-</span></div>
+
+
+<div class="note">
+	<span class="note-head">注意点</span>
+	<span class="note-body">
+	<ul class="ul-plain">
+		<li>1、使用预编译的Statement编译多条Sql语句一次执行；</li>
+		<li>2、可以跨数据库使用，编写通用程序；</li>
+		<li>3、能用预编译时尽量用预编译；</li>
+		<li>4、如果第二个SQL语句与前一个是异构的，需要再次编译con.prepareStatement(sql);。</li>
+	</ul>
+	</span>
+</div>
 <p>3. ResultSet —— 结果集操作接口:ResultSet接口是查询结果集接口，它对返回的结果集进行处理。ResultSet是程序员进行JDBC操作的必需接口。
 </p>
-<p>
-  4.ResultSetMetaData —— 元数据操作接口
-  </br>&emsp;&emsp;&emsp;&emsp;ResultSetMetaData是对元数据进行操作的接口，可以实现很多高级功能。
-  </br>&emsp;&emsp;&emsp;&emsp;Hibernate运行数据库的操作，大部分都是通过此接口。可以认为，此接口是SQL查询语言的一种反射机制。
-  </br>&emsp;&emsp;&emsp;&emsp;ResultSetMetaData接口可以通过数组的形式，遍历数据库的各个字段的属性，对于开发者来说，此机制的意义重大。
-  </br>&emsp;&emsp;&emsp;&emsp;JDBC通过元数据(MetaData)来获得具体的表的相关信息，例如，可以查询数据库中有哪些表，表有哪些字段，以及字段的属性等。MetaData中通过一系列getXXX将这些信息返回给我们。
-</br>&emsp;&emsp;&emsp;&emsp;数据库元数据 Database MetaData 用connection.getMetaData()获得；包含了关于数据库整体元数据信息。
-</br>&emsp;&emsp;&emsp;&emsp;结果集元数据 ResultSet MetaData 用resultSet.getMetaData()获得;比较重要的是获得表的列名,列数等信息。
-</br>&emsp;&emsp;&emsp;&emsp;结果集元数据对象：ResultSetMetaData meta = rs.getMetaData();
+<p>4.ResultSetMetaData —— 元数据操作接口</p>
+<p>ResultSetMetaData是对元数据进行操作的接口，可以实现很多高级功能。Hibernate运行数据库的操作，大部分都是通过此接口。可以认为，此接口是SQL查询语言的一种反射机制。</p>
+<p>ResultSetMetaData接口可以通过数组的形式，遍历数据库的各个字段的属性，对于开发者来说，此机制的意义重大。</p>
+<p>JDBC通过元数据(MetaData)来获得具体的表的相关信息，</p>
+<p>例如，可以查询数据库中有哪些表，表有哪些字段，以及字段的属性等。
+MetaData中通过一系列getXXX将这些信息返回给我们。
+结果集元数据 ResultSet MetaData 用resultSet.getMetaData()获得;比较重要的是获得表的列名,列数等信息。
+数据库元数据 Database MetaData 用connection.getMetaData()获得；包含了关于数据库整体元数据信息。
+结果集元数据对象：ResultSetMetaData meta = rs.getMetaData();</p>
 <pre><code>例如：
-&emsp;&emsp;&emsp;&emsp;meta.getColomnCount();//获取字段个数
-&emsp;&emsp;&emsp;&emsp;meta.getColumnName();//获取字段名字
-&emsp;&emsp;&emsp;&emsp;meta.getColumnType();//获取字段JDBC类型 
-&emsp;&emsp;&emsp;&emsp;meta.getColumnTypeName();//获取字段数据库类型</code></pre>
-</br>&emsp;&emsp;&emsp;&emsp;数据库元数据对象：DatabaseMetaData dbmd = con.getMetaData();
+	meta.getColomnCount();//获取字段个数
+	meta.getColumnName();//获取字段名字
+	meta.getColumnType();//获取字段JDBC类型 
+	meta.getColumnTypeName();//获取字段数据库类型
+	</code></pre>
+<p>数据库元数据对象：DatabaseMetaData dbmd = con.getMetaData();</p>
 <pre><code>例如：
-&emsp;&emsp;&emsp;&emsp;dbmd.getDatabaseProductName();//数据库名
-&emsp;&emsp;&emsp;&emsp;dbmd.getDatabaseProductVersion()；//数据库版本号
-&emsp;&emsp;&emsp;&emsp;dbmd.getDriverName()；//数据库驱动名
-&emsp;&emsp;&emsp;&emsp;dbmd.getDriverVersion()；//数据库驱动版本号
-&emsp;&emsp;&emsp;&emsp;dbmd.getURL()；//数据库Url
-&emsp;&emsp;&emsp;&emsp;dbmd.getUserName();//该连接的登陆名</code></pre>
-</p>
+	dbmd.getDatabaseProductName();//数据库名
+	dbmd.getDatabaseProductVersion()；//数据库版本号
+	dbmd.getDriverName()；//数据库驱动名
+	dbmd.getDriverVersion()；//数据库驱动版本号
+	dbmd.getURL()；//数据库Url
+	dbmd.getUserName();//该连接的登陆名
+	</code></pre>
+
 <span class="menu"><h2>使用Transaction编程(事务编程)</h2></span>
 <p>1. 事务是具备以下特征(ACID)的工作单元：
-<ul>
+<ul class="ul-plain">
 <li>原子性(Atomicity)—— 如果因故障而中断，则所有结果均被撤消；</li>
 <li>一致性(Consistency)—— 事务的结果保留不变；</li>
 <li>孤立性(Isolation)—— 中间状态对其它事务是不可见的；</li>
@@ -199,26 +208,29 @@ font-weight: bold;
 <li>原子操作，也就是不可分割的操作，必须一起成功一起失败。</li>
 </ul>
 </p>
-<p>2. 事务处理步骤：(事务是一个边界)
-</br>&emsp;&emsp;&emsp;&emsp;connection.setAutoCommit(false); //把自动提交关闭；在创建Statement对象之前。
-</br>&emsp;&emsp;&emsp;&emsp;正常的DB操作               //若有一条SQL语句失败了，自动回滚
-</br>&emsp;&emsp;&emsp;&emsp;connection.commit()           //主动提交
-</br>&emsp;&emsp;&emsp;&emsp;connection.rollback()           //主动回滚，一般写在catch语句里，而前三个都写在try语句里
+<p>2. 事务处理步骤：(事务是一个边界)</p>
+<ul>
+	<li>connection.setAutoCommit(false); //把自动提交关闭；在创建Statement对象之前。</li>
+	<li>正常的DB操作               //若有一条SQL语句失败了，自动回滚</li>
+	<li>connection.commit()           //主动提交</li>
+	<li>connection.rollback()           //主动回滚，一般写在catch语句里，而前三个都写在try语句里</li>
+</ul>
+
 <pre><code>例如：（事务的代码片段）
-try{
-    con.setAutoCommit(false);               //把自动提交关闭
-    Statement stm = con.createStatement();    //正常的DB操作
-    stm.executeUpdate("insert into person(id, name, age) values(520, 'X-Man', 18)");
-    stm.executeUpdate("insert into Person(id, name, age) values(521, 'Super', 19)");
-    con.commit();                        //成功主动提交
-} catch(SQLException e){
-   try{
-   con.rollback();                     //如果中途发生异常，则主动回滚roolback；这语句也会抛异常
-   }catch(Exception e){
-     e.printStackTrace();
-}   
+	try{
+	    con.setAutoCommit(false);               //把自动提交关闭
+	    Statement stm = con.createStatement();    //正常的DB操作
+	    stm.executeUpdate("insert into person(id, name, age) values(520, 'X-Man', 18)");
+	    stm.executeUpdate("insert into Person(id, name, age) values(521, 'Super', 19)");
+	    con.commit();                        //成功主动提交
+	} catch(SQLException e){
+	   try{
+	   con.rollback();                     //如果中途发生异常，则主动回滚roolback；这语句也会抛异常
+	   }catch(Exception e){
+	     e.printStackTrace();
+	}   
 		</code></pre>
-</p>
+
 <p>3.JDBC事务并发产生的问题和事务隔离级别(难，建议用例子学习)
 </p>
 <p>JDBC事务并发产生的问题:</p>
@@ -357,13 +369,13 @@ readObject()返回读到的一个对象，但是该方法不会以返回null表�
 </span></div>
 <div class="note"><span class="note-head">切记</span> <span
 	class="note-body">
-<ul>
+<ol>
 	<li>序列化一个对象并不一定会序列化该对象的父类对象；</li>
 	<li>瞬间属性、静态属性不参与序列化过程（transient、static修饰的属性）；</li>
 	<li>所有属性必须都是可序列化的，特别是当有些属性本身也是对象的时候，要尤其注意这一点。</li>
 	<li>序列化的集合就要求集合中的每一个元素都是可序列化的。</li>
 	<li>用两次序列化把两个对象写到文件中(以追加的方式)，与用一次序列化把两个对象写进文件的大小是不同的。</li>
-</ul>
+</ol>
 </span></div>
 
 <span class="menu"><h2>小结</h2></span>
