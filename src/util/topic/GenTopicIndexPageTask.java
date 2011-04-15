@@ -68,12 +68,12 @@ public class GenTopicIndexPageTask extends TimerTask {
 	public void writeTableStyle(List<TopicHeader> allTopicHeader){
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
-		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">标题</th><th scope=\"col\">作者</th><th scope=\"col\">标签</th>");
+		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">标题</th><th scope=\"col\">作者</th><th scope=\"col\">发布时间</th>");
 		int topicId = 0;
 		while(it.hasNext()){
-			TopicHeader th = it.next();
-			th.setPath(th.getPath().substring(7,th.getPath().length()));
-			if(th.getPath().indexOf("index.html") >-1)
+			TopicHeader topicHeader = it.next();
+			topicHeader.setPath(topicHeader.getPath().substring(7,topicHeader.getPath().length()));
+			if(topicHeader.getPath().indexOf("index.html") >-1)
 				continue;
 			pw.println("<tr>");
 			topicId++;
@@ -81,24 +81,29 @@ public class GenTopicIndexPageTask extends TimerTask {
 			pw.println(topicId);
 			pw.println("</td>");
 			
-			
+
+			StringBuffer tagsSB = new StringBuffer();
+			if(topicHeader.getTags().size()>0){
+				Iterator tagsIt = topicHeader.getTags().iterator();
+				while(tagsIt.hasNext())
+					tagsSB.append(((String)(tagsIt.next())).trim() + " ");
+			}else{
+				tagsSB.append("&nbsp;");
+			}
+			String titleTagA = "[<a class=\"topicFirstTag\" href=\"search?topictag="+topicHeader.getTags().get(0)+"\">"+topicHeader.getTags().get(0)+"</a>]&nbsp;";
 			pw.println("<td class=\"row\">");
-			pw.println( "<a href=\""+th.getPath()+"index.html\""+" title=\""+th.getSummary()+"\">"+th.getTitle()+"</a>" );
+//			pw.println( "<a href=\""+th.getPath()+"index.html\""+" title=\""+th.getSummary()+"\">"+th.getTitle()+"</a>" );
+			pw.println( titleTagA+"<a href=\""+topicHeader.getPath()+"index.html\""+" title=\"技术标签："+tagsSB.toString()+"\">"+topicHeader.getTitle()+"</a>" );
 			pw.println("</td>");
 			
 			pw.println("<td class=\"row\">");
-			pw.println( th.getAuthor().equals("")?"&nbsp;":th.getAuthor() );
+			pw.println( topicHeader.getAuthor().equals("")?"&nbsp;":topicHeader.getAuthor() );
 
 			pw.println("</td>");
 			
 			pw.println("<td class=\"row\">");
-			if(th.getTags().size()>0){
-				Iterator tagsIt = th.getTags().iterator();
-				while(tagsIt.hasNext())
-					pw.write( ((String)(tagsIt.next())).trim() + " ");
-			}else{
-				pw.write("&nbsp;");
-			}
+//			pw.write(tagsSB.toString());
+			pw.write("&nbsp;");
 			pw.println("</td>");
 			
 			pw.println("</tr>");
