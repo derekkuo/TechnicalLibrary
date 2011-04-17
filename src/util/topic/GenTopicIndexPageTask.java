@@ -53,7 +53,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
 		"<title>Technical Library Topic List</title>"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+
-		"<div id=\"techlib-head\"><h1>Technical Library Topic List</h1></div>"+
+		"<div id=\"techlib-head\"><h1>原创技术文章 Topic</h1></div>"+
 		"<div id=\"techlib-content\">";
 		pw.write(htmlHead);
 		
@@ -68,7 +68,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 	public void writeTableStyle(List<TopicHeader> allTopicHeader){
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
-		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">标题</th><th scope=\"col\">作者</th><th scope=\"col\">发布时间</th>");
+		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">类别</th><th scope=\"col\">标题</th><th scope=\"col\">作者</th>");
 		int topicId = 0;
 		while(it.hasNext()){
 			TopicHeader topicHeader = it.next();
@@ -90,22 +90,21 @@ public class GenTopicIndexPageTask extends TimerTask {
 			}else{
 				tagsSB.append("&nbsp;");
 			}
-			String titleTagA = "[<a class=\"topicFirstTag\" href=\"search?topictag="+topicHeader.getTags().get(0)+"\">"+topicHeader.getTags().get(0)+"</a>]&nbsp;";
+			String titleTagA = "<a class=\"topicFirstTag\" href=\"search?topictag="+topicHeader.getTags().get(0)+"\">"+topicHeader.getTags().get(0)+"</a>";
+			pw.println("<td class=\"row\">");
+			pw.println(titleTagA);
+			pw.println("</td>");
+			
 			pw.println("<td class=\"row\">");
 //			pw.println( "<a href=\""+th.getPath()+"index.html\""+" title=\""+th.getSummary()+"\">"+th.getTitle()+"</a>" );
-			pw.println( titleTagA+"<a href=\""+topicHeader.getPath()+"index.html\""+" title=\"技术标签："+tagsSB.toString()+"\">"+topicHeader.getTitle()+"</a>" );
+			pw.println( "<a href=\""+topicHeader.getPath()+"index.html\""+" title=\"技术标签："+tagsSB.toString()+"\">"+topicHeader.getTitle()+"</a>" );
 			pw.println("</td>");
 			
 			pw.println("<td class=\"row\">");
 			pw.println( topicHeader.getAuthor().equals("")?"&nbsp;":topicHeader.getAuthor() );
 
 			pw.println("</td>");
-			
-			pw.println("<td class=\"row\">");
-//			pw.write(tagsSB.toString());
-			pw.write("&nbsp;");
-			pw.println("</td>");
-			
+		
 			pw.println("</tr>");
 		}
 		pw.println("</table>");

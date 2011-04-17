@@ -2,9 +2,14 @@ package util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Iterator;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.junit.Test;
 
 
 public class HtmlUtil {
@@ -19,4 +24,5 @@ public class HtmlUtil {
 		}
 		return document;
 	}
+
 }
