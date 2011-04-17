@@ -64,6 +64,18 @@
 		<provider>郭大喜</provider>
 	</bookmark>
 	
+	<bookmark>
+		<id>6</id>
+		<url>http://progit.org/book/zh/index.html</url>
+		<title>《Pro Git》中文版</title>
+		<resource-type>电子书</resource-type>
+		<technical-type>git</technical-type>
+		<tags>
+			<tag>git</tag>
+			<tag>版本控制</tag>
+		</tags>
+		<provider>郭大喜</provider>
+	</bookmark>
 	
 	
 </bookmarks>
