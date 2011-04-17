@@ -1,0 +1,69 @@
+<bookmarks>
+	<bookmark>
+		<id>1</id>
+		<url>http://www.ibm.com/developerworks/cn/xml/x-gourmetandroid/</url>
+		<title>享受Android应用程序的Java技术盛宴</title>
+		<resource-type>文章</resource-type>
+		<technical-type>android</technical-type>
+		<tags>
+			<tag>android</tag>
+			<tag>java</tag>
+		</tags>
+		<provider>郭大喜</provider>
+	</bookmark>
+	
+	<bookmark>
+		<id>2</id>
+		<url>http://www.cn-java.com/www1/?action-viewnews-itemid-78354</url>
+		<title>Java或web中解决所有路径问题</title>
+		<resource-type>文章</resource-type>
+		<technical-type>综合</technical-type>
+		<tags>
+			<tag>路径</tag>
+		</tags>
+		<provider>郭大喜</provider>
+	</bookmark>
+	
+	<bookmark>
+		<id>3</id>
+		<url>http://shawphy.com/2008/01/load-xml-by-ajax-with-jquery-and-parse-it.html</url>
+		<title>在jQuery中利用AJAX加载XML数据并解析</title>
+		<resource-type>文章</resource-type>
+		<technical-type>jquery</technical-type>
+		<tags>
+			<tag>jquery</tag>
+			<tag>解析xml</tag>
+		</tags>
+		<provider>郭大喜</provider>
+	</bookmark>
+	
+	<bookmark>
+		<id>4</id>
+		<url>http://www.ibm.com/developerworks/cn/java/j-lo-jsouphtml/index.html?ca=drs-</url>
+		<title>使用 jsoup 对 HTML 文档进行解析和操作</title>
+		<resource-type>文章</resource-type>
+		<technical-type>jsoup</technical-type>
+		<tags>
+			<tag>jsoup</tag>
+			<tag>解析html</tag>
+		</tags>
+		<provider>郭大喜</provider>
+	</bookmark>
+	
+	<bookmark>
+		<id>5</id>
+		<url>http://winuxxan.blog.51cto.com/2779763/508955</url>
+		<title>我也说Git分支管理 </title>
+		<resource-type>文章</resource-type>
+		<technical-type>git</technical-type>
+		<tags>
+			<tag>git</tag>
+			<tag>版本控制</tag>
+			<tag>分支管理</tag>
+		</tags>
+		<provider>郭大喜</provider>
+	</bookmark>
+	
+	
+	
+</bookmarks>
