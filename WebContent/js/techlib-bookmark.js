@@ -6,7 +6,8 @@
 		$.ajax({
 		     url:'bookmark.xml',
 		     type: 'GET',
-		     dataType: 'xml',//这里可以不写，但千万别写text或者html!!!
+		     dataType:($.browser.msie) ? "text" : "xml",
+		     //dataType: 'XML',//这里可以不写，但千万别写text或者html!!!
 		     timeout: 1000,
 		     error: function(xml){
 		         //alert('Error loading XML document'+xml);
@@ -15,18 +16,26 @@
 	            		 +'</td></tr>')
 	                 .appendTo('#mytable');
 		     },
-		     success: function(xml){
+		     success: function(data){
+		    	 var xml;
+				if( typeof data == "string" ){
+				         xml = new ActiveXObject("Microsoft.XMLDOM");
+				         xml.async = false;
+				         xml.loadXML(data);
+				} else {
+				         xml = data; 
+				}
 		         $(xml).find("bookmark").each(function(i){
-		             var id_value=$(this).attr("id"); //取文本
+		             var id_value=$(this).children("id").text(); //取文本
+		             
 		             var url = $(this).children("url").text(); 
 
-		             var title = $(this).attr("title");
+		             var title = $(this).children("title").text();
 		             var resourceType = $(this).children("resource-type").text();
-		             var technicalType = $(this).attr("technical-type");
-		             var tags = $(this).children("tags").text().trim();
+		             var technicalType = $(this).children("technical-type").text();
+		             var tags = $(this).children("tags").text();
 		             var titleAhref = '<a href="'+ url +'" title="技术标签：'+tags+'" target="_blank">'+title+'</a>';
 		             var provider = $(this).children("provider").text();
-		             
 		             //最后么输出了，这个是cssrain的写法，貌似比macnie更JQ一点
 		             $('<tr><td class="row">'+id_value+'</td><td class="row">'
 		            		 +technicalType+'</td><td class="row">'+ titleAhref
