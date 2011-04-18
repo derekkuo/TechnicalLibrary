@@ -49,11 +49,16 @@ public class GenTopicIndexPageTask extends TimerTask {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
+		
+		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
 		"<title>Technical Library Topic List</title>"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\">"+
+		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+
+		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+
+		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+
+		"</head>"+
 		"<div id=\"techlib-content\">"+
 		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+
 		"<div id=\"techlib-head\"><h1>原创技术文章 Topic</h1></div>";
@@ -70,7 +75,9 @@ public class GenTopicIndexPageTask extends TimerTask {
 	public void writeTableStyle(List<TopicHeader> allTopicHeader){
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
+		pw.println("<thead><tr>");
 		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">类别</th><th scope=\"col\">标题</th><th scope=\"col\">作者</th>");
+		pw.println("</tr></thead><tbody>");
 		int topicId = 0;
 		while(it.hasNext()){
 			TopicHeader topicHeader = it.next();
@@ -109,7 +116,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		
 			pw.println("</tr>");
 		}
-		pw.println("</table>");
+		pw.println("</tbody></table>");
 	}
 	
 	public void writeULStyle(List<TopicHeader> allTopicHeader){
