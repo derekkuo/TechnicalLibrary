@@ -9,20 +9,19 @@
 		     timeout: 1000,
 		     error: function(xml){
 		         //alert('Error loading XML document'+xml);
-		    	 $('<tr><td colspan=4 >'+'&nbsp;&nbsp;&nbsp;&nbsp;请使用火狐浏览器打开。'
+		    	 $('<tr><td colspan=4 >'+'&nbsp;&nbsp;&nbsp;&nbsp;请使用火狐浏览器打开，'
+		    			 +'或<a href="bookmark.xml" targe="_blank">直接访问&nbsp;bookmark.xml</a>'+
 	            		 +'</td></tr>')
 	                 .appendTo('#mytable');
 		     },
 		     success: function(xml){
 		         $(xml).find("bookmark").each(function(i){
-		             var id=$(this).children("id"); //取对象
-		             var id_value=$(this).children("id").text(); //取文本
-
+		             var id_value=$(this).attr("id"); //取文本
 		             var url = $(this).children("url").text(); 
 
-		             var title = $(this).children("title").text();
+		             var title = $(this).attr("title");
 		             var resourceType = $(this).children("resource-type").text();
-		             var technicalType = $(this).children("technical-type").text();
+		             var technicalType = $(this).attr("technical-type");
 		             var tags = $(this).children("tags").text().trim();
 		             var titleAhref = '<a href="'+ url +'" title="技术标签：'+tags+'" target="_blank">'+title+'</a>';
 		             var provider = $(this).children("provider").text();

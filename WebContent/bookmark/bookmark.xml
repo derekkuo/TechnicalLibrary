@@ -1,10 +1,7 @@
 <bookmarks>
-	<bookmark>
-		<id>1</id>
+	<bookmark id="1" title="享受Android应用程序的Java技术盛宴" technical-type="android">
 		<url>http://www.ibm.com/developerworks/cn/xml/x-gourmetandroid/</url>
-		<title>享受Android应用程序的Java技术盛宴</title>
 		<resource-type>文章</resource-type>
-		<technical-type>android</technical-type>
 		<tags>
 			<tag>android</tag>
 			<tag>java</tag>
@@ -12,24 +9,18 @@
 		<provider>郭大喜</provider>
 	</bookmark>
 	
-	<bookmark>
-		<id>2</id>
+	<bookmark id="2" title="Java或web中解决所有路径问题" technical-type="综合">
 		<url>http://www.cn-java.com/www1/?action-viewnews-itemid-78354</url>
-		<title>Java或web中解决所有路径问题</title>
 		<resource-type>文章</resource-type>
-		<technical-type>综合</technical-type>
 		<tags>
 			<tag>路径</tag>
 		</tags>
 		<provider>郭大喜</provider>
 	</bookmark>
 	
-	<bookmark>
-		<id>3</id>
+	<bookmark id="3" title="在jQuery中利用AJAX加载XML数据并解析" technical-type="jquery">
 		<url>http://shawphy.com/2008/01/load-xml-by-ajax-with-jquery-and-parse-it.html</url>
-		<title>在jQuery中利用AJAX加载XML数据并解析</title>
 		<resource-type>文章</resource-type>
-		<technical-type>jquery</technical-type>
 		<tags>
 			<tag>jquery</tag>
 			<tag>解析xml</tag>
@@ -37,12 +28,9 @@
 		<provider>郭大喜</provider>
 	</bookmark>
 	
-	<bookmark>
-		<id>4</id>
+	<bookmark id="4" title="使用 jsoup 对 HTML 文档进行解析和操作" technical-type="jsoup">
 		<url>http://www.ibm.com/developerworks/cn/java/j-lo-jsouphtml/index.html?ca=drs-</url>
-		<title>使用 jsoup 对 HTML 文档进行解析和操作</title>
 		<resource-type>文章</resource-type>
-		<technical-type>jsoup</technical-type>
 		<tags>
 			<tag>jsoup</tag>
 			<tag>解析html</tag>
@@ -50,12 +38,9 @@
 		<provider>郭大喜</provider>
 	</bookmark>
 	
-	<bookmark>
-		<id>5</id>
+	<bookmark id="5" title="我也说Git分支管理" technical-type="git">
 		<url>http://winuxxan.blog.51cto.com/2779763/508955</url>
-		<title>我也说Git分支管理 </title>
 		<resource-type>文章</resource-type>
-		<technical-type>git</technical-type>
 		<tags>
 			<tag>git</tag>
 			<tag>版本控制</tag>
@@ -64,12 +49,9 @@
 		<provider>郭大喜</provider>
 	</bookmark>
 	
-	<bookmark>
-		<id>6</id>
+	<bookmark id="6" title="《Pro Git》中文版" technical-type="git">
 		<url>http://progit.org/book/zh/index.html</url>
-		<title>《Pro Git》中文版</title>
 		<resource-type>电子书</resource-type>
-		<technical-type>git</technical-type>
 		<tags>
 			<tag>git</tag>
 			<tag>版本控制</tag>
