@@ -2,6 +2,7 @@
 <script type="text/javascript">
  */
 	$(function(){
+
 		$.ajax({
 		     url:'bookmark.xml',
 		     type: 'GET',

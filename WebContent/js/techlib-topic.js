@@ -2,6 +2,12 @@
 <script type="text/javascript">
  */
 	$(function(){
+		var $refCSS = $('<link rel="stylesheet" type="text/css" href="../../css/techlib-topbar.css">');
+		$refCSS.insertBefore($("head"));
+		
+		var $topdiv = $('<div id="topbar"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href="../../index.html">首页|Home</a>&nbsp;&nbsp;<a href="../../topic/index.html">文章|Topic</a>&nbsp;&nbsp;<a href="../../bookmark/index.html">书签|Bookmark</a></div>');
+		$topdiv.insertBefore($("#techlib-topic-head"));
+		
 		var removeAD = false;//是否去除广告
 		var topDirectIndex = 2;//<h3>章、节上添加TOP  <h4>章、节、点上添加TOP
 		var menuListLevel = 3;//3目录树中显示 章 节
@@ -59,6 +65,8 @@
 					$(this).prepend("<div style='text-align: right\;'><a href='#top'>TOP</a></div>");
 			$(this).prepend("<a name='"+i+"'></a>");
 		});
+		
+
 	});
 /*
 </script>

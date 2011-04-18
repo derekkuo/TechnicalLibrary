@@ -1,0 +1,9 @@
+#topbar{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+#topbar a{
+	text-decoration: none;
+}
+#topbar a:hover, .selected a{
+	background-position: right bottom; color:#999; }

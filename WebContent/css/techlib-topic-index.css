@@ -16,6 +16,8 @@
 body {
 	font: normal 14px auto "Trebuchet MS", Verdana, Arial, Helvetica,
 		sans-serif;
+	margin-top:0px;
+	padding-top:0px;
 }
 H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
 #techlib-content,#techlib-head{
