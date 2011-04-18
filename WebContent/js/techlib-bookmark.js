@@ -34,7 +34,11 @@
 		             var resourceType = $(this).children("resource-type").text();
 		             var technicalType = $(this).children("technical-type").text();
 		             var tags = $(this).children("tags").text();
-		             var titleAhref = '<a href="'+ url +'" title="技术标签：'+tags+'" target="_blank">'+title+'</a>';
+		             var summary = $(this).children("summary").text();
+		             if(summary!='')
+		            	 var titleAhref = '<a href="'+ url +'" title="技术标签：'+tags+'&nbsp;摘要：'+summary+'" target="_blank">'+title+'</a>';
+		             else
+		            	 var titleAhref = '<a href="'+ url +'" title="技术标签：'+tags+'" target="_blank">'+title+'</a>';
 		             var provider = $(this).children("provider").text();
 		             //最后么输出了，这个是cssrain的写法，貌似比macnie更JQ一点
 		             $('<tr><td class="row">'+id_value+'</td><td class="row">'
