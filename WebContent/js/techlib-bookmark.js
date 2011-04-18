@@ -14,7 +14,7 @@
 		    	 $('<tr><td colspan=4 >'+'&nbsp;&nbsp;&nbsp;&nbsp;请使用火狐浏览器打开，'
 		    			 +'或<a href="bookmark.xml" targe="_blank">直接访问&nbsp;bookmark.xml</a>'+
 	            		 +'</td></tr>')
-	                 .appendTo('#mytable');
+	                 .appendTo('#mytable>tbody');
 		     },
 		     success: function(data){
 		    	 var xml;
@@ -50,9 +50,9 @@
 		         });
 		     }
 		 });
-
-		
 	});
+
+
 /*
 </script>
 */
