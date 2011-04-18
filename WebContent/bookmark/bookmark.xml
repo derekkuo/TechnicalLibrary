@@ -1,17 +1,17 @@
 <bookmarks>
+
 	<bookmark>
 		<id>1</id>
-		<url>http://www.ibm.com/developerworks/cn/xml/x-gourmetandroid/</url>
-		<title>享受Android应用程序的Java技术盛宴</title>
+		<url>http://apps.hi.baidu.com/share/detail/6358859</url>
+		<title>jquery.validate全攻略</title>
 		<resource-type>文章</resource-type>
-		<technical-type>android</technical-type>
+		<technical-type>jquery</technical-type>
 		<tags>
-			<tag>android</tag>
-			<tag>java</tag>
+			<tag>jquery</tag>
+			<tag>jquery.validate</tag>
 		</tags>
 		<provider>郭大喜</provider>
-		<summary>Java™ 语言是 Android 开发人员所选的工具。Android 运行时使用自己的虚拟机 Dalvik，这并不是多数程序开发人员使用的普通 Java 虚拟机。Dalvik 支持 Java 编程语言的大部分功能 — 但并不是全部。在本文中，您将学习高级 Java 功能及其如何在 Android 中实现。这些功能包括并发性、联网和数据库访问。
-		</summary>
+		<summary></summary>
 	</bookmark>
 	
 	<bookmark>
@@ -100,32 +100,6 @@
 		</tags>
 		<provider>郭大喜</provider>
 		<summary>在这篇文章http://www.newmediafun.com/2009/07/parsing-xml-with-jquery-in-internet-explorer/上找到了解决方案。是因为ie中的限制无法正确解析xml文件，它解析出的是一个text对象(在我引用的文章中有更详细的解释)所以针对这个加入判断就可以解决了
-正确代码index.js
-$(document).ready(function(){
-    $.ajax({
-         url:"xml/menu.xml",
-         type:"POST",
-         dataType:($.browser.msie) ? "text" : "xml",
-         success:function(data){
-                var xml;
-                if( typeof data == "string" ){
-                         xml = new ActiveXObject("Microsoft.XMLDOM");
-                         xml.async = false;
-                         xml.loadXML(data);
-                } else {
-                         xml = data; 
-                }
-              $(xml).find("menu").each(function(){
-
-                  alert("success");
-                  alert($(this).text());
-              });
-        },
-       error:function(data){
-               alert("fail:");
-       }
-    });
-});
 		</summary>
 	</bookmark>
 	
