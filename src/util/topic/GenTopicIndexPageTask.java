@@ -53,6 +53,9 @@ public class GenTopicIndexPageTask extends TimerTask {
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
 		"<title>Technical Library Topic List</title>"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+
+		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\">"+
+		"<div id=\"techlib-content\""+
+		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+
 		"<div id=\"techlib-head\"><h1>原创技术文章 Topic</h1></div>"+
 		"<div id=\"techlib-content\">";
 		pw.write(htmlHead);
@@ -60,7 +63,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		//writeULStyle(allTopicHeader);
 		writeTableStyle(allTopicHeader);
 		
-		pw.write("</div>");
+		pw.write("</div></div>");
 		pw.flush();
 		pw.close();
 	}
