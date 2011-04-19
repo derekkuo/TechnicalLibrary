@@ -27,6 +27,7 @@ body {
 		sans-serif;
 	margin-top:0px;
 	padding-top:0px;
+	background-color: #f0f0f0;
 }
 
 H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
@@ -39,8 +40,14 @@ H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
 	width:720px;
 	margin-left:auto;
 	margin-right:auto; 
+	background-color: white;
 }
-#techlib-content{padding-top:15px;}
+#techlib-content{
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-top: 5px;
+}
 
 a {height:20px; line-height:20px; color:#000; text-decoration: none; }
 a:hover, .selected a{ background-position: right bottom; color:#999; }

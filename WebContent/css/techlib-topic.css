@@ -8,6 +8,8 @@
 		和黑体(SimHei)和楷体(kaiti_gb2312)
 		\5FAE\8F6F\96C5\9ED1 是指微软雅黑-*/
 		font: 14px normal \5FAE\8F6F\96C5\9ED1,Verdana, Arial, Helvetica, sans-serif;
+		background-color: #f0f0f0;
+		margin: 0 0 0 0;
 	}
 	H2 { font-size: 20px;} /*-每章标题的样式-*/
 	H3 { font-size: 16px;} /*-每节的样式-*/
@@ -40,9 +42,13 @@
 		/*border: 1px solid;*/
 		width:720px;
 		margin-top: 5px;
+		margin-bottom: 0px;
 		margin-left: auto; 
 		margin-right: auto;
-		padding: 5px 25px 5px 25px;
+		padding-top: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		background-color: white;
 	}
 
  	#techlib-topic-rightbar{
