@@ -66,7 +66,7 @@ public class GenBookmarkIndexPageTask extends TimerTask {
 		
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" +
-		"<title>Technical Library Topic List</title>"+
+		"<title>精华资源书签 Bookmark</title>"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+
 		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+
@@ -117,9 +117,9 @@ public class GenBookmarkIndexPageTask extends TimerTask {
 		
 			pw.println("<td class=\"row\">");
 			if(bookmark.getSummary().equals(""))
-				pw.println( "<a href=\""+bookmark.getUrl()+"\" title=\"技术标签："+tagsSB.toString()+"\">"+bookmark.getTitle()+"</a>" );
+				pw.println( "<a href=\""+bookmark.getUrl()+"\" title=\"技术标签："+tagsSB.toString()+"\">"+bookmark.getTitle()+"</a>"+"&nbsp;("+bookmark.getResourceType()+")" );
 			else
-				pw.println( "<a href=\""+bookmark.getUrl()+"\" title=\"技术标签："+tagsSB.toString()+"&nbsp;&nbsp;摘要："+bookmark.getSummary()+"\">"+bookmark.getTitle()+"</a>" );
+				pw.println( "<a href=\""+bookmark.getUrl()+"\" title=\"技术标签："+tagsSB.toString()+"&nbsp;&nbsp;摘要："+bookmark.getSummary()+"\">"+bookmark.getTitle()+"</a>"+"&nbsp;("+bookmark.getResourceType()+")" );
 
 			pw.println("</td>");
 			
