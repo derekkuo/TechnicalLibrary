@@ -26,22 +26,9 @@
 			<tag>路径</tag>
 		</tags>
 		<provider>郭大喜</provider>
-		<summary>Java中使用的路径，分为两种：绝对路径和相对路径。归根结底，Java本质上只能使用绝对路径来寻找资源。所有的相对路径寻找资源的方法，都不过是一些便利方法。不过是API在底层帮助我们构建了绝对路径，从而找到资源的！
+		<summary>
+			Java中使用的路径，分为两种：绝对路径和相对路径。归根结底，Java本质上只能使用绝对路径来寻找资源。所有的相对路径寻找资源的方法，都不过是一些便利方法。不过是API在底层帮助我们构建了绝对路径，从而找到资源的！
 		</summary>
-	</bookmark>
-
-	<bookmark>
-		<id>3</id>
-		<url>http://shawphy.com/2008/01/load-xml-by-ajax-with-jquery-and-parse-it.html</url>
-		<title>在jQuery中利用AJAX加载XML数据并解析</title>
-		<resource-type>文章</resource-type>
-		<technical-type>jquery</technical-type>
-		<tags>
-			<tag>jquery</tag>
-			<tag>解析xml</tag>
-		</tags>
-		<provider>郭大喜</provider>
-		<summary></summary>
 	</bookmark>
 
 	<bookmark>
@@ -55,7 +42,8 @@
 			<tag>解析html</tag>
 		</tags>
 		<provider>郭大喜</provider>
-		<summary>jsoup 是一款 Java 的 HTML 解析器，可直接解析某个 URL 地址、HTML 文本内容。它提供了一套非常省力的 API，可通过 DOM，CSS 以及类似于 jQuery 的操作方法来取出和操作数据。本文主要介绍如何使用 jsoup 来进行常用的 HTML 解析。
+		<summary>
+			jsoup 是一款 Java 的 HTML 解析器，可直接解析某个 URL 地址、HTML 文本内容。它提供了一套非常省力的 API，可通过 DOM，CSS 以及类似于 jQuery 的操作方法来取出和操作数据。本文主要介绍如何使用 jsoup 来进行常用的 HTML 解析。
 		</summary>
 	</bookmark>
 
@@ -71,7 +59,8 @@
 			<tag>分支管理</tag>
 		</tags>
 		<provider>郭大喜</provider>
-		<summary>Git的分支管理是Git的神器。拥有了它就会使我么管理代码更加游刃有余。那么什么是Git的分支管理？为什么要使用Git的分支管理？Git分支管理怎么用？
+		<summary>
+			Git的分支管理是Git的神器。拥有了它就会使我么管理代码更加游刃有余。那么什么是Git的分支管理？为什么要使用Git的分支管理？Git分支管理怎么用？
 		</summary>
 	</bookmark>
 
@@ -106,5 +95,5 @@
 			这个插件支持许多配置参数，如表头排序样式，初始排序设置，多列排序设置等。
 		</summary>
 	</bookmark>
-
+	
 </bookmarks>
