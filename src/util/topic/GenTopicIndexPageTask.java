@@ -52,7 +52,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" +
-		"<title>Technical Library Topic List</title>"+
+		"<title>原创技术文章 Topic</title>"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\">"+
 		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+
