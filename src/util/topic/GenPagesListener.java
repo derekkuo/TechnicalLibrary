@@ -1,11 +1,12 @@
 package util.topic;
 
 
-import java.net.MalformedURLException;
 import java.util.Timer;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
+import util.bookmark.GenBookmarkIndexPageTask;
 
 public class GenPagesListener implements ServletContextListener{
     private Timer timer=null;
@@ -18,6 +19,7 @@ public class GenPagesListener implements ServletContextListener{
 
         //调用exportHistoryBean,0表示任务无延迟,5*1000表示每隔5秒执行任务,60*60*1000表示一个小时
         timer.schedule(new GenTopicIndexPageTask(event.getServletContext()), 0, 5*1000);
+        timer.schedule(new GenBookmarkIndexPageTask(event.getServletContext()), 0, 5*1000);
         //timer.schedule(new Task(), 0, 10*1000);
 
         event.getServletContext().log("任务已经添加.....");
