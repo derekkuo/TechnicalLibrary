@@ -32,7 +32,7 @@
 	</bookmark>
 
 	<bookmark>
-		<id>4</id>
+		<id>3</id>
 		<url>http://www.ibm.com/developerworks/cn/java/j-lo-jsouphtml/index.html?ca=drs-</url>
 		<title>使用 jsoup 对 HTML 文档进行解析和操作</title>
 		<resource-type>文章</resource-type>
@@ -48,7 +48,7 @@
 	</bookmark>
 
 	<bookmark>
-		<id>5</id>
+		<id>4</id>
 		<url>http://winuxxan.blog.51cto.com/2779763/508955</url>
 		<title>我也说Git分支管理 </title>
 		<resource-type>文章</resource-type>
@@ -65,7 +65,7 @@
 	</bookmark>
 
 	<bookmark>
-		<id>6</id>
+		<id>5</id>
 		<url>http://progit.org/book/zh/index.html</url>
 		<title>《Pro Git》中文版</title>
 		<resource-type>电子书</resource-type>
@@ -79,7 +79,7 @@
 	</bookmark>
 
 	<bookmark>
-		<id>7</id>
+		<id>6</id>
 		<url>http://www.cnblogs.com/hunk/archive/2008/11/22/1339037.html</url>
 		<title>jQuery表格排序组件-tablesorter</title>
 		<resource-type>文章</resource-type>
