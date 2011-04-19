@@ -5,20 +5,13 @@ p{
 	text-indent: 2em;
 }
 .ul-menu{
-	margin: 50px 0 0 130px;
-	padding: 0;
-	list-style-type: none;
-	text-indent: 1em;
-}
-.ul-menu li{
-	padding: 30px 0 0 0;
-	font-size: 15px;
-}
-.ul-plain{
-	margin: 0 0 0 20px;
-	padding: 0;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 	list-style-type: none;
 	text-indent: 2em;
+}
+.ul-menu li{
+	padding: 0 0 10px 0;
 }
 
 /* CSS Document */
