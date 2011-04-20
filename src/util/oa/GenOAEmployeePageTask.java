@@ -99,6 +99,8 @@ public class GenOAEmployeePageTask extends TimerTask {
 		
 		for(int i=0; i<keylist.size(); i++){
 			Employee employee = employees.get(keylist.get(i));
+			if("".equals(employee.getId()))
+				continue;
 			
 			pw.println("<tr>");
 			pw.println("<td class=\"row\">");
