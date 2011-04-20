@@ -1,6 +1,8 @@
 #topbar{
 	padding-top:0px;
 	padding-bottom:5px;
+	margin-left: auto;
+	margin-rignt: auto;
 }
 #topbar a{
 	text-decoration: none;

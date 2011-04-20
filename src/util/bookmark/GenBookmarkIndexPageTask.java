@@ -65,22 +65,23 @@ public class GenBookmarkIndexPageTask extends TimerTask {
 		}
 		
 		
-		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" +
-		"<title>书签|Bookmark - 技术资料库 Technical Library</title>"+
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+
-		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+
-		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+
-		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+
-		"</head>"+
-		"<div id=\"techlib-content\">"+
-		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+
-		"<div id=\"techlib-head\"><h1>书签|Bookmark</h1></div>";
+		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" + "\n" +
+		"<title>书签|Bookmark - 技术资料库 Technical Library</title>"+ "\n" +
+		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
+		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
+		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
+		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+ "\n" +
+		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+ "\n" +
+		"</head>"+ "\n" +
+		"<div id=\"techlib-body\">"+ "\n" +
+		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+ "\n" +
+		"<div id=\"techlib-head\"><h1>书签|Bookmark</h1></div>"+ "\n" +
+		"<div id=\"techlib-content\">";
 		pw.write(htmlHead);
 		
 		writeTableStyle(bookmarks);
 		
-		pw.write("</div>");
+		pw.write("</div></div>");
 		pw.flush();
 		pw.close();
 	}
