@@ -11,6 +11,17 @@ public class Bookmark {
 	private List<String> tags;
 	private String provider;
 	private String summary;
+	
+	
+	
+	public Bookmark(long id, String url, String title, String ResourceType, String summary) {
+		super();
+		this.id = id;
+		this.url = url;
+		this.title = title;
+		this.ResourceType = ResourceType;
+		this.summary = summary;
+	}
 	public Bookmark(long id, String url, String title, String resourceType,
 			String technicalType, List<String> tags, String provider,
 			String summary) {
