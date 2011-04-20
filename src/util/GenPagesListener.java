@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 
 import util.bookmark.GenBookmarkIndexPageTask;
 import util.oa.GenOABookmarkIndexPageTask;
+import util.oa.GenOAEmployeePageTask;
 import util.topic.GenTopicIndexPageTask;
 
 public class GenPagesListener implements ServletContextListener{
@@ -23,6 +24,8 @@ public class GenPagesListener implements ServletContextListener{
         timer.schedule(new GenTopicIndexPageTask(event.getServletContext()), 0, 5*1000);
         timer.schedule(new GenBookmarkIndexPageTask(event.getServletContext()), 0, 5*1000);
         timer.schedule(new GenOABookmarkIndexPageTask(event.getServletContext()), 0, 5*1000);
+        timer.schedule(new GenOAEmployeePageTask(event.getServletContext()), 0, 5*1000);
+        
         //timer.schedule(new Task(), 0, 10*1000);
 
         event.getServletContext().log("任务已经添加.....");

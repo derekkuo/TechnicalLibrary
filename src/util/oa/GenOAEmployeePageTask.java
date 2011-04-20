@@ -24,7 +24,7 @@ import org.dom4j.io.SAXReader;
 import util.bookmark.Bookmark;
 import util.topic.TopicHeader;
 
-public class GenOABookmarkIndexPageTask extends TimerTask {
+public class GenOAEmployeePageTask extends TimerTask {
 	private static boolean isRunning = false;
 	private ServletContext context;
 	private String workspacePath;
@@ -32,10 +32,10 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 	File file=null;
 	PrintWriter pw =null;
 
-	private Map<Long,Bookmark> bookmarks = new HashMap<Long,Bookmark>();
+	private Map<String,Employee> employees = new HashMap<String,Employee>();
 	
-	public GenOABookmarkIndexPageTask() {}
-	public GenOABookmarkIndexPageTask(ServletContext context) {
+	public GenOAEmployeePageTask() {}
+	public GenOAEmployeePageTask(ServletContext context) {
 		this.context = context;
 	}
 
@@ -43,18 +43,18 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 	public void run() {
 		if (!isRunning) {
 			isRunning = true;
-			System.out.println(new Date()+" 生成oa/index.html ........");
+			System.out.println(new Date()+" 生成oa/employee.html ........");
 			workspacePath = context.getInitParameter( "workspacePath" );
-			GenOABookmarkIndexPageTask gbpt = new GenOABookmarkIndexPageTask();
+			GenOAEmployeePageTask gbpt = new GenOAEmployeePageTask();
 
-			parsexml(workspacePath+context.getContextPath()+"/WebContent/oa/bookmark.xml");
+			parsexml(workspacePath+context.getContextPath()+"/WebContent/oa/employee.xml");
 			
-			String bookmarkIndexHtmlPath = workspacePath+context.getContextPath()+"/WebContent/oa/index.html";
-			gbpt.writeBookmarkIndexHtml(bookmarkIndexHtmlPath, bookmarks);
+			String bookmarkIndexHtmlPath = workspacePath+context.getContextPath()+"/WebContent/oa/employee.html";
+			gbpt.writeOAEmployeeIndexHtml(bookmarkIndexHtmlPath, employees);
 		}
 	}
 	
-	public <E> void writeBookmarkIndexHtml(String path, Map<Long, Bookmark> bookmarks){
+	public <E> void writeOAEmployeeIndexHtml(String path, Map<String, Employee> employees){
 
 		try {
 			file = new File( path );
@@ -67,7 +67,7 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 		
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" + "\n" +
-		"<title>OA System</title>"+ "\n" +
+		"<title>Employee - OA System</title>"+ "\n" +
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
 		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
@@ -76,47 +76,57 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 		"</head>"+ "\n" +
 		"<div id=\"techlib-body\">"+ "\n" +
 		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+ "\n" +
-		"<div id=\"techlib-head\"><h1>OA System</h1></div>"+ "\n" +
+		"<div id=\"techlib-head\"><h1>通讯录</h1></div>"+ "\n" +
 		"<div id=\"techlib-content\">";
 		pw.write(htmlHead);
 		
-		writeTableStyle(bookmarks);
+		writeTableStyle(employees);
 		
 		pw.write("</div></div>");
 		pw.flush();
 		pw.close();
 	}
 
-	public void writeTableStyle( Map<Long, Bookmark> bookmarks ){
-		Set set = bookmarks.keySet();
-		List<Long> keylist = new ArrayList<Long>(set);
+	public void writeTableStyle( Map<String, Employee> employees ){
+		Set set = employees.keySet();
+		List<String> keylist = new ArrayList<String>(set);
 		Collections.sort(keylist);
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">类别</th><th scope=\"col\">标题</th><th scope=\"col\">说明</th>");
+		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">姓名</th><th scope=\"col\">电话</th><th scope=\"col\">qq/msn</th><th scope=\"col\">电子邮箱</th><th scope=\"col\">说明</th>");
 		pw.println("</tr></thead><tbody>");
 		
 		for(int i=0; i<keylist.size(); i++){
-			Bookmark bookmark = bookmarks.get(keylist.get(i));
+			Employee employee = employees.get(keylist.get(i));
 			
 			pw.println("<tr>");
 			pw.println("<td class=\"row\">");
-			pw.println(bookmark.getId());
+			pw.println(employee.getId());
 			pw.println("</td>");
 
 			pw.println("<td class=\"row\">");
-			pw.println(bookmark.getResourceType());
-			pw.println("</td>");
-			
-			pw.println("<td class=\"row\">");
-			pw.println( "<a target=\"_blank\" href=\""+bookmark.getUrl()+"\" "+"title=\""+bookmark.getUrl()+"\">"+bookmark.getTitle()+"</a>" );
-
+			pw.println(employee.getName());
 			pw.println("</td>");
 			
 			pw.println("<td class=\"row\">");
-			pw.println( bookmark.getSummary());
+			pw.println(employee.getPhone());
+			pw.println("</td>");
 
+			pw.println("<td class=\"row\">");
+			pw.println(employee.getQqMsn());
+			pw.println("</td>");
+
+			pw.println("<td class=\"row\">");
+			pw.println(employee.getEmail());
+			pw.println("</td>");
+			
+			
+			pw.println("<td class=\"row\">");
+			if("".equals(employee.getSummary()))
+				pw.println( "&nbsp;");
+			else
+				pw.println( employee.getSummary());
 			pw.println("</td>");
 		
 			pw.println("</tr>");
@@ -125,27 +135,32 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 	}
 
 	public void parsexml(String filePath) {
-		
+
 		SAXReader reader = new SAXReader();
 		try {
 			Document doc = reader.read(new File( filePath ));
-			List list = doc.selectNodes("/bookmarks/bookmark");
+			List list = doc.selectNodes("/employees/employee");
 			for (int i = 0; i < list.size(); i++) {
 				Element e1 = (Element) list.get(i);
 				Element id = (Element) e1.selectSingleNode("id");
-				Element url = (Element) e1.selectSingleNode("url");
-				Element title = (Element) e1.selectSingleNode("title");
-				Element resourceType = (Element) e1.selectSingleNode("resource-type");
+				Element name = (Element) e1.selectSingleNode("name");
+				Element phone = (Element) e1.selectSingleNode("phone");
+				Element qqMsn = (Element) e1.selectSingleNode("qq-msn");
+				Element email = (Element) e1.selectSingleNode("email");
 				Element summary = (Element) e1.selectSingleNode("summary");
 
-				Bookmark bookmark = new Bookmark(Long.parseLong(id.getText().trim()),
-						url.getText().trim(),
-						title.getText().trim(),
-						resourceType.getText().trim(),
+				Employee employee = new Employee(
+						id.getText().trim(),
+						name.getText().trim(),
+						phone.getText().trim(),
+						qqMsn.getText().trim(),
+						email.getText().trim(),
 						summary.getText().trim()
-				); 
-				bookmarks.put(Long.parseLong(id.getText()),bookmark);
-//				System.out.println(bookmark);
+				);
+				
+
+				employees.put(id.getText().trim(),employee);
+//				System.out.println(employees);
 				
 			}
 		} catch (DocumentException e) {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT employees (employee*) > 
+<!ELEMENT employee (id,name,phone,qq-msn,email,summary) >
+<!ELEMENT id (#PCDATA) >
+<!ELEMENT name (#PCDATA) >
+<!ELEMENT phone (#PCDATA) >
+<!ELEMENT qq-msn (#PCDATA) >
+<!ELEMENT email (#PCDATA) >
+<!ELEMENT summary (#PCDATA) >

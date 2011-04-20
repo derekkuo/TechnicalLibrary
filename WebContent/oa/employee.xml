@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Employee SYSTEM "employee.dtd">
+<employees>
+
+	<employee>
+		<id>BJ0455</id>
+		<name>胡秭江</name>
+		<phone>13671160373</phone>
+		<qq-msn>463293982</qq-msn>
+		<email>huzj@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
+	<employee>
+		<id>BJ0043</id>
+		<name>郭大喜</name>
+		<phone>13911607119</phone>
+		<qq-msn>1069423425</qq-msn>
+		<email>guodx@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
+
+</employees>
