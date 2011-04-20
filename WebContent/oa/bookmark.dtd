@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Bookmarks (bookmark*) > 
+<!ELEMENT bookmark (id,url,title,resource-type,summary) >
+<!ELEMENT id (#PCDATA) >
+<!ELEMENT url (#PCDATA) >
+<!ELEMENT title (#PCDATA) >
+<!ELEMENT resource-type (#PCDATA) >
+<!ELEMENT summary (#PCDATA) >
