@@ -93,6 +93,40 @@
 		<email>liull@tarena.com.cn</email>
 		<summary></summary>
 	</employee>
+	
+	<employee> 
+		<id>BJ0010</id>
+		<name>项目部</name>
+		<phone>62135687-886</phone>
+		<qq-msn>84517335</qq-msn>
+		<email>bjxiangmu@tarena.com.cn</email>
+		<summary>QQ群号</summary>
+	</employee>
 
+	<employee> 
+		<id>BJ0001</id>
+		<name>骆杰</name>
+		<phone>15201180616</phone>
+		<qq-msn></qq-msn>
+		<email>luojie@tarena.com.cn</email>
+		<summary>MIS平台</summary>
+	</employee>
 
+	<employee> 
+		<id>BJ0002</id>
+		<name>韩学飞</name>
+		<phone>13488762919</phone>
+		<qq-msn></qq-msn>
+		<email>hanxf@tarena.com.cn</email>
+		<summary>MIS硬件</summary>
+	</employee>
+
+	<employee> 
+		<id>BJ0003</id>
+		<name>马景刚</name>
+		<phone>13120075421</phone>
+		<qq-msn></qq-msn>
+		<email>majg@tarena.com.cn</email>
+		<summary>MIS晚班</summary>
+	</employee>
 </employees>
