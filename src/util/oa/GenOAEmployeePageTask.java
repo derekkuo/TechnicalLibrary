@@ -94,7 +94,7 @@ public class GenOAEmployeePageTask extends TimerTask {
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\">序号</th><th scope=\"col\">编号</th><th scope=\"col\">姓名</th><th scope=\"col\">电话</th><th scope=\"col\">qq/msn</th><th scope=\"col\">电子邮箱</th><th scope=\"col\">说明</th>");
+		pw.println("<th scope=\"col\">序号</th><th scope=\"col\">编号</th><th scope=\"col\">姓名</th><th scope=\"col\">电话</th><th scope=\"col\">电子邮箱</th><th scope=\"col\">qq/msn</th><th scope=\"col\">说明</th>");
 		pw.println("</tr></thead><tbody>");
 		
 		for(int i=0; i<keylist.size(); i++){
@@ -121,12 +121,19 @@ public class GenOAEmployeePageTask extends TimerTask {
 			pw.println(employee.getPhone());
 			pw.println("</td>");
 
-			pw.println("<td class=\"row\">");
-			pw.println(employee.getQqMsn());
-			pw.println("</td>");
+
 
 			pw.println("<td class=\"row\">");
+			pw.println("<a title=\"给他/她发邮件\" href=\"mailto:"+employee.getEmail()+"?Subject=Hello\">");
 			pw.println(employee.getEmail());
+			pw.println("</a></td>");
+			
+
+			pw.println("<td class=\"row\">");
+			if( employee.getQqMsn().indexOf("@") == -1)
+				pw.println( "<a alt=\"点击这里给我发消息\" title=\"点击这里给我发消息\" target=\"_blank\" href=\"http://wpa.qq.com/msgrd?v=3&uin="+employee.getQqMsn()+"&site=qq&menu=yes\"><img border=\"0\" src=\"http://wpa.qq.com/pa?p=2:"+employee.getQqMsn()+":45\"> "+employee.getQqMsn()+"</a>" );
+			else
+				pw.println( employee.getQqMsn() );
 			pw.println("</td>");
 			
 			
