@@ -124,9 +124,16 @@ public class GenOAEmployeePageTask extends TimerTask {
 
 
 			pw.println("<td class=\"row\">");
-			pw.println("<a title=\"给 "+employee.getName()+" 发邮件\" href=\"mailto:"+employee.getEmail()+"?Subject=Hello\">");
-			pw.println(employee.getEmail());
-			pw.println("</a></td>");
+			if(employee.getEmail().indexOf("bj")==-1){
+				pw.println("<a title=\"给 "+employee.getName()+" 发邮件\" href=\"mailto:"+employee.getEmail()+"?Subject=Hello\">");
+				pw.println(employee.getEmail());
+				pw.println("</a></td>");
+			}else{
+				pw.println("<strong><a title=\"给 "+employee.getName()+" 发邮件\" href=\"mailto:"+employee.getEmail()+"?Subject=Hello\">");
+				pw.println(employee.getEmail());
+				pw.println("</a></strong></td>");				
+			}
+
 			
 
 			pw.println("<td class=\"row\">");
