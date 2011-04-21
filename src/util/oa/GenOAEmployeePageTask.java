@@ -137,8 +137,12 @@ public class GenOAEmployeePageTask extends TimerTask {
 			
 
 			pw.println("<td class=\"row\">");
-			if( employee.getQqMsn().indexOf("@") != -1 || "".equals(employee.getQqMsn()))
-				pw.println( employee.getQqMsn() );
+			if( employee.getQqMsn().indexOf("@") != -1 || "".equals(employee.getQqMsn())){
+				if("".equals(employee.getQqMsn()))
+					pw.println( "&nbsp;" );
+				else
+					pw.println( employee.getQqMsn() );				
+			}
 			else
 				pw.println( "<a alt=\"点击这里给 "+employee.getName()+" 发QQ消息\" title=\"点击这里给 "+employee.getName()+" 发QQ消息\" target=\"_blank\" href=\"http://wpa.qq.com/msgrd?v=3&uin="+employee.getQqMsn()+"&site=qq&menu=yes\"><img border=\"0\" src=\"http://wpa.qq.com/pa?p=2:"+employee.getQqMsn()+":45\"> "+employee.getQqMsn()+"</a>" );
 			pw.println("</td>");
