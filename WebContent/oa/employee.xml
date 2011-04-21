@@ -32,7 +32,7 @@
 
 
 	<employee>
-		<id>BJ0494</id>
+		<id>BJ0484</id>
 		<name>姜延鑫</name>
 		<phone>13120075394</phone>
 		<qq-msn>734277241</qq-msn>
@@ -50,11 +50,11 @@
 	</employee>
 
 	<employee>
-		<id>BJ0455</id>
-		<name>胡秭江</name>
-		<phone>13671160373</phone>
-		<qq-msn>463293982</qq-msn>
-		<email>huzj@tarena.com.cn</email>
+		<id>BJ0463</id>
+		<name>滕宝鑫</name>
+		<phone>13201014213</phone>
+		<qq-msn>1239870007</qq-msn>
+		<email>tengbx@tarena.com.cn</email>
 		<summary></summary>
 	</employee>
 
@@ -64,6 +64,33 @@
 		<phone>13031169141</phone>
 		<qq-msn>1464029559</qq-msn>
 		<email>bjguojian@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
+	<employee>
+		<id>BJ0527</id>
+		<name>张月</name>
+		<phone>18210324847</phone>
+		<qq-msn>870583862</qq-msn>
+		<email>zhangyue@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
+	<employee>
+		<id>BJ1000</id>
+		<name>岳城阳</name>
+		<phone>15503847570</phone>
+		<qq-msn></qq-msn>
+		<email>yuecy@tarena.com.cn</email>
+		<summary>商丘</summary>
+	</employee>
+	
+	<employee> 
+		<id>BJ0483</id>
+		<name>刘兰兰</name>
+		<phone>13161560630</phone>
+		<qq-msn>840618287</qq-msn>
+		<email>liull@tarena.com.cn</email>
 		<summary></summary>
 	</employee>
 
