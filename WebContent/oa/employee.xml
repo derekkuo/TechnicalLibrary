@@ -21,12 +21,51 @@
 	</employee>
 
 	<employee>
-		<id></id>
+		<id>BJ0515</id>
+		<name>叶朋</name>
+		<phone>13718868826</phone>
+		<qq-msn>88956911</qq-msn>
+		<email>yepeng@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
+
+
+	<employee>
+		<id>BJ0494</id>
+		<name>姜延鑫</name>
+		<phone>13120075394</phone>
+		<qq-msn>734277241</qq-msn>
+		<email>jiangyx@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
+	<employee>
+		<id>BJ0539</id>
+		<name>董正</name>
+		<phone>15110092126</phone>
+		<qq-msn>724781393</qq-msn>
+		<email>dongzheng@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
+	<employee>
+		<id>BJ0455</id>
 		<name>胡秭江</name>
 		<phone>13671160373</phone>
 		<qq-msn>463293982</qq-msn>
 		<email>huzj@tarena.com.cn</email>
 		<summary></summary>
 	</employee>
+
+	<employee>
+		<id>BJ0540</id>
+		<name>郭健</name>
+		<phone>13031169141</phone>
+		<qq-msn>1464029559</qq-msn>
+		<email>bjguojian@tarena.com.cn</email>
+		<summary></summary>
+	</employee>
+
 
 </employees>

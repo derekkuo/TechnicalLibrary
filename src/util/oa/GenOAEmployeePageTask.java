@@ -94,7 +94,7 @@ public class GenOAEmployeePageTask extends TimerTask {
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">姓名</th><th scope=\"col\">电话</th><th scope=\"col\">qq/msn</th><th scope=\"col\">电子邮箱</th><th scope=\"col\">说明</th>");
+		pw.println("<th scope=\"col\">序号</th><th scope=\"col\">编号</th><th scope=\"col\">姓名</th><th scope=\"col\">电话</th><th scope=\"col\">qq/msn</th><th scope=\"col\">电子邮箱</th><th scope=\"col\">说明</th>");
 		pw.println("</tr></thead><tbody>");
 		
 		for(int i=0; i<keylist.size(); i++){
@@ -103,6 +103,12 @@ public class GenOAEmployeePageTask extends TimerTask {
 				continue;
 			
 			pw.println("<tr>");
+
+			pw.println("<td class=\"row\">");
+			pw.println(i+1);
+			pw.println("</td>");
+
+			
 			pw.println("<td class=\"row\">");
 			pw.println(employee.getId());
 			pw.println("</td>");
