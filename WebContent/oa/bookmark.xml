@@ -4,18 +4,11 @@
 
 	<bookmark>
 		<id>1</id>
-		<url>http://sps.tarena.com.cn</url>
+		<url>http://sps.tarena.com.cn/sites/student/Lists/List/AllItems.aspx</url>
 		<title>机器故障申报系统</title>
-		<resource-type>链接</resource-type>
+		<resource-type>故障</resource-type>
 		<summary>
-			班级中如果有电脑、鼠标、键盘等出现故障时使用。在线申报系统
-			步骤：1 使用个人的邮箱号可以登录；
-				 2 左侧"在线申报系统"；
-				 3 "学生故障登录"；
-				 4 "新建项目"；
-				 5 故障申报人要写发生故障机器的学生名；
-				 6 将红色"*"全部填写；
-				 7 保存并关闭；
+			学员电脑，如有主机、鼠标、键盘等硬件故障或无法联通网络，可添加故障申报
 			http://sps.tarena.com.cn
 		</summary>
 	</bookmark>
@@ -24,11 +17,10 @@
 		<id>2</id>
 		<url>\\192.168.0.100</url>
 		<title>文件服务器\\192.168.0.100</title>
-		<resource-type>链接</resource-type>
+		<resource-type>文件共享</resource-type>
 		<summary>
-			在运行中输入\\192.168.0.100。这个路径大家常说为100。
-			大家常用的文件夹有：公共文件夹、项目部。可能会用到"软件"文件夹。
-			如果现在进不去项目部，说明需要找MIS部更改下权限。
+			在运行中输入\\192.168.0.100。
+			常用文件夹有：公共文件夹、项目部、软件。
 		</summary>
 	</bookmark>
 
@@ -36,7 +28,7 @@
 		<id>3</id>
 		<url>http://192.168.0.236:8088/poll</url>
 		<title>讲师评价系统</title>
-		<resource-type>链接</resource-type>
+		<resource-type>评价</resource-type>
 		<summary>
 			http://192.168.0.236:8088/poll
 		</summary>
@@ -46,7 +38,7 @@
 		<id>4</id>
 		<url>http://192.168.0.236:8088/xmjl_poll</url>
 		<title>项目经理评价系统</title>
-		<resource-type>链接</resource-type>
+		<resource-type>评价</resource-type>
 		<summary>
 			http://192.168.0.236:8088/xmjl_poll
 		</summary>
@@ -56,10 +48,10 @@
 		<id>5</id>
 		<url>http://mail.tarena.com.cn/exchange</url>
 		<title>达内邮件服务器系统</title>
-		<resource-type>链接</resource-type>
+		<resource-type>邮件</resource-type>
 		<summary>
+			网络在线访问邮箱，邮件或定期清除，因此要求大家使用Outlook2007专业邮箱软件。
 			http://mail.tarena.com.cn/exchange。
-			可以登录公司分配的个人邮箱。(登录邮箱的另一种方式是使用Outlook2007等专业工具)
 		</summary>
 	</bookmark>
 
@@ -67,7 +59,7 @@
 		<id>6</id>
 		<url>http://student.tarena.com.cn</url>
 		<title>学生考试系统</title>
-		<resource-type>链接</resource-type>
+		<resource-type>学员</resource-type>
 		<summary>
 			http://student.tarena.com.cn
 		</summary>
@@ -75,13 +67,12 @@
 
 	<bookmark>
 		<id>7</id>
-		<url>邮件规范-v0.3.pdf</url>
-		<title>邮件规范-v0.3.pdf</title>
-		<resource-type>文件</resource-type>
+		<url>\\192.168.0.100\项目部\常用表格和文档（员工）\邮件通讯相关</url>
+		<title>邮件规范-v0.3</title>
+		<resource-type>邮件</resource-type>
 		<summary>
-			职场人士，做事必须职业化、规范化。项目经理这个职位，
-			邮件沟通是最频繁和最基本的日常工作。部门职业化的体现，
-			在于大家职业化的体现，在于日常工作中的体现，在于邮件的体现。
+			职场人士，做事必须职业化、规范化。
+			\\192.168.0.100\项目部\常用表格和文档（员工）\邮件通讯相关
 		</summary>
 	</bookmark>
 
