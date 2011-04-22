@@ -1,7 +1,10 @@
 package util.oa;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -50,11 +53,11 @@ public class GenOAEmployeePageTask extends TimerTask {
 			parsexml(workspacePath+context.getContextPath()+"/WebContent/oa/employee.xml");
 			
 			String bookmarkIndexHtmlPath = workspacePath+context.getContextPath()+"/WebContent/oa/employee.html";
-			gbpt.writeOAEmployeeIndexHtml(bookmarkIndexHtmlPath, employees);
+			gbpt.writeOAEmployeeIndexHtml(bookmarkIndexHtmlPath, employees, context);
 		}
 	}
 	
-	public <E> void writeOAEmployeeIndexHtml(String path, Map<String, Employee> employees){
+	public <E> void writeOAEmployeeIndexHtml(String path, Map<String, Employee> employees,  ServletContext context){
 
 		try {
 			file = new File( path );
@@ -67,22 +70,39 @@ public class GenOAEmployeePageTask extends TimerTask {
 		
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" + "\n" +
-		"<title>Employee - OA System</title>"+ "\n" +
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+ "\n" +
-		"</head>"+ "\n" +
-		"<div id=\"techlib-body\">"+ "\n" +
-		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+ "\n" +
-		"<div id=\"techlib-head\"><h1>通讯录</h1></div>"+ "\n" +
-		"<div id=\"techlib-content\">";
+		"<title>通讯录|AddressList</title>"+ "\n";
+//		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
+//		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+ "\n" +
+//		"</head>"+ "\n" +
+//		"<div id=\"techlib-body\">"+ "\n" +
+//		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+ "\n" +
+//		"<div id=\"techlib-head\"><h1>通讯录</h1></div>"+ "\n" +
+//		"<div id=\"techlib-content\">";
 		pw.write(htmlHead);
+		
+		InputStream is = context.getResourceAsStream( "/oa/oa-htmlhead.html" );
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		String strLine = null;
+		try {
+			br= new BufferedReader( new InputStreamReader( is,"utf-8") );
+			while( (strLine = br.readLine()) != null){
+				sb.append(strLine);
+				sb.append("\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		pw.println(sb.toString());
+		
+		pw.println("<div id=\"techlib-head\"><h1>通讯录|AddressList</h1></div>");
 		
 		writeTableStyle(employees);
 		
-		pw.write("</div></div>");
+		pw.write("</div>");
 		pw.flush();
 		pw.close();
 	}

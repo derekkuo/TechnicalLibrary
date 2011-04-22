@@ -1,9 +1,13 @@
 package util.oa;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -22,13 +26,12 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import util.bookmark.Bookmark;
-import util.topic.TopicHeader;
 
 public class GenOABookmarkIndexPageTask extends TimerTask {
 	private static boolean isRunning = false;
 	private ServletContext context;
 	private String workspacePath;
-
+	private String contextPath;
 	File file=null;
 	PrintWriter pw =null;
 
@@ -44,17 +47,22 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 		if (!isRunning) {
 			isRunning = true;
 			System.out.println(new Date()+" 生成oa/index.html ........");
+
+			
 			workspacePath = context.getInitParameter( "workspacePath" );
 			GenOABookmarkIndexPageTask gbpt = new GenOABookmarkIndexPageTask();
 
 			parsexml(workspacePath+context.getContextPath()+"/WebContent/oa/bookmark.xml");
+
+
 			
-			String bookmarkIndexHtmlPath = workspacePath+context.getContextPath()+"/WebContent/oa/index.html";
-			gbpt.writeBookmarkIndexHtml(bookmarkIndexHtmlPath, bookmarks);
+			String bookmarkIndexHtmlPath = workspacePath+context.getContextPath()+"/WebContent/oa/bookmark.html";
+
+			gbpt.writeBookmarkIndexHtml(bookmarkIndexHtmlPath, bookmarks, context);
 		}
 	}
 	
-	public <E> void writeBookmarkIndexHtml(String path, Map<Long, Bookmark> bookmarks){
+	public <E> void writeBookmarkIndexHtml(String path, Map<Long, Bookmark> bookmarks, ServletContext context){
 
 		try {
 			file = new File( path );
@@ -65,20 +73,38 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 			e.printStackTrace();
 		}
 		
-		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" + "\n" +
-		"<title>OA System</title>"+ "\n" +
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+ "\n" +
-		"</head>"+ "\n" +
-		"<div id=\"techlib-body\">"+ "\n" +
-		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+ "\n" +
-		"<div id=\"techlib-head\"><h1>OA System</h1></div>"+ "\n" +
-		"<div id=\"techlib-content\">";
+		"<title>常用链接|Bookmark</title>"+ "\n";
+//		htmlHead = htmlHead +
+//		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
+//		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+ "\n" +
+//		"</head>"+ "\n" +
+//		"<div id=\"techlib-body\">"+ "\n" +
+//		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+ "\n" +
+//		"<div id=\"techlib-head\"><h1>OA System</h1></div>"+ "\n" +
+//		"<div id=\"techlib-content\">";
 		pw.write(htmlHead);
+
+		InputStream is = context.getResourceAsStream( "/oa/oa-htmlhead.html" );
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		String strLine = null;
+		try {
+			br= new BufferedReader( new InputStreamReader( is,"utf-8") );
+			while( (strLine = br.readLine()) != null){
+				sb.append(strLine);
+				sb.append("\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		pw.println(sb.toString());
+		
+		pw.println("<div id=\"techlib-head\"><h1>常用链接|Bookmark</h1></div>");
+		
 		
 		writeTableStyle(bookmarks);
 		
