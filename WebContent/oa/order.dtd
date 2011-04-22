@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT orders (order*) > 
+<!ELEMENT order (id,name,summary,items) >
+<!ELEMENT id (#PCDATA) >
+<!ELEMENT name (#PCDATA) >
+<!ELEMENT summary (#PCDATA) >
+<!ELEMENT items (item*) >
+<!ELEMENT item ( product-name, product-type, amount ) >
+<!ELEMENT product-name (#PCDATA) >
+<!ELEMENT product-type (#PCDATA) >
+<!ELEMENT amount (#PCDATA) >

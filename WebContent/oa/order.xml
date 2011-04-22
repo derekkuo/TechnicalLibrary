@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Order SYSTEM "order.dtd">
+<orders>
+	<order>
+		<id>BJ0043</id>
+		<name>郭大喜</name>
+		<summary>申请物品用于储备</summary>
+		<items>
+			<item>
+				<product-name>签字笔</product-name>
+				<product-type></product-type>
+				<amount>2</amount>
+			</item>
+			<item>
+				<product-name>笔记本</product-name>
+				<product-type></product-type>
+				<amount>3</amount>
+			</item>
+		</items>
+	</order>
+
+	<order>
+		<id>BJ0455</id>
+		<name>胡秭江</name>
+		<summary></summary>
+		<items>
+			<item>
+				<product-name>签字笔</product-name>
+				<product-type></product-type>
+				<amount>2</amount>
+			</item>
+			<item>
+				<product-name>笔记本</product-name>
+				<product-type></product-type>
+				<amount>3</amount>
+			</item>
+			<item>
+				<product-name>胶棒</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+		</items>
+	</order>
+
+</orders>
