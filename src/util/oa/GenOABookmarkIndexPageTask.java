@@ -141,8 +141,8 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 			pw.println("</td>");
 			
 			pw.println("<td class=\"row\">");
-			pw.println( bookmark.getSummary());
-
+			pw.println( "<a target=\"_blank\" href=\""+bookmark.getUrl()+"\" "+"title=\""+bookmark.getUrl()+"\">"+bookmark.getSummary()+"</a>" );
+			
 			pw.println("</td>");
 		
 			pw.println("</tr>");

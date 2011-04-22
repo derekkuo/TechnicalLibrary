@@ -8,24 +8,24 @@
 		<title>机器故障申报系统</title>
 		<resource-type>故障</resource-type>
 		<summary>
-			学员电脑，如有主机、鼠标、键盘等硬件故障或无法联通网络，可添加故障申报
-			http://sps.tarena.com.cn
-		</summary>
-	</bookmark>
-
-	<bookmark>
-		<id>2</id>
-		<url>\\192.168.0.100</url>
-		<title>文件服务器\\192.168.0.100</title>
-		<resource-type>文件共享</resource-type>
-		<summary>
-			在运行中输入\\192.168.0.100。
-			常用文件夹有：公共文件夹、项目部、软件。
+			http://sps.tarena.com.cn&lt;br&gt;
+			学员电脑，主机、鼠标、键盘等硬件故障，还有无法联通网络，可添加申报
 		</summary>
 	</bookmark>
 
 	<bookmark>
 		<id>3</id>
+		<url>\\192.168.0.100</url>
+		<title>文件服务器&lt;br&gt;\\192.168.0.100</title>
+		<resource-type>文件共享</resource-type>
+		<summary>
+			运行中输入\\192.168.0.100&lt;br&gt;
+			常用文件夹有：公共文件夹、项目部、软件。
+		</summary>
+	</bookmark>
+
+	<bookmark>
+		<id>6</id>
 		<url>http://192.168.0.236:8088/poll</url>
 		<title>讲师评价系统</title>
 		<resource-type>评价</resource-type>
@@ -35,7 +35,7 @@
 	</bookmark>
 
 	<bookmark>
-		<id>4</id>
+		<id>7</id>
 		<url>http://192.168.0.236:8088/xmjl_poll</url>
 		<title>项目经理评价系统</title>
 		<resource-type>评价</resource-type>
@@ -45,18 +45,18 @@
 	</bookmark>
 
 	<bookmark>
-		<id>5</id>
+		<id>4</id>
 		<url>http://mail.tarena.com.cn/exchange</url>
 		<title>达内邮件服务器系统</title>
 		<resource-type>邮件</resource-type>
 		<summary>
-			网络在线访问邮箱，邮件或定期清除，因此要求大家使用Outlook2007专业邮箱软件。
-			http://mail.tarena.com.cn/exchange。
+			http://mail.tarena.com.cn/exchange&lt;br&gt;
+			在线访问邮箱。服务器会定期清除邮件，要求大家使用Outlook2007软件。
 		</summary>
 	</bookmark>
 
 	<bookmark>
-		<id>6</id>
+		<id>2</id>
 		<url>http://student.tarena.com.cn</url>
 		<title>学生考试系统</title>
 		<resource-type>学员</resource-type>
@@ -66,13 +66,13 @@
 	</bookmark>
 
 	<bookmark>
-		<id>7</id>
+		<id>5</id>
 		<url>\\192.168.0.100\项目部\常用表格和文档（员工）\邮件通讯相关</url>
 		<title>邮件规范-v0.3</title>
 		<resource-type>邮件</resource-type>
 		<summary>
-			职场人士，做事必须职业化、规范化。
-			\\192.168.0.100\项目部\常用表格和文档（员工）\邮件通讯相关
+			\\192.168.0.100\项目部\常用表格和文档（员工）\邮件通讯相关&lt;br&gt;
+			职场人士，做事必须职业化、规范化
 		</summary>
 	</bookmark>
 
