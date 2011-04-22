@@ -74,7 +74,7 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 		}
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" + "\n" +
-		"<title>常用链接|Bookmark</title>"+ "\n";
+		"<title>常用链接</title>"+ "\n";
 //		htmlHead = htmlHead +
 //		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
 //		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
@@ -103,7 +103,7 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 		}
 		pw.println(sb.toString());
 		
-		pw.println("<div id=\"techlib-head\"><h1>常用链接|Bookmark</h1></div>");
+		pw.println("<div id=\"techlib-head\"><h1>常用链接</h1></div>");
 		
 		
 		writeTableStyle(bookmarks);

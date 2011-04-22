@@ -70,7 +70,7 @@ public class GenOAEmployeePageTask extends TimerTask {
 		
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" + "\n" +
-		"<title>通讯录|AddressList</title>"+ "\n";
+		"<title>通讯录</title>"+ "\n";
 //		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\"></link>"+ "\n" +
 //		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\"></link>"+ "\n" +
 //		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
@@ -98,7 +98,7 @@ public class GenOAEmployeePageTask extends TimerTask {
 		}
 		pw.println(sb.toString());
 		
-		pw.println("<div id=\"techlib-head\"><h1>通讯录|AddressList</h1></div>");
+		pw.println("<div id=\"techlib-head\"><h1>通讯录</h1></div>");
 		
 		writeTableStyle(employees);
 		
