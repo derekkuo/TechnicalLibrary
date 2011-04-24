@@ -16,15 +16,27 @@ p{
 
 /* CSS Document */
 body {
-	font: normal 14px auto "Trebuchet MS", Verdana, Arial, Helvetica,
-		sans-serif;
+	font: 14px normal \5FAE\8F6F\96C5\9ED1,Verdana, Arial, Helvetica, sans-serif;
 	margin-top:0px;
 	padding-top:0px;
 	background-color: #f0f0f0;
 }
 
-H1{ font-size: 26px; font-weight: bold; margin-top:5px; margin-bottom: 2px;}
-
+#techlib-head h1{
+	font-size: 20px;
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+h2{
+	font-size: 16px;
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+h3{
+	font-size: 16px;
+	font-weight: normal;
+	margin-bottom: 10px;
+}
 div{
 	margin: 0 0 0 0;
 	padding: 0 0 0 0:
@@ -46,11 +58,7 @@ div{
 	padding-right: 10px;
 	background-color: white;
 }
-#techlib-head h1{
-	font-size: 20px;
-	font-weight: normal;
-	margin-bottom: 10px;
-}
+
 #techlib-content,#techlib-head{
 	background-color: white;
 }

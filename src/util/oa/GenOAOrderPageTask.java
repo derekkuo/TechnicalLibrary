@@ -95,10 +95,93 @@ public class GenOAOrderPageTask extends TimerTask {
 		pw.close();
 	}
 
+	public Map<String, Item> gatherOrdersProducts(Map<String, Order> orders){
+		Map<String, Item> result = new HashMap<String, Item>();
+
+		Set set = orders.keySet();
+		Iterator it = set.iterator();
+		List<String> keyList = new ArrayList<String>(set);
+		Collections.sort(keyList);
+		while(it.hasNext()){
+			Order order = (Order)orders.get( it.next() );
+			List<Item> itemList = order.getItems();
+			Iterator itItemList = itemList.iterator();
+			while(itItemList.hasNext()){
+				Item item = (Item)itItemList.next();
+				String key = item.getProductName();
+				if( result.containsKey( key ) ){
+					Item containItem = result.get(key);
+					Item newItem = new Item(
+							containItem.getProductName(),
+							containItem.getProductType(),
+							containItem.getAmount()+item.getAmount());
+
+					result.put(key, newItem);
+				}else{
+					result.put(key, item);
+				}
+			}
+		}
+		
+		return result;
+	}
+	
 	public void writeTableStyle( Map<String, Order> orders ){
 		Set set = orders.keySet();
 		List<String> keylist = new ArrayList<String>(set);
 		Collections.sort(keylist);
+		
+		
+		
+		/*****************************汇总******************/
+		Map<String, Item> result = gatherOrdersProducts(orders);
+		pw.println("<h2>汇总</h2>");
+		pw.println("<table id=\"gathertable\" cellspacing=\"0\">");
+
+		pw.println("<thead><tr>");
+		pw.println("<th scope=\"col\">序号</th>" +
+				"<th scope=\"col\">物品名称</th>" +
+				"<th scope=\"col\">规格及型号</th>" +
+				"<th scope=\"col\">数量</th>");
+		pw.println("</tr></thead><tbody>");
+		
+		Set resultKeySet = result.keySet();
+		List<String> resultkeyList = new ArrayList<String>(resultKeySet);
+		Collections.sort(resultkeyList);
+		Iterator<String> resultIt = resultkeyList.iterator();
+		int resultNumber = 1;
+		while(resultIt.hasNext()){
+			Item item = result.get(resultIt.next());
+			pw.println("<tr>");
+
+			pw.println("<td class=\"row\">");
+			pw.println( resultNumber++ );
+			pw.println("</td>");
+
+			pw.println("<td class=\"row\">");
+			pw.println( item.getProductName() );
+			pw.println("</td>");
+
+			pw.println("<td class=\"row\">");
+			if("".equals( item.getProductType() ))
+				pw.println( "&nbsp;" );
+			else
+				pw.println( item.getProductType() );
+			pw.println("</td>");
+
+			pw.println("<td class=\"row\">");
+			pw.println( item.getAmount() );
+			pw.println("</td>");
+			
+			pw.println("</tr>");
+		}
+		
+		
+		pw.println("</tbody></table>");
+
+		
+		/*******************办公用品详情*********************/
+		pw.println("<h2>详情</h2>");
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 
 		pw.println("<thead><tr>");
@@ -138,7 +221,10 @@ public class GenOAOrderPageTask extends TimerTask {
 				pw.println("</td>");
 				
 				pw.println("<td class=\"row\">");
-				pw.println( item.getProductType() );
+				if("".equals( item.getProductType() ))
+					pw.println( "&nbsp;" );
+				else
+					pw.println( item.getProductType() );
 				pw.println("</td>");				
 
 				pw.println("<td class=\"row\">");
@@ -152,7 +238,10 @@ public class GenOAOrderPageTask extends TimerTask {
 				pw.println("</td>");
 				
 				pw.println("<td class=\"row\">");
-				pw.println( order.getSummary() );
+				if("".equals(order.getSummary()))
+					pw.println("&nbsp;");
+				else
+					pw.println( order.getSummary() );
 				pw.println("</td>");
 			
 				pw.println("</tr>");

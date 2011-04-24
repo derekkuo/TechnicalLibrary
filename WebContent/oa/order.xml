@@ -2,9 +2,9 @@
 <!DOCTYPE Order SYSTEM "order.dtd">
 <orders>
 	<order>
-		<id>BJ0043</id>
-		<name>郭大喜</name>
-		<summary>申请物品用于储备</summary>
+		<id>BJ0043</id>				<!-- 员工号 -->
+		<name>郭大喜</name>			<!-- 姓名 -->
+		<summary>申请物品用于储备</summary>		<!-- 备注/说明 -->
 		<items>
 			<item>
 				<product-name>签字笔</product-name>
@@ -27,19 +27,56 @@
 			<item>
 				<product-name>签字笔</product-name>
 				<product-type></product-type>
-				<amount>2</amount>
+				<amount>1</amount>
 			</item>
 			<item>
 				<product-name>笔记本</product-name>
 				<product-type></product-type>
-				<amount>3</amount>
+				<amount>1</amount>
 			</item>
 			<item>
 				<product-name>胶棒</product-name>
+				<product-type></product-type>
+				<amount>2</amount>
+			</item>
+		</items>
+	</order>
+
+
+	<order>
+		<id>BJ0452</id>
+		<name>李二</name>
+		<summary></summary>
+		<items>
+			<item>
+				<product-name>签字笔</product-name>
+				<product-type></product-type>
+				<amount>2</amount>
+			</item>
+			<item>
+				<product-name>铅笔</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>文件夹</product-name>
 				<product-type></product-type>
 				<amount>1</amount>
 			</item>
 		</items>
 	</order>
-
+	
+	
+	<order>
+		<id>BJ0451</id>
+		<name>张三</name>
+		<summary></summary>
+		<items>
+			<item>
+				<product-name>签字笔</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+		</items>
+	</order>
 </orders>
