@@ -2,6 +2,7 @@ package util.topic;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -14,9 +15,11 @@ import javax.servlet.ServletContext;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import util.HtmlUtil;
+
 public class GenTopicIndexPageTask extends TimerTask {
 	private static boolean isRunning = false;
-	private ServletContext context;
+	private static ServletContext context;
 	private String workspacePath;
 	File file=null;
 	PrintWriter pw =null;
@@ -52,18 +55,23 @@ public class GenTopicIndexPageTask extends TimerTask {
 		
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n" +
-		"<title>文章|Topic - 技术资料库 Technical Library</title>"+  "\n" +
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+ "\n" +
-		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\">"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+ "\n" +
-		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+ "\n" +
-		"</head>"+ "\n" +
-		"<div id=\"techlib-body\">"+ "\n" +
-		"<div id=\"topbar\"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href=\"../index.html\">首页|Home</a>&nbsp;&nbsp;<a href=\"../topic/index.html\">文章|Topic</a>&nbsp;&nbsp;<a href=\"../bookmark/index.html\">书签|Bookmark</a></div>"+ "\n" +
-		"<div id=\"techlib-head\"><h1>文章|Topic</h1></div>"+ "\n" +
-		"<div id=\"techlib-content\">";
+		"<title>文章 - 技术资料库 Technical Library</title>"+  "\n" ;
+//		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topic-index.css\">"+ "\n" +
+//		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/techlib-topbar.css\">"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/jquery-1.4.3.min.js\"></script>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/jquery.tablesorter.js\"></script>"+ "\n" +
+//		"<script type=\"text/javascript\" src=\"../js/techlib-topic-index.js\"></script>"+ "\n" +
+//		"</head>"+ "\n" +
+//		"<div id=\"techlib-body\">"+ "\n" +
+
 		pw.write(htmlHead);
+
+
+		InputStream is = context.getResourceAsStream("/common/techlib-htmlhead.html");
+		HtmlUtil.printHtmlFromInputStream(pw, is);
+		
+		pw.println("<div id=\"techlib-head\"><h1>文章</h1></div>"+ "\n" +
+				"<div id=\"techlib-content\">");
 		
 		//writeULStyle(allTopicHeader);
 		writeTableStyle(allTopicHeader);

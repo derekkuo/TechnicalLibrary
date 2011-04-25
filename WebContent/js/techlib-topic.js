@@ -5,7 +5,7 @@
 		var $refCSS = $('<link rel="stylesheet" type="text/css" href="../../css/techlib-topbar.css">');
 		$refCSS.insertBefore($("head"));
 		
-		var $topdiv = $('<div id="topbar"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href="../../index.html">首页|Home</a>&nbsp;&nbsp;<a href="../../topic/index.html">文章|Topic</a>&nbsp;&nbsp;<a href="../../bookmark/index.html">书签|Bookmark</a></div>');
+		var $topdiv = $('<div id="topbar"><strong>技术资料库 Technical Library</strong>&nbsp;&nbsp;<a href="../../index.html">首页</a>&nbsp;&nbsp;<a href="../../topic/index.html">文章</a>&nbsp;&nbsp;<a href="../../bookmark/index.html">书签</a>');
 		$topdiv.insertBefore($("#techlib-topic-head"));
 		
 		var removeAD = false;//是否去除广告

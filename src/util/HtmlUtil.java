@@ -1,15 +1,15 @@
 package util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.Iterator;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletContext;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.junit.Test;
 
 
 public class HtmlUtil {
@@ -25,4 +25,20 @@ public class HtmlUtil {
 		return document;
 	}
 
+	public static void printHtmlFromInputStream( PrintWriter pw, InputStream is){
+
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		String strLine = null;
+		try {
+			br= new BufferedReader( new InputStreamReader( is,"utf-8") );
+			while( (strLine = br.readLine()) != null){
+				sb.append(strLine);
+				sb.append("\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		pw.println(sb.toString());
+	}
 }
