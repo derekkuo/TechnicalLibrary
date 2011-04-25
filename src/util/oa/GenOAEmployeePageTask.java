@@ -99,9 +99,11 @@ public class GenOAEmployeePageTask extends TimerTask {
 		pw.println(sb.toString());
 		
 		pw.println("<div id=\"techlib-head\"><h1>通讯录</h1></div>");
+		pw.println("<div id=\"techlib-content\">");
 		
 		writeTableStyle(employees);
 		
+		pw.write("</div>");
 		pw.write("</div>");
 		pw.flush();
 		pw.close();

@@ -104,7 +104,7 @@ public class GenOABookmarkIndexPageTask extends TimerTask {
 		pw.println(sb.toString());
 		
 		pw.println("<div id=\"techlib-head\"><h1>常用链接</h1></div>");
-		
+		pw.println("<div id=\"techlib-content\">");
 		
 		writeTableStyle(bookmarks);
 		
