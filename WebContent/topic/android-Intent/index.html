@@ -1,0 +1,160 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Android之Intent组件小析</title>
+<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title"><h1>Android之Intent组件小析</h1></div><!-- 标题 -->
+
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">刘兰兰</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+
+	</div><!-- 目录 将会由jquery程序填充 -->
+	
+	<!-- 正文内容开始 -->   
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>简介</h2></span>
+		<p>Android中提供了Intent机制来协助应用间的交互与通讯，Intent负责对应用中一次操作的动作、动作涉及数据、附加数据进行描述，Android则根据此Intent的描述，负责找到对应的组件，将 Intent传递给调用的组件，并完成组件的调用。Intent不仅可用于应用程序之间，也可用于应用程序内部的Activity/Service之间的交互。因此，Intent在这里起着一个媒体中介的作用，专门提供组件互相调用的相关信息，实现调用者与被调用者之间的解耦。</p>
+	
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<span id="tags">
+				<a class="search" href='#'>Android</a>
+				<a class="search" href='#'>Intent</a>
+			</span>
+		</div><!-- 标签行END -->
+	
+		<span class="menu"><h2>知识点概要</h2></span>
+
+		<ul>
+			<li>第一：Intent属性的配置</li>
+			<li>第二：Intent解析机制</li>
+			<li>第三：Intent应用代码</li>
+		</ul>
+		
+		<span class="menu"><h2>Intent属性的配置</h2></span>
+		<p>
+
+		（1）Action，也就是要执行的动作
+SDk中定义了一些标准的动作，包括</p><p>
+onstantTarget componentAction</p><p>
+ACTION_CALL activityInitiate a phone call.</p><p>
+ACTION_EDIT activityDisplay data for the user to edit.</p><p>
+ACTION_MAIN activityStart up as the initial activity of a task, with no data input and no returned output.</p><p>
+ACTION_SYNC activitySynchronize data on a server with data on the mobile device.
+</p><p>
+ACTION_BATTERY_LOW broadcast receiverA warning that the battery is low.</p><p>
+ACTION_HEADSET_PLUG broadcast receiverA headset has been plugged into the device, or unplugged from it.</p><p>
+ACTION_SCREEN_ON broadcast receiverThe screen has been turned on.</p><p>
+ACTION_TIMEZONE_CHANGED broadcast receiverThe setting for the time zone has changed.</p><p>
+
+ 
+当然，也可以自定义动作（自定义的动作在使用时，需要加上包名作为前缀，如"com.example.project.SHOW_COLOR”），并可定义相应的Activity来处理我们的自定义动作。
+</p>
+<p>
+（2）Data，也就是执行动作要操作的数据
+Android中采用指向数据的一个URI来表示，如在联系人应用中，一个指向某联系人的URI可能为：content://contacts/1。对于不同的动作，其URI数据的类型是不同的（可以设置type属性指定特定类型数据），如ACTION_EDIT指定Data为文件URI，打电话为tel:URI，访问网络为http:URI，而由content provider提供的数据则为content: URIs。</p>
+<p>
+（3）type（数据类型），显式指定Intent的数据类型（MIME）。一般Intent的数据类型能够根据数据本身进行判定，但是通过设置这个属性，可以强制采用显式指定的类型而不再进行推导。
+</p>
+<p>
+（4）category（类别），被执行动作的附加信息。例如 LAUNCHER_CATEGORY 表示Intent 的接受者应该在Launcher中作为顶级应用出现；而ALTERNATIVE_CATEGORY表示当前的Intent是一系列的可选动作中的一个，这些动作可以在同一块数据上执行。还有其他的为
+ConstantMeaning</p><p>
+CATEGORY_BROWSABLE The target activity can be safely invoked by the browser to display data referenced by a link — for example, an image or an e-mail message.</p><p>
+CATEGORY_GADGETThe activity can be embedded inside of another activity that hosts gadgets.</p><p>
+CATEGORY_HOME The activity displays the home screen, the first screen the user sees when the device is turned on or when the HOME key is pressed.</p><p>
+CATEGORY_LAUNCHERThe activity can be the initial activity of a task and is listed in the top-level application launcher.</p><p>
+CATEGORY_PREFERENCEThe target activity is a preference panel.
+</p>
+ <p>
+（5）component（组件），指定Intent的的目标组件的类名称。通常 Android会根据Intent 中包含的其它属性的信息，比如action、data/type、category进行查找，最终找到一个与之匹配的目标组件。但是，如果 component这个属性有指定的话，将直接使用它指定的组件，而不再执行上述查找过程。指定了这个属性以后，Intent的其它所有属性都是可选的。
+</p>
+<p>
+（6）extras（附加信息），是其它所有附加信息的集合。使用extras可以为组件提供扩展信息，比如，如果要执行“发送电子邮件”这个动作，可以将电子邮件的标题、正文等保存在extras里，传给电子邮件发送组件。
+理解Intent的关键之一是理解清楚Intent的两种基本用法：一种是显式的Intent，即在构造Intent对象时就指定接收者；另一种是隐式的Intent，即Intent的发送者在构造Intent对象时，并不知道也不关心接收者是谁，有利于降低发送者和接收者之间的耦合。
+
+		</p>		
+		
+		<span class="menu"><h2>Intent解析机制</h2></span>
+		<p>Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所有IntentFilter及其中定义的Intent，最终找到匹配的Intent。在这个解析过程中，Android是通过Intent的action、type、category这三个属性来进行判断的，判断方法如下： </p><p>
+如果Intent指明定了action，则目标组件的IntentFilter的action列表中就必须包含有这个action，否则不能匹配； </p><p>
+如果Intent没有提供type，系统将从data中得到数据类型。和action一样，目标组件的数据类型列表中必须包含Intent的数据类型，否则不能匹配。 </p><p>
+如果Intent中的数据不是content: 类型的URI，而且Intent也没有明确指定它的type，将根据Intent中数据的scheme （比如 http: 或者mailto:） 进行匹配。同上，Intent 的scheme必须出现在目标组件的scheme列表中。 </p><p>
+如果Intent指定了一个或多个category，这些类别必须全部出现在组建的类别列表中。比如Intent中包含了两个类别：LAUNCHER_CATEGORY 和 ALTERNATIVE_CATEGORY，解析得到的目标组件必须至少包含这两个类别。
+</p>
+		<span class="menu"><h3>Intent应用代码</h3></span>
+		<p>
+		1，调web浏览器 
+Uri myBlogUri = Uri.parse("http://xxxxx.com"); 
+returnIt = new Intent(Intent.ACTION_VIEW, myBlogUri); </p><p>
+2，地图 
+Uri mapUri = Uri.parse("geo:38.899533,-77.036476"); 
+returnIt = new Intent(Intent.ACTION_VIEW, mapUri); </p><p>
+3，调拨打电话界面 
+Uri telUri = Uri.parse("tel:100861"); 
+returnIt = new Intent(Intent.ACTION_DIAL, telUri); </p><p>
+4，直接拨打电话 
+Uri callUri = Uri.parse("tel:100861"); 
+returnIt = new Intent(Intent.ACTION_CALL, callUri); </p><p>
+5，卸载 
+Uri uninstallUri = Uri.fromParts("package", "xxx", null); 
+returnIt = new Intent(Intent.ACTION_DELETE, uninstallUri); </p><p>
+6，安装 
+Uri installUri = Uri.fromParts("package", "xxx", null); 
+returnIt = new Intent(Intent.ACTION_PACKAGE_ADDED, installUri); </p><p>
+7，播放 
+Uri playUri = Uri.parse("file:///sdcard/download/everything.mp3"); 
+returnIt = new Intent(Intent.ACTION_VIEW, playUri); </p><p>
+8，掉用发邮件 
+Uri emailUri = Uri.parse("mailto:xxxx@gmail.com"); 
+returnIt = new Intent(Intent.ACTION_SENDTO, emailUri); </p><p>
+9，发邮件 
+returnIt = new Intent(Intent.ACTION_SEND); 
+String[] tos = { "xxxx@gmail.com" }; 
+String[] ccs = { "xxxx@gmail.com" }; 
+returnIt.putExtra(Intent.EXTRA_EMAIL, tos); 
+returnIt.putExtra(Intent.EXTRA_CC, ccs); 
+returnIt.putExtra(Intent.EXTRA_TEXT, "body"); 
+returnIt.putExtra(Intent.EXTRA_SUBJECT, "subject"); 
+returnIt.setType("message/rfc882"); 
+Intent.createChooser(returnIt, "Choose Email Client"); </p><p>
+10，发短信 
+Uri smsUri = Uri.parse("tel:100861"); 
+returnIt = new Intent(Intent.ACTION_VIEW, smsUri); 
+returnIt.putExtra("sms_body", "yyyy"); 
+returnIt.setType("vnd.android-dir/mms-sms"); </p><p>
+11，直接发邮件 
+Uri smsToUri = Uri.parse("smsto://100861"); 
+returnIt = new Intent(Intent.ACTION_SENDTO, smsToUri); 
+returnIt.putExtra("sms_body", "yyyy"); </p><p>
+12，发彩信 
+Uri mmsUri = Uri.parse("content://media/external/images/media/23"); 
+returnIt = new Intent(Intent.ACTION_SEND); 
+returnIt.putExtra("sms_body", "yyyy"); 
+returnIt.putExtra(Intent.EXTRA_STREAM, mmsUri); 
+returnIt.setType("image/png"); </p><p>
+
+最后一步： 
+startActivity(returnIt) 
+
+		</p>
+	</div><!-- #techlib-topic-content 内容结束 -->
+
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
