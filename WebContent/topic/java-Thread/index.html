@@ -1,0 +1,180 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JAVA线程浅析</title>
+<link rel="stylesheet" type="text/css"
+	href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic"><!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title">
+		<h1>JAVA线程浅析</h1>
+		</div>
+		<!-- 标题 -->
+		<div id="subtitle"></div>
+		<!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad"
+			href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span> <span
+			id="author">张月</span></div>
+		<!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad"
+			href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 --> <!-- 正文内容开始 -->
+	
+	<div id="techlib-topic-content">
+	<span class="menu"><h2>引言</h2></span>
+	<p>几乎每种操作系统都支持进程的概念----进程是在某种程度上相互隔离的、独立运行的程序。一般来说，这些操作系统都支持多进程操作。而多线程扩展了多进程操作的概念，讲任务的划分下降到了程序级别，使得各个程序似乎可以在同一个时间内执行多个任务。每个任务称为一个线程，能够同时运行多个线程的程序称为多线程程序。下面，针对多线程进行一下简要的分析。</p>
+
+	
+	<!-- 标签行BEGIN -->
+	<div id="techlib-tagsline"><strong>标签：</strong> <a class="ad"
+		href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad"
+		href="http://www.chinatarena.com/">达内</a>
+	<span id="tags">
+		<a class="search" href='#'>线程</a>
+		<a class="search" href='#'>多线程编程</a>
+		<a class="search" href='#'>java编程</a>
+	</span></div>
+	<!-- 标签行END -->
+	 
+	 
+	<span class="menu"><h3>一 . 同步与异步：</h3></span>
+	<p>1. 解释</p>
+	<ul>
+	     <li>同步：提交请求->等待服务器处理->处理完毕返回  这个期间客户端不能干任何事</li>
+	     <li>异步：请求通过事件触发->服务器处理(这时浏览器仍可以做其他事情)->处理完毕</li>
+	</ul>
+	<p>2. 举例说明</p>
+	<ul>
+	  <li>同步：A叫B去吃饭，B听见了就马上跟A一起去，如果B没听见，A就一直叫,直到B听见了，跟A一起去。</li>
+	  <li>异步：A叫B去吃饭，然后自己去吃饭，B听见消息可能立即走，也可能等一会儿才去</li>
+	</ul>
+    <p>所以A想让B请他吃饭就用同步，如果A请B吃饭就用异步，此时可能B来的慢，A吃完走了，这样可以省钱
+    <p>再举例：打电话同步，发短信异步</p>
+    <span class="menu"><h3>二 . 创建线程：</h3></span>
+	<p>1. Thread( ) 将一个类继承Thread，然后覆盖其中的ran()方法</p>
+	<pre><code>eg -> TestThread t = new TestThread();
+      t.start();
+	</code></pre>
+	<p>ran() : 通常我们将一个类继承Thread（），然后覆盖其中的run()方法，这样就让这个类本身就成了线程类。</p>
+    <p>start():线程进入Runnable(可运行)状态，向线程调度器注册这个线程。</p>
+    <div class="note">
+			<span class="note-head">注意</span>
+			<span class="note-body">
+				<p>不要在程序中直接调用run()方法
+				</p>
+			</span>
+		</div>
+	<p>2. 实现Runnable接口并实现接口中定义的唯一方法run();</p>
+	<pre><code> eg  ->  new Thread(){
+             public void run(){
+                System.out.println(“t3”);
+             }
+         }.start();
+       
+等同于-> class RunnableThread implements Runnble{}
+         RunnableThread rt = new RunnableThread()
+         Thread t = new Thread(rt);
+         t.start();
+</code></pre>
+	
+	
+	<p>3. 两种创建线程方式的比较：</p>
+	<ul>
+	  <li>使用Runnable接口 -> 还可以从其他类中继承，可以将CPU，代码，数据分开</li>
+	  <li>直接继承Thread类 -> 不能再从其他类中继承</li>
+	</ul>
+	
+	<p>4. 后台线程(Daemom Thread) 即守护线程</p>
+	<p>后台线程的优先级比其他线程低。可以通过setDaemon(boolean d)来将一个普通线程设置为后台线程，用isDaremon()可以用来测试特定的线程是否为后台线程。</p>
+	<span class="menu"><h3>三 . 线程状态</h3></span>
+	<p>1 . 线程的基本状态</p>
+	<p>程序的基本状态有五种：新建(New)、可运行(Runnable)、运行(Runnint)、阻塞(Blocked)以及死亡(Dead)</p>
+	<img src="java-Thread.bmp"/>
+	<p>2 . 线程结束的方式
+
+	<ul>
+	  <li>线程到达其run()方法的结尾</li>
+	  <li>线程抛出一个未捕获到的异常(Exception)或错误(Error)</li>
+	  <li>另一个线程调用一个Deprecate的stop()方法。注意，这个方法会引发线程的安全问题，已经不推荐使用了，所以不要在程序调用这个方法。</li>
+	</ul>
+	
+    <span class="menu"><h3>四 . 线程控制</h3></span>
+	<p>1 . 基本方法</p>
+	<ul>
+	  <li>start(): 新建的线程进入Runnable状态</li>
+	  <li>run():线程进入Running状态</li>
+	  <li>wait():线程进入等待状态，等待被notify，这是一个对象方法，而不是线程方法</li>
+	  <li>run():线程进入Running状态</li>
+	  <li>notify()/notifyAll()：唤醒其他的线程，这是一个对象方法，而不是线程方法。</li>
+	  <li>yield()：线程放弃执行，使其他优先级不低于此线程的线程有机会运行，是静态方法</li>
+	  <li>getPriority()/setPriority():获得/设置线程优先级</li>
+	  <li>suspend():挂起该线程，不推荐使用</li>
+	  <li>resume()：唤醒线程，不推荐使用</li>
+	  <li>sleep():线程睡眠指定的一段时间</li>
+	  <li>join()：调用这个方法的主线程，会等待加入的子线程完成</li>
+	</ul>
+	
+	<p>2 . 中断线程</p>
+	<ul>
+	   <li>Thread.sleep():线程暂时终止执行（睡眠）一定的时间</li>
+	   <li>Thread.yield():线程放弃运行，将CPU的控制权让出。</li>
+	   <p>这两种方法都会将当前运行线程的CPU控制权让出，但sleep()方法在睡眠时间内一定不会再得到运行机会，知道它睡眠时间完成;而yield()方法让出控制权后，还有可能马上被系统的调度机制选中来执行。</p>
+	</ul>
+	<span class="menu"><h3>五 . 多线程编程互斥锁问题</h3></span>
+	<p>1 . Synchronized说明</p>
+	<p>当某一对象用synchronized修饰时，表示该对象再任一时刻只可以由一个线程访问。</p>
+	<p>2 . 使用synchronized的两种方式</p>
+	<ul>
+	  <li>放在方法前面，这样调用该方法的线程均将获得对象的锁</li>
+	  <li>放在代码块前面，用于修饰对象引用，它也有两种形式。
+	     <ul>
+	       <li> -> 用于修饰当前对象引用——synchronized(this){……}或synchronized{……}:代码块中的代码将获得当前对象引用的锁</li>
+	       <li> -> 用于修饰指定的对象——synchronized(otherObj){……}:代码块中的代码将获得指定对象引用的锁</li>
+	     </ul>
+	  </li>
+	  <div class="note">
+		<span class="note-head">注意</span>
+		<span class="note-body">
+			<p>synchronized锁定的不是方法或者代码块，而是对象。
+			</p>
+		</span>
+	   </div>  
+	</ul>
+	
+	<p>3 . 线程归还锁的时机</p>
+	<ul>
+	    <li>当线程执行synchronized()块结束时，释放对象锁</li>
+	    <li>当在synchroized块中遇到break、renturn、或抛出Exception，则自动释放对象锁</li>
+	    <li>当一个线程调用wait()方法时，它放弃拥有的对象锁并进入等待队列。</li>
+	</ul>
+	<span class="menu"><h3>六 . 多线程编程的一般规则</h3></span>
+	
+	<p>在运行多线程编程的时候，有一些规则必须要遵守，否则容易造成不同步或者死锁等难以预料的错误，下面是对多线程编程时需要遵循的一些原则。</p>
+	<ul>
+	   <li>如果两个或两个以上的线程都修改一个对象，那么把执行修改的地方定义为同步的，如果对象更新影响到只读方法，那么只读方法也要定义为同步的</li>
+	   <li>如果一个线程必须等待一个对象状态发生变化，那么它应该在对象内部等待，而不是在外部。他可以通过调用一个被同步的方法，并让这个方法调用wait()。</li>
+	   <li>每当一个方法返回某个对象的锁时，它应当调用notify()/notifyAll()来让等待队列中的其他线程由机会执行。</li>
+	   <li>仔细查看每次调用的wait()方法，使得它都有相应的notify()/notifyAll()方法，且它们均作用于同一个对象。</li>
+	   <li>针对wait()、notify()/notifyAll()使用旋锁(spin lock)</li>
+	   <li>优先使用notifyAll()而不是notify()</li>
+	   <li>按照固定的顺序获得多个对象锁，以避免死锁</li>
+	   <li>不要对上锁的对象改变它的引用</li>
+	   <li>不要滥用同步机制，避免无谓的同步控制</li>
+
+	</ul>
+	
+<span class="menu"><h2>小结</h2></span>
+		<p>对于程序运行时线程的分配十分复杂，在此仅对线程进行一些简单的阐述。具体的线程问题会在以后的文章中具体阐述。
+		由于本人知识水平有限，文章中若有错误地方，欢迎联系我批评指证。</p>
+	
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
