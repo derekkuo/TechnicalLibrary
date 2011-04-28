@@ -26,7 +26,7 @@
 		<phone>13718868826</phone>
 		<qq-msn>88956911</qq-msn>
 		<email>yepeng@tarena.com.cn</email>
-		<summary>SD1102_01</summary>
+		<summary>SD1102_02</summary>
 	</employee>
 
 
@@ -64,7 +64,7 @@
 		<phone>13031169141</phone>
 		<qq-msn>1464029559</qq-msn>
 		<email>bjguojian@tarena.com.cn</email>
-		<summary>SD1102_02</summary>
+		<summary>SD1104_02</summary>
 	</employee>
 
 	<employee>
@@ -86,12 +86,12 @@
 	</employee>
 	
 	<employee> 
-		<id>BJ0483</id>
+		<id></id>
 		<name>刘兰兰</name>
 		<phone>13161560630</phone>
 		<qq-msn>840618287</qq-msn>
 		<email>liull@tarena.com.cn</email>
-		<summary>SD1102_02</summary>
+		<summary>BJ0483</summary>
 	</employee>
 	
 	<employee> 
