@@ -4,7 +4,7 @@
 	$(function(){
 		$("#mytable").tablesorter( {sortList: [[0,0], [1,0]]} );
 		$("#gathertable").tablesorter( {sortList: [[0,0], [1,0]]} );
-		senfe("mytable","#ffffff","#f8fbfc","#f0f0f0","#f0f0f0");
+		senfe("mytable","#ffffff","#f8fbfc","#ecfbd4","#bce774");
 	});
 
 	function senfe(o,a,b,c,d){
