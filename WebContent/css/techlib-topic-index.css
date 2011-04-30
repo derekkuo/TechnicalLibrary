@@ -14,6 +14,30 @@ p{
 	padding: 0 0 10px 0;
 }
 
+.techlib-set-float-right, .techlib-topic-list-author{
+	color:777;
+	font-size: 12px;
+}
+
+.techlib-set-float-right a{
+	text-decoration: none;
+}
+.techlib-set-float-right a:hover, .topicFirstTag a:hover, .selected a{
+	background-position: right bottom;
+	color:#fff;
+	background-color: blue;	  
+}
+
+.techlib-topic-list-title a{
+	font-size:16px;
+	height:20px;
+	line-height:20px; 
+}
+
+.techlib-little-gray{
+	color:#b0b0b0;
+	margin: 0 5 0 0;
+}
 /* CSS Document */
 body {
 	font: 14px normal \5FAE\8F6F\96C5\9ED1,Verdana, Arial, Helvetica, sans-serif;
@@ -77,7 +101,7 @@ div{
 	padding-bottom: 10px;
 }
 
-a {height:20px; line-height:20px; color:#000; text-decoration: none; }
+a {color:#000; text-decoration: none; }
 a:hover, .selected a{ background-position: right bottom; color:#999; }
 #mytable {
 	width: 700px;
@@ -114,8 +138,8 @@ th.nobg {
 }
 
 td {
-	border-right: 1px solid #C1DAD7;
-	border-bottom: 1px solid #C1DAD7;
+	border-right: 0px solid #C1DAD7;
+	border-bottom: 0px solid #C1DAD7;
 	/*background: #fff;*/
 	font-size: 14px;
 	padding: 5px 5px 5px 10px;
