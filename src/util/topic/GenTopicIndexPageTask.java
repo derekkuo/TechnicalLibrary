@@ -85,7 +85,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\">发布日期</th><th scope=\"col\">标题</th><th scope=\"col\">类别</th>");
+		pw.println("<th scope=\"col\">发布日期</th><th scope=\"col\" width=\"450px\">标题</th><th scope=\"col\">类别</th>");
 		pw.println("</tr></thead><tbody>");
 		int topicId = 0;
 		while(it.hasNext()){

@@ -103,11 +103,11 @@ div{
 
 a {color:#000; text-decoration: none; }
 a:hover, .selected a{ background-position: right bottom; color:#999; }
-#mytable {
+/*#mytable {
 	width: 700px;
 	padding: 0;
 	margin: 0;
-}
+}*/
 
 caption {
 	padding: 0 0 5px 0;
