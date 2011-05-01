@@ -99,36 +99,47 @@ public class GenBookmarkIndexPageTask extends TimerTask {
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">类别</th><th scope=\"col\">标题</th><th scope=\"col\">添加人</th>");
+//		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">类别</th><th scope=\"col\">标题</th><th scope=\"col\">添加人</th>");
+		pw.println("<th scope=\"col\"></th><th scope=\"col\" width=\"480px\">标题</th><th scope=\"col\">类别</th><th scope=\"col\">发布人</th>");
 		pw.println("</tr></thead><tbody>");
 		
 		for(int i=0; i<keylist.size(); i++){
 			Bookmark bookmark = bookmarks.get(keylist.get(i));
 			
 			pw.println("<tr>");
-			pw.println("<td class=\"row\">");
-			pw.println(bookmark.getId());
-			pw.println("</td>");
+//			pw.println("<td class=\"row\">");
+//			pw.println(bookmark.getId());
+//			pw.println("</td>");
 
-			pw.println("<td class=\"row\">"+bookmark.getTechnicalType()+"</td>");
+			pw.println("<td class=\"row\">");
+			pw.println("</td>");
 			
 			StringBuffer tagsSB = new StringBuffer();
+			StringBuffer styleTagsSB = new StringBuffer();
 			if(bookmark.getTags().size()>0){
 				Iterator tagsIt = bookmark.getTags().iterator();
-				while(tagsIt.hasNext())
-					tagsSB.append(((String)(tagsIt.next())).trim() + " ");
+				while(tagsIt.hasNext()){
+					String tag = ((String)(tagsIt.next())).trim();
+					tagsSB.append( tag  + " ");
+					styleTagsSB.append( "<a class=\"techlib-a-topicTag\" href=\"search?topictag="+tag+"\">"+tag+"</a>&nbsp;" );
+				}
 			}else{
 				tagsSB.append("&nbsp;");
 			}
 			
 		
 			pw.println("<td class=\"row\">");
-			if(bookmark.getSummary().equals(""))
-				pw.println( "<a href=\""+bookmark.getUrl()+"\" title=\"技术标签："+tagsSB.toString()+"\">"+bookmark.getTitle()+"</a>"+"&nbsp;("+bookmark.getResourceType()+")" );
-			else
-				pw.println( "<a href=\""+bookmark.getUrl()+"\" title=\"技术标签："+tagsSB.toString()+"&nbsp;&nbsp;摘要："+bookmark.getSummary()+"\">"+bookmark.getTitle()+"</a>"+"&nbsp;("+bookmark.getResourceType()+")" );
+			pw.println( "<span class=\"techlib-topic-list-title\"><a target=\"_blank\" href=\""+bookmark.getUrl()+"\" title=\""+bookmark.getUrl()+"&nbsp;&nbsp;"+bookmark.getSummary()+"\">"+bookmark.getTitle()+"</a>"+"</span>" );
+			pw.println("<div>"
+			+"<span style=\"float:left\" class=\"techlib-topic-list-tags\">"
+			+"资源类型："+bookmark.getResourceType()
+			+"&nbsp;&nbsp;"
+			+"标签："
+			+styleTagsSB.toString()+"</span>"+"</div>");
 
 			pw.println("</td>");
+
+			pw.println("<td class=\"row\">"+bookmark.getTechnicalType()+"</td>");
 			
 			pw.println("<td class=\"row\">");
 			pw.println( bookmark.getProvider());
