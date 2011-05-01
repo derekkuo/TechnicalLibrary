@@ -85,7 +85,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\">发布日期</th><th scope=\"col\" width=\"450px\">标题</th><th scope=\"col\">类别</th>");
+		pw.println("<th scope=\"col\"></th><th scope=\"col\" width=\"480px\">标题</th><th scope=\"col\">类别</th><th scope=\"col\">发布日期</th>");
 		pw.println("</tr></thead><tbody>");
 		int topicId = 0;
 		while(it.hasNext()){
@@ -98,6 +98,10 @@ public class GenTopicIndexPageTask extends TimerTask {
 //			pw.println("<td class=\"row\">");
 //			pw.println(topicId);
 //			pw.println("</td>");
+
+			pw.println("<td class=\"row\">");
+			pw.println("</td>");
+			
 			
 			StringBuffer tagsSB = new StringBuffer();
 			StringBuffer styleTagsSB = new StringBuffer();
@@ -113,17 +117,13 @@ public class GenTopicIndexPageTask extends TimerTask {
 			}
 
 			
-			pw.println("<td class=\"row\">");
-			if( !topicHeader.getSubmitDate().equals(""))
-				pw.println("<span class=\"techlib-little-gray\">"+topicHeader.getSubmitDate()+"</span>");
-			else
-				pw.println("<span class=\"techlib-little-gray\">"+"&nbsp;"+"</span>");
-			pw.println("</td>");
+			
 			pw.println("<td class=\"row\">");
 			pw.println( "<span class=\"techlib-topic-list-title\"><a href=\""+topicHeader.getPath()+"index.html\""+" title=\""
 					+topicHeader.getPath()+"index.html\">"+topicHeader.getTitle()+"</a></span><br/>"
-					+"<div><span class=\"techlib-topic-list-author\">作者："+topicHeader.getAuthor()+"</span>"
-					+"<span style=\"float:right\" class=\"techlib-set-float-right\">"
+					+"<div>"
+					//+"<span class=\"techlib-topic-list-author\">作者："+topicHeader.getAuthor()+"</span>"
+					+"<span style=\"float:left\" class=\"techlib-topic-list-tags\">"
 					+"标签："
 					+styleTagsSB.toString()+"</span>"+"</div>");
 			pw.println("</td>");
@@ -135,6 +135,16 @@ public class GenTopicIndexPageTask extends TimerTask {
 			pw.println(titleTagA);
 			pw.println("</td>");
 
+			pw.println("<td class=\"row\">");
+			if( !topicHeader.getSubmitDate().equals(""))
+				pw.println("<span class=\"techlib-little-gray\">"+topicHeader.getSubmitDate()+"</span>"
+						+"<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>"	
+				);
+			else
+				pw.println("<span class=\"techlib-little-gray\">"+"&nbsp;"+"</span>"
+						+"<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>"	
+				);
+			pw.println("</td>");
 		
 			pw.println("</tr>");
 		}

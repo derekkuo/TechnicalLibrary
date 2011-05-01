@@ -14,15 +14,14 @@ p{
 	padding: 0 0 10px 0;
 }
 
-.techlib-set-float-right, .techlib-topic-list-author{
-	color:777;
+.techlib-topic-list-tags, .techlib-topic-list-author{
+	color:#777;
 	font-size: 12px;
 }
-
-.techlib-set-float-right a{
-	text-decoration: none;
+.techlib-topic-list-tags, .techlib-topic-list-tags a{
+	color:#a0a0a0;
 }
-.techlib-set-float-right a:hover, .topicFirstTag a:hover, .selected a{
+.techlib-topic-list-tags a:hover, .topicFirstTag a:hover, .selected a{
 	background-position: right bottom;
 	color:#fff;
 	background-color: blue;	  
@@ -30,13 +29,14 @@ p{
 
 .techlib-topic-list-title a{
 	font-size:16px;
-	height:20px;
-	line-height:20px; 
+	height:25px;
+	line-height:25px;
+	text-decoration: none; 
 }
 
 .techlib-little-gray{
 	color:#b0b0b0;
-	margin: 0 5 0 0;
+	font-size:12px;
 }
 /* CSS Document */
 body {
