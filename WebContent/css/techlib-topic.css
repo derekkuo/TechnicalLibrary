@@ -100,8 +100,8 @@
 	.menubar-ul a{ /*display: block;*/ height:20px; line-height:20px; color:#000; text-decoration: none; }
 	.menubar-ul a:hover, .selected a{ background-position: right bottom; color:#999; }
 	.menubar-ul h2{ font-weight:normal; font-size: 14px; margin-top:2px; margin-bottom:0px;}
-	.menubar-ul h3{ font-weight:normal; font-size: 14px; margin-top:2px; margin-bottom:0px; margin-left:2em; }
-	.menubar-ul h4, .techlib-menubar-ul h5{ font-weight:normal; font-size: 14px; margin-top:0px; margin-bottom:0px; margin-left:4em; }
+	.menubar-ul h3{ font-weight:normal; font-size: 14px; margin-top:2px; margin-bottom:0px; margin-left:1.5em; }
+	.menubar-ul h4, .techlib-menubar-ul h5{ font-weight:normal; font-size: 14px; margin-top:0px; margin-bottom:0px; margin-left:3em; }
 	
 	
 	.ad, .search, #ad-topic-tags a,#ad-topic-author{
