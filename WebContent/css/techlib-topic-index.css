@@ -28,6 +28,8 @@ p{
 }
 
 .techlib-topic-list-title a{
+	color: blue;
+	font-weight:bold;
 	font-size:16px;
 	height:25px;
 	line-height:25px;
@@ -119,14 +121,15 @@ caption {
 th {
 	font: bold 14px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
 	color: #4f6b72;
-	border-right: 1px solid #C1DAD7;
-	border-bottom: 1px solid #C1DAD7;
-	border-top: 1px solid #C1DAD7;
+	border-right: 0px solid #C1DAD7;
+	border-bottom: 0px solid #C1DAD7;
+	border-top: 0px solid #C1DAD7;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	text-align: left;
 	padding: 6px 6px 6px 12px;
-	background: #e0e0e0 no-repeat;
+	background: #EBF2F8 no-repeat;
+	line-height: 30px;
 }
 
 
