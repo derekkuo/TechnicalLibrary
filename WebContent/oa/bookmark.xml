@@ -9,7 +9,7 @@
 		<resource-type>故障</resource-type>
 		<summary>
 			http://sps.tarena.com.cn&lt;br&gt;
-			学员电脑，主机、鼠标、键盘等硬件故障，还有无法联通网络，可添加申报
+			电脑，主机、鼠标、键盘等硬件故障，以及无法联通网络，进行申报
 		</summary>
 	</bookmark>
 
@@ -47,11 +47,11 @@
 	<bookmark>
 		<id>4</id>
 		<url>http://mail.tarena.com.cn/exchange</url>
-		<title>达内邮件服务器系统</title>
+		<title>邮件服务器</title>
 		<resource-type>邮件</resource-type>
 		<summary>
 			http://mail.tarena.com.cn/exchange&lt;br&gt;
-			在线访问邮箱。服务器会定期清除邮件，要求大家使用Outlook2007软件。
+			访问邮箱。注意：服务器会定期清除邮件，请使用Outlook2007软件。
 		</summary>
 	</bookmark>
 
