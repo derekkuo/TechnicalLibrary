@@ -10,7 +10,7 @@
 		
 		var removeAD = false;//是否去除广告
 		var topDirectIndex = 2;//<h3>章、节上添加TOP  <h4>章、节、点上添加TOP
-		var menuListLevel = 3;//3目录树中显示 章 节
+		var menuListLevel = 4;//3目录树中显示 章 节
 		
 		//去除广告
 		if(removeAD){
