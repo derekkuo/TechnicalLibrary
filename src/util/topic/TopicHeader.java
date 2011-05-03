@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jsoup.select.Elements;
 
-public class TopicHeader implements Serializable{
+public class TopicHeader implements Serializable,Comparable {
 	private String path;
 	private String title;
 	private String subtitle;
@@ -13,8 +13,10 @@ public class TopicHeader implements Serializable{
 	private List<String> tags;
 	private String summary;
 	private Elements menu;
+	private String submitDate;
+	
 	public TopicHeader(String path, String title, String subtitle,
-			String author, List<String> tags, String summary, Elements menu) {
+			String author, List<String> tags, String summary, Elements menu, String submitDate) {
 		super();
 		this.path = path;
 		this.title = title;
@@ -23,7 +25,9 @@ public class TopicHeader implements Serializable{
 		this.tags = tags;
 		this.summary = summary;
 		this.menu = menu;
+		this.submitDate = submitDate;
 	}
+	
 	public String getPath() {
 		return path;
 	}
@@ -66,12 +70,28 @@ public class TopicHeader implements Serializable{
 	public void setMenu(Elements menu) {
 		this.menu = menu;
 	}
+
+	public String getSubmitDate() {
+		return submitDate;
+	}
+
+	public void setSubmitDate(String submitDate) {
+		this.submitDate = submitDate;
+	}
+
 	@Override
 	public String toString() {
 		return "TopicHeader [path=" + path + ", title=" + title + ", subtitle="
 				+ subtitle + ", author=" + author + ", tags=" + tags
-				+ ", summary=" + summary + ", menu=" + menu + "]";
+				+ ", summary=" + summary + ", menu=" + menu + ", submitDate="
+				+ submitDate + "]";
 	}
+
+	@Override
+	public int compareTo(Object o) {
+		return ((TopicHeader)o).getSubmitDate().compareToIgnoreCase( submitDate );
+	}
+	
 	
 	
 	

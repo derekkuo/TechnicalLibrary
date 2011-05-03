@@ -2,7 +2,7 @@
 <script type="text/javascript">
  */
 	$(function(){
-		$("#mytable").tablesorter( {sortList: [[0,0], [1,0]]} );
+		$("#mytable").tablesorter( {sortList: []} );
 		$("#gathertable").tablesorter( {sortList: [[0,0], [1,0]]} );
 		senfe("mytable","#ffffff","#f8fbfc","#ecfbd4","#bce774");
 	});

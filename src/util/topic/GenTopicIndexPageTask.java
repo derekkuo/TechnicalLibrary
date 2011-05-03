@@ -85,7 +85,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\">编号</th><th scope=\"col\">类别</th><th scope=\"col\">标题</th><th scope=\"col\">作者</th>");
+		pw.println("<th scope=\"col\"></th><th scope=\"col\" width=\"480px\">标题</th><th scope=\"col\">类别</th><th scope=\"col\">发布日期</th>");
 		pw.println("</tr></thead><tbody>");
 		int topicId = 0;
 		while(it.hasNext()){
@@ -94,33 +94,56 @@ public class GenTopicIndexPageTask extends TimerTask {
 			if(topicHeader.getPath().indexOf("index.html") >-1)
 				continue;
 			pw.println("<tr>");
-			topicId++;
+//			topicId++;
+//			pw.println("<td class=\"row\">");
+//			pw.println(topicId);
+//			pw.println("</td>");
+
 			pw.println("<td class=\"row\">");
-			pw.println(topicId);
 			pw.println("</td>");
 			
-
+			
 			StringBuffer tagsSB = new StringBuffer();
+			StringBuffer styleTagsSB = new StringBuffer();
 			if(topicHeader.getTags().size()>0){
 				Iterator tagsIt = topicHeader.getTags().iterator();
-				while(tagsIt.hasNext())
-					tagsSB.append(((String)(tagsIt.next())).trim() + " ");
+				while(tagsIt.hasNext()){
+					String tag = ((String)(tagsIt.next())).trim();
+					tagsSB.append( tag  + " ");
+					styleTagsSB.append( "<a class=\"techlib-a-topicTag\" href=\"search?topictag="+tag+"\">"+tag+"</a>&nbsp;" );
+				}
 			}else{
 				tagsSB.append("&nbsp;");
 			}
+
+			
+			
+			pw.println("<td class=\"row\">");
+			pw.println( "<span class=\"techlib-topic-list-title\"><a href=\""+topicHeader.getPath()+"index.html\""+" title=\""
+					+topicHeader.getPath()+"index.html\">"+topicHeader.getTitle()+"</a></span><br/>"
+					+"<div>"
+					//+"<span class=\"techlib-topic-list-author\">作者："+topicHeader.getAuthor()+"</span>"
+					+"<span style=\"float:left\" class=\"techlib-topic-list-tags\">"
+					+"标签："
+					+styleTagsSB.toString()+"</span>"+"</div>");
+			pw.println("</td>");
+
+
+
 			String titleTagA = "<a class=\"topicFirstTag\" href=\"search?topictag="+topicHeader.getTags().get(0)+"\">"+topicHeader.getTags().get(0)+"</a>";
 			pw.println("<td class=\"row\">");
 			pw.println(titleTagA);
 			pw.println("</td>");
-			
-			pw.println("<td class=\"row\">");
-//			pw.println( "<a href=\""+th.getPath()+"index.html\""+" title=\""+th.getSummary()+"\">"+th.getTitle()+"</a>" );
-			pw.println( "<a href=\""+topicHeader.getPath()+"index.html\""+" title=\"技术标签："+tagsSB.toString()+"\">"+topicHeader.getTitle()+"</a>" );
-			pw.println("</td>");
-			
-			pw.println("<td class=\"row\">");
-			pw.println( topicHeader.getAuthor().equals("")?"&nbsp;":topicHeader.getAuthor() );
 
+			pw.println("<td class=\"row\">");
+			if( !topicHeader.getSubmitDate().equals(""))
+				pw.println("<span class=\"techlib-little-gray\">"+topicHeader.getSubmitDate()+"</span>"
+						+"<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>"	
+				);
+			else
+				pw.println("<span class=\"techlib-little-gray\">"+"&nbsp;"+"</span>"
+						+"<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>"	
+				);
 			pw.println("</td>");
 		
 			pw.println("</tr>");

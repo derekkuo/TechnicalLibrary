@@ -27,9 +27,9 @@ public class TopicUtil {
 
 		topicSet = context.getResourcePaths("/topic");
 		InputStream is = null;
-		List topicList = new ArrayList(topicSet);
-		Collections.sort(topicList);
-		Iterator<String> it = topicList.iterator();
+//		List topicList = new ArrayList(topicSet);
+//		Collections.sort(topicList);
+		Iterator<String> it = topicSet.iterator();
 		while (it.hasNext()) {
 			String path = it.next();
 			
@@ -49,13 +49,15 @@ public class TopicUtil {
 				}
 				String summary = document.select("p").first().text();
 				Elements menu = document.select(".menu");
-				TopicHeader topicHeader = new TopicHeader(path, title, subtitle, author, tags, summary, menu);
+				String submitDate = document.select("#submitDate").text();
+				TopicHeader topicHeader = new TopicHeader(path, title, subtitle, author, tags, summary, menu, submitDate);
 				//System.out.println(topicHeader);
 				allTopicHeader.add( topicHeader );
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
+		Collections.sort(allTopicHeader);
 		return allTopicHeader;
 	}
 }

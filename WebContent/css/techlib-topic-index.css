@@ -14,6 +14,32 @@ p{
 	padding: 0 0 10px 0;
 }
 
+.techlib-topic-list-tags, .techlib-topic-list-author{
+	color:#777;
+	font-size: 12px;
+}
+.techlib-topic-list-tags, .techlib-topic-list-tags a{
+	color:#a0a0a0;
+}
+.techlib-topic-list-tags a:hover, .topicFirstTag a:hover, .selected a{
+	background-position: right bottom;
+	color:#fff;
+	background-color: blue;	  
+}
+
+.techlib-topic-list-title a{
+	color: blue;
+	font-weight:bold;
+	font-size:16px;
+	height:25px;
+	line-height:25px;
+	text-decoration: none; 
+}
+
+.techlib-little-gray{
+	color:#b0b0b0;
+	font-size:12px;
+}
 /* CSS Document */
 body {
 	font: 14px normal \5FAE\8F6F\96C5\9ED1,Verdana, Arial, Helvetica, sans-serif;
@@ -77,13 +103,13 @@ div{
 	padding-bottom: 10px;
 }
 
-a {height:20px; line-height:20px; color:#000; text-decoration: none; }
+a {color:#000; text-decoration: none; }
 a:hover, .selected a{ background-position: right bottom; color:#999; }
-#mytable {
+/*#mytable {
 	width: 700px;
 	padding: 0;
 	margin: 0;
-}
+}*/
 
 caption {
 	padding: 0 0 5px 0;
@@ -95,14 +121,15 @@ caption {
 th {
 	font: bold 14px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
 	color: #4f6b72;
-	border-right: 1px solid #C1DAD7;
-	border-bottom: 1px solid #C1DAD7;
-	border-top: 1px solid #C1DAD7;
+	border-right: 0px solid #C1DAD7;
+	border-bottom: 0px solid #C1DAD7;
+	border-top: 0px solid #C1DAD7;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	text-align: left;
 	padding: 6px 6px 6px 12px;
-	background: #e0e0e0 no-repeat;
+	background: #EBF2F8 no-repeat;
+	line-height: 30px;
 }
 
 
@@ -114,8 +141,8 @@ th.nobg {
 }
 
 td {
-	border-right: 1px solid #C1DAD7;
-	border-bottom: 1px solid #C1DAD7;
+	border-right: 0px solid #C1DAD7;
+	border-bottom: 0px solid #C1DAD7;
 	/*background: #fff;*/
 	font-size: 14px;
 	padding: 5px 5px 5px 10px;
