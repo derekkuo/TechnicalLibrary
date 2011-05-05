@@ -1,0 +1,95 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>常见中文乱码问题</title>
+<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title"><h1>常见中文乱码问题</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">姜延鑫</span>
+			&nbsp;&nbsp;发布日期：<span id="submitDate">2011-05-05</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+	
+	<!-- 正文内容开始 -->
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>简介</h2></span>
+		<p>乱码问题集中在3个区域，如图：</p>
+	    <img src="java-Chinese-wild-codes-common-usercase.jpg"/>
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<span id="tags">
+				<a class="search" href='#'>Java</a>
+				<a class="search" href='#'>中文乱码</a>
+			</span>
+		</div><!-- 标签行END -->
+	
+		<span class="menu"><h2>常见情况</h2></span>
+		<ul>
+			<li>第一：数据库乱码</li>
+			<li>第二：JSP页面中的乱码问题</li>
+			<li>第三：java程序与其他媒介交互时乱码</li>
+			<li>具体情况如图，要保持下图中每个环节的编码都要一致：</li>
+			<img src="java-Chinese-wild-codes-common-logic.jpg"/>
+		</ul>
+		
+		<span class="menu"><h2>数据库乱码</h2></span>
+		<p>mysql终端使用set names gbk(与查看终端时的字符编码集相同)</p>
+		<p>mysql安装时指定编码为utf8</p>
+		<p>创建表时指定编码create table test(name varchar2(50)) default charset=utf8.</p>
+		<p>创建数据库时指定编码create database test  default character set utf8.</p>
+		<p>对于上面图示的4、5、6步，数据库应做的设置为:</p>
+		<pre><code>
+		当查询离开客户端后，在查询中使用的字符集设置：
+				character_set_client='x'；
+		服务器接收到查询后应该转换的字符集设置：
+				character_set_connection='x';
+	        服务器发送结果集或返回错误信息到客户端之前应该转换的字符集设置：
+				character_set_results='x';
+		</pre></code>
+		</ul>	
+		
+		<span class="menu"><h3>jsp页面中的乱码问题</h3></span>
+		<p>jsp页面中头中指明<%@ page contentType="test/html;charset=utf-8" pageEncoding="utf-8"%></p>
+		<p>静态html页面中的使用&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;</p>
+		<p>在servlet当中指定request对象解码时所用的的编码格式 request.setCharacterEncoding("utf-8");</p>
+		<p>如果要输出数据到浏览器，还要使用 response.setContentType("text/html;charset=utf-8");</p>
+		<p>浏览器对表单中的数据(非ascii字符)会进行编码。所使用的编码是打开该表单所在的页面时所使用的编码</p>
+			
+		
+		<span class=中文"menu"><h3>链接地址中文</h3></span>
+		<p>浏览器会对链接地址中的(包含其它ascii字符以外的字符，比如日文，部分的拉丁字符)进行编码，采用utf-8编码。服务器默认情况下采用ISO-8859-1解码。此时，可通过设置配置文件的方式，告诉服务器采用指定的编码来解码。
+		在tomcat_home/conf/server.xml文件&lt;Connector port="8080"位置中添加URIEncoding="utf-8",作用是告诉服务器对于get请求，都采用utf-8来解码</p>
+		<span class="menu"><h3>请求参数中的中文</h3></span>
+		<p>请求参数中包含中文，浏览器也会编码，所用的编码与打开该页面时的编码一致：</p>
+		<ul>
+				<li>方案一：保证页面打开时的编码与URIEncoding的设置一致</li>
+				<li>方案二：对请求参数直接编码&lt;a href="xxxx?"name=<%=URLEncoder.encode("中文","utf-8")%>"&gt;</li>
+			</ul>
+
+		<span class="menu"><h3>表单用post请求时乱码问题</h3></span>
+		<p>用过滤器解决。</p>
+		<span class="menu"><h3>web容器以及web容器组件中文</h3></span>
+		<p>保持web容器与web容器组件的编码一致，而且还要保持与其他组件的边界处的编码一致，具体的设置就不一一说明了
+		在网上都有相关说明。（例如：工程编码要与全局编码一致以及tomcat响应结果的编码要一致，具体设置就不说了）
+		</p>
+		<span class="menu"><h3>cmd控制台显示数据乱码</h3></span>
+		<p>设置控制台的编码如下，注意要与数据库返回的结果集编码一致：</p>
+		<p>要改注册表里控制台的编码</p>
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
