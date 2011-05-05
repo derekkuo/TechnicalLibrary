@@ -2,59 +2,37 @@
 <!DOCTYPE Order SYSTEM "order.dtd">
 <orders>
 	<order>
-		<id>BJ0043</id>				<!-- 员工号 -->
-		<name>郭大喜</name>			<!-- 姓名 -->
-		<summary>申请物品用于储备</summary>		<!-- 备注/说明 -->
+		<id></id>			<!-- 员工号 BJ0043-->
+		<name>郭大喜</name>		<!-- 姓名 -->
+		<summary></summary>		<!-- 备注/说明 -->
 		<items>
 			<item>
-				<product-name>签字笔</product-name>
-				<product-type></product-type>
-				<amount>2</amount>
-			</item>
-			<item>
 				<product-name>笔记本</product-name>
-				<product-type></product-type>
-				<amount>3</amount>
-			</item>
-		</items>
-	</order>
-
-	<order>
-		<id>BJ0455</id>
-		<name>胡秭江</name>
-		<summary></summary>
-		<items>
-			<item>
-				<product-name>签字笔</product-name>
-				<product-type></product-type>
-				<amount>1</amount>
-			</item>
-			<item>
-				<product-name>笔记本</product-name>
-				<product-type></product-type>
+				<product-type></product-type>	<!-- 规格及型号 如：盒 -->
 				<amount>1</amount>
 			</item>
 			<item>
 				<product-name>胶棒</product-name>
 				<product-type></product-type>
-				<amount>2</amount>
+				<amount>1</amount>
 			</item>
-		</items>
-	</order>
-
-
-	<order>
-		<id>BJ0452</id>
-		<name>李二</name>
-		<summary></summary>
-		<items>
 			<item>
-				<product-name>签字笔</product-name>
+				<product-name>中性笔</product-name>
 				<product-type></product-type>
-				<amount>2</amount>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>笔芯</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
 			</item>
 			<item>
 				<product-name>铅笔</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>窄透明胶带</product-name>
 				<product-type></product-type>
 				<amount>1</amount>
 			</item>
@@ -65,18 +43,224 @@
 			</item>
 		</items>
 	</order>
-	
-	
+
 	<order>
-		<id>BJ0451</id>
-		<name>张三</name>
-		<summary></summary>
+		<id>BJ0043</id>               <!-- 员工号 -->
+		<name>姜延鑫</name>         <!-- 姓名 -->
+		<summary></summary>         <!-- 备注/说明 -->
 		<items>
-			<item>
-				<product-name>签字笔</product-name>
-				<product-type></product-type>
-				<amount>1</amount>
-			</item>
+		       <item>
+		              <product-name>笔记本</product-name>
+		              <product-type></product-type>
+		              <amount>1</amount>
+		       </item>
+		       <item>
+		              <product-name>胶棒</product-name>
+		              <product-type></product-type>
+		              <amount>1</amount>
+		       </item>
+		       <item>
+		              <product-name>中性笔</product-name>
+		              <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+		              <amount>1</amount>
+		       </item>
+		       <item>
+		              <product-name>笔芯</product-name>
+		              <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+		              <amount>1</amount>
+		       </item>
+		       <item>
+		              <product-name>铅笔</product-name>
+		              <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+		              <amount>1</amount>
+		       </item>
+		       <item>
+		              <product-name>窄透明胶带</product-name>
+		              <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+		              <amount>1</amount>
+		       </item>
+		       <item>
+		              <product-name>文件夹</product-name>
+		              <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+		              <amount>1</amount>
+		       </item>
 		</items>
 	</order>
+
+    <order>
+              <id>BJ0539</id>               <!-- 员工号 -->
+              <name>董正</name>         <!-- 姓名 -->
+              <summary></summary>         <!-- 备注/说明 -->
+              <items>
+                     <item>
+                            <product-name>笔记本</product-name>
+                            <product-type></product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>胶棒</product-name>
+                            <product-type></product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>中性笔</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>笔芯</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>铅笔</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>窄透明胶带</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>文件夹</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+              </items>
+       </order>
+ 
+	<order>
+              <id>BJ0455</id>               <!-- 员工号 -->
+              <name>胡秭江</name>         <!-- 姓名 -->
+              <summary></summary>         <!-- 备注/说明 -->
+              <items>
+                     <item>
+                            <product-name>笔记本</product-name>
+                            <product-type></product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>胶棒</product-name>
+                            <product-type></product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>中性笔</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>笔芯</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>铅笔</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>窄透明胶带</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>文件夹</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+              </items>
+       </order>
+
+<order>
+              <id>BJ0527</id>               <!-- 员工号 -->
+              <name>张月</name>         <!-- 姓名 -->
+              <summary></summary>         <!-- 备注/说明 -->
+              <items>
+                     <item>
+                            <product-name>笔记本</product-name>
+                            <product-type></product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>胶棒</product-name>
+                            <product-type></product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>中性笔</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>笔芯</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>铅笔</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>窄透明胶带</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>文件夹</product-name>
+                            <product-type></product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+              </items>
+       </order>
+
+<order>
+              <id>BJ0540</id>               <!-- 员工号 -->
+              <name>郭健</name>         <!-- 姓名 -->
+              <summary></summary>         <!-- 备注/说明 -->
+              <items>
+                     <item>
+                            <product-name>笔记本</product-name>
+                            <product-type>个</product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>胶棒</product-name>
+                            <product-type>支</product-type>
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>中性笔</product-name>
+                            <product-type>支</product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>笔芯</product-name>
+                            <product-type>支</product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>铅笔</product-name>
+                            <product-type>支</product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>窄透明胶带</product-name>
+                            <product-type>个</product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+                     <item>
+                            <product-name>文件夹</product-name>
+                            <product-type>个</product-type>            <!-- 规格及型号 如：盒 -->
+                            <amount>1</amount>
+                     </item>
+              </items>
+       </order>
+
+
+
+
+
 </orders>
