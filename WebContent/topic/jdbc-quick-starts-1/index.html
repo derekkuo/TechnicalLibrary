@@ -363,28 +363,20 @@ MetaData中通过一系列getXXX将这些信息返回给我们。
 	if(i%100==0) int[] ResultSet=pstm.executeBatch();//每个包50～200组数据，包太大也影响速度
 
 		</code></pre>
+
+
 <div class="note"><span class="note-head">注意</span> <span
 	class="note-body">
-<p>
-readObject()返回读到的一个对象，但是该方法不会以返回null表示读到文件末尾，而是当读到文件末尾时会抛出一个IOException。
-</p>
-</span></div>
-<div class="note"><span class="note-head">切记</span> <span
-	class="note-body">
 <ol>
-	<li>序列化一个对象并不一定会序列化该对象的父类对象；</li>
-	<li>瞬间属性、静态属性不参与序列化过程（transient、static修饰的属性）；</li>
-	<li>所有属性必须都是可序列化的，特别是当有些属性本身也是对象的时候，要尤其注意这一点。</li>
-	<li>序列化的集合就要求集合中的每一个元素都是可序列化的。</li>
-	<li>用两次序列化把两个对象写到文件中(以追加的方式)，与用一次序列化把两个对象写进文件的大小是不同的。</li>
-</ol>
+<li>int[] 中每一个数表示该Sql语句影响到的记录条数。</li> 
+<li>PreparedStatement的更新操作比Statement的更新操作多了一个设置参数的过程。</li>
+</ol> 
 </span></div>
 
 <span class="menu"><h2>小结</h2></span>
-<p>本文介绍了File类对文件的操作，并介绍了java语言中主要的字节输入输出流和字符输入输出流对数据的读写操作，
-以及随机存储读写文件的RandomAccessFIle类，最后简单的介绍了对象的序列化与反序列化的内容。
-由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。</p>
-
+<p>
+本文介绍了JDBC的基本操作，关于JDBC连接池部分会由下篇文章JDBC快速入门文档（二）继续讲解，敬请期待。由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。
+</p>
 </div>
 <!-- #techlib-topic-content 内容结束 --></div>
 <!-- #techlib-topic 结束 -->
