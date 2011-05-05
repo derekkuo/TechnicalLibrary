@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Order SYSTEM "order.dtd">
+<orders>
+	<order>
+		<id></id>			<!-- 员工号 BJ0043-->
+		<name>郭大喜</name>		<!-- 姓名 -->
+		<summary></summary>		<!-- 备注/说明 -->
+		<items>
+			<item>
+				<product-name>笔记本</product-name>
+				<product-type></product-type>	<!-- 规格及型号 如：盒 -->
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>胶棒</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>中性笔</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>笔芯</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>铅笔</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>窄透明胶带</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+			<item>
+				<product-name>文件夹</product-name>
+				<product-type></product-type>
+				<amount>1</amount>
+			</item>
+		</items>
+	</order>
+
+
+</orders>
