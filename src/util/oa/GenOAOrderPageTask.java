@@ -106,6 +106,8 @@ public class GenOAOrderPageTask extends TimerTask {
 		Collections.sort(keyList);
 		while(it.hasNext()){
 			Order order = (Order)orders.get( it.next() );
+			if(order.getId().equals(""))//如果order的id为空，则不记入汇总
+				continue;
 			List<Item> itemList = order.getItems();
 			Iterator itItemList = itemList.iterator();
 			while(itItemList.hasNext()){
@@ -154,6 +156,9 @@ public class GenOAOrderPageTask extends TimerTask {
 		int resultNumber = 1;
 		while(resultIt.hasNext()){
 			Item item = result.get(resultIt.next());
+			if( item.getAmount()==0 )//汇总后的结果中，如果数量是0，不显示在页面中
+				continue;
+			
 			pw.println("<tr>");
 
 			pw.println("<td class=\"row\">");
@@ -205,7 +210,9 @@ public class GenOAOrderPageTask extends TimerTask {
 			List<Item> items = order.getItems();
 			Iterator it = items.iterator();
 			while(it.hasNext()){
-				
+				Item item = (Item)it.next();
+				if(item.getAmount()==0)//如item中数量是0，则不在页面中显示
+					continue;
 				
 				pw.println("<tr>");
 
@@ -217,7 +224,7 @@ public class GenOAOrderPageTask extends TimerTask {
 				
 				
 				
-				Item item = (Item)it.next();
+
 				pw.println("<td class=\"row\">");
 				pw.println( item.getProductName() );
 				pw.println("</td>");
