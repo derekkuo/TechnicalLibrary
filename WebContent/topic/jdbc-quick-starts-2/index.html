@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0065)http://xiangmu.tarena.com.cn/topic/jdbc-quick-starts-1/index.html -->
+<HTML><HEAD><TITLE>JDBC快速入门（二）</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8"><LINK 
+href="JDBC快速入门（一）_files/techlib-topic.css" type=text/css rel=stylesheet>
+<SCRIPT src="JDBC快速入门（一）_files/jquery-1.4.3.min.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="JDBC快速入门（一）_files/techlib-topic.js" type=text/javascript></SCRIPT>
+<!-- 此行不用编辑 --><!-- 文件顶部锚点 --><!-- 文章头 -->
+<META content="MSHTML 6.00.6000.17097" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=techlib-topic><A name=top></A>
+<DIV id=techlib-topic-head>
+<DIV id=title>
+<H1>JDBC快速入门（二）</H1></DIV><!-- 标题 -->
+<DIV id=subtitle></DIV><!-- 副标题 -->
+<DIV id=authorline>作者：<A class=ad 
+href="http://www.chinatarena.com/">达内总部中关村中心</A>&nbsp;</SPAN> <SPAN 
+id=author>滕宝鑫</SPAN> &nbsp;&nbsp;发布日期：<SPAN id=submitDate>2011-05-10</SPAN> 
+</DIV><!-- 作者信息 --></DIV><!-- 此行不用编辑 -->
+<DIV id=techlib-topic-rightbar>
+<DIV id=ad-topic-rightbar-bottom><A class=ad 
+href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</A></DIV></DIV><!-- 目录 将会由jquery程序填充 --><!-- 正文内容开始 -->
+<DIV id=techlib-topic-content><SPAN class=menu>
+<H2>引言</H2></SPAN>
+<P>Java Database Connectivity (JDBC)是一个标准的Java 
+API，它由一组类和接口组成，Java应用程序开发人员使用它来访问数据库和执行SQL语句；从本质上来说就是调用者(程序员)和实现者(数据库厂商)之间的协议。JDBC 
+API 使得开发人员可以使用纯Java的方式来连接数据库，并进行操作。</P><!-- 标签行BEGIN -->
+<DIV id=techlib-tagsline><STRONG>标签：</STRONG> <A class=ad 
+href="http://www.chinatarena.com/">Java培训</A>&nbsp;<A class=ad 
+href="http://www.chinatarena.com/">达内</A> <SPAN id=tags><A class=search 
+href="http://xiangmu.tarena.com.cn/topic/jdbc-quick-starts-1/index.html#">jdbc</A> 
+</SPAN></DIV><!-- 标签行END -->
+<SPAN class=menu><H2>使用JDBC建立连接池访问数据库</H2></SPAN>
+<P>在内存中用来保存一个个数据库连接的对象。</P>
+<P>访问数据库时，建立连接和拆连接需要花费较长时间，通过以连接池直连的方式获取连接，不需要注册驱动程序，可以大量的节省销毁和创建连接的资源消耗，提高访问数据库的效率。</P>
+<P>连接池是一个很复杂的算法，由服务器厂商实现。</P>
+<P>下边代码是apache.commons连接池(Connection Pool)的一个例子，对上述的连接池进行讲解:</P>
+<PRE><CODE>例如：
+private static String driverClassName = "com.mysql.jdbc.Driver";
+private static String url = "jdbc:mysql://localhost:3306/test";
+private static String username = "root";
+private static String password = "root";
+private static int initialSize = 2;
+private static int maxActive = 10;
+private static int maxIdle = 6;
+private static int minIdle = 3;
+private static int maxWait = 5000;
+ // DBCP连接池数据源BasicDataSource
+ BasicDataSource basicDataSource = new BasicDataSource();
+ // 设置驱动
+ basicDataSource.setDriverClassName(driverClassName);
+ // 设置url路径
+ basicDataSource.setUrl(url);
+ // 设置用户名
+ basicDataSource.setUsername(username);
+ // 设置密码
+ basicDataSource.setPassword(password);
+ // 设置初始化连接数
+ basicDataSource.setInitialSize(initialSize);
+ // 设置最大连接数
+ basicDataSource.setMaxActive(maxActive);
+ // 设置最大空闲数
+ basicDataSource.setMaxIdle(maxIdle);
+ // 设置最小空闲数
+ basicDataSource.setMinIdle(minIdle);
+ // 设置最大的等待时间
+ basicDataSource.setMaxWait(maxWait);
+ //获得Connection连接
+Connection conn = ds.getConnection();
+		</CODE></PRE>
+<DIV class=note><SPAN class=note-head>注意</SPAN> <SPAN class=note-body>
+<P>通过连接池获得的Connection，当执行con.close()时，不是关闭连接，而是表示将连接释放回连接池。</P>
+</SPAN></DIV>
+
+<SPAN class=menu><H2>RowSet行集</H2></SPAN>
+<p>RowSet行集，这是一个JavaBean（事件机制），它增强了ResultSet的功能，包装了Connection、Statement、ResultSet、DriverManage。通过RowSet可以获得数据源，设置隔离级别，也可以发送查寻语句，也实现了离线的操作遍历，RowSet也支持预编译的Statement。是结果集的子接口，为快速开发而设(目前还不够成熟，没人用)。</p>
+<p>RowSet中的方法大致上和ResultSet相同，当需要使用时请查阅JAVA API参考文档。</p>
+
+<SPAN class=menu><H2>JDBC异常处理</H2></SPAN>
+<p> JDBC中，和异常相关的两个类是SQLException和SQLWarning。</p>
+<p>1.SQLException类：用来处理较为严重的异常情况。</P>
+<p>比如：
+<UL class=ul-plain>
+  <LI>1、传输的SQL语句语法的错误； 
+  <LI>2、JDBC程序连接断开； 
+  <LI>3、SQL语句中使用了错误的函数。
+  <LI>SQLException提供以下方法：
+  <LI>getNextException() —— 用来返回异常栈中的下一个相关异常；
+  <LI>getErrorCode() —— 用来返回代表异常的整数代码 (error code)；
+  <LI>getMessage() —— 用来返回异常的描述信息 (error message)。
+</LI></UL>
+</P>
+<p>2.SQLWarning类：用来处理不太严重的异常情况，也就是一些警告性的异常;其提供的方法和使用与SQLException基本相似。</P>
+<p>结合异常的两种处理方式，明确何时采用哪种:
+	<UL class=ul-plain>
+  <LI>1、throws处理不了，或者要让调用者知道； 
+  <LI>2、try … catch能自行处理，就进行异常处理。 
+</LI></UL>
+	</p>
+<SPAN class=menu>
+<H2>小结</H2></SPAN>
+<P>本文介绍了JDBC关于JDBC连接池部分的基本操作。由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。
+</P></DIV><!-- #techlib-topic-content 内容结束 --></DIV><!-- #techlib-topic 结束 --><!-- 此行不用编辑 -->
+<DIV style="MARGIN-BOTTOM: 50px; PAGE-BREAK-AFTER: always"></DIV><!-- 打印时分页 --><!-- 此行不用编辑 -->
+<DIV id=techlib-topic-notelist></DIV><!-- 这个区域用于抽取正文中NOTE内容 --></BODY></HTML>
