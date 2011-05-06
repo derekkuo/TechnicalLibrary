@@ -1,0 +1,52 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3G航空订票系统(一)</title>
+<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title"><h1>3G航空订票系统(一)</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">叶朋</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+	
+	<!-- 正文内容开始 -->
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>简介</h2></span>
+		<p>无线网络的迅速发展使得原来web页面的订票系统满足不了部分移动用户的需求，为了应对需求为原有的航空订票系统增加了Android系统的手机客户端。新的手机端系统由于成本的过高不易使用web方式与服务端交互，为了节约成本使用socket通信，但是由于简陋的socket的通信不能满足大的信息量通信，为了使客户的感官更好在这个项目中分别在服务端与客户端各加缓存并且对请求信息与响应信息进行封装，简单的图示如下：</p>
+	    <img src="图01.jpg"/>
+	    <span class="menu"><h2>航空项目全局图</h2></span>
+		<p>为了使大家对项目有全面的了解，我画了2个图，简单的展示了一下这个项目的需求。</p>
+		<span class="menu"><h3>用例图如下：</h3></span>
+		<img src="截图00.png"/>
+		<span class="menu"><h3>页面流程图如下：</h3></span>
+		<img src="hk_ui流程图.png"/>
+		<span class="menu"><h2>基本类图分析</h2></span>
+		ClientContext与ServerContext分别代表课户端缓存与服务端缓存，为了使项目的视图与业务层分离建立了ControllerContext并且用ClientInitialization这个类负责加载客户端缓存数据，客户端与服务端具体的类图如下：
+		<img src="图02.png"/>
+		<img src="图3.png"/>
+		
+		<span class="menu"><h2>基本流程时序图</h2></span>
+		1.客户端在初始化的时候，首先会加载本地的一些不变的信息如省份、城市、客户端的一些配置参数等。然后根据版本号去决定是否加载服务端的一些信息如飞机信息、网点信息等，简单的时序图如下：
+		<img src="图4.png"/>
+		2.客户端登陆的时候会将客户输入的用户名与密码封装为REQUEST对象，然后调用客户端代理请求并返回RESPONSE对象，根据返回RESPONSE的状态去判断能否登陆成功，简单的时序图如下：
+		<img src="图5.png"/>
+		3.登陆时服务端会接受REQUEST对象并为每一个用户的请求分配一个线程，验证用户的密码并为用户首次登陆生成一个会话ID，用来维持用户的会话状态，简单的时序图如下：
+		<img src="图6.png"/>
+		<span class="menu"><h2>总结</h2></span>
+		<p>这个项目的大致结构在图中已经展示，我会在以后的版本中将每个图示中的内容进行剖析，并展示出一些典型的代码让这个大家更好的了解这个项目。</p>
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
