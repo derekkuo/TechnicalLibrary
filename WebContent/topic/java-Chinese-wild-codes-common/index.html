@@ -22,15 +22,15 @@
 		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
 	</div><!-- 目录 将会由jquery程序填充 -->
 	
+	
 	<!-- 正文内容开始 -->
 	<div id="techlib-topic-content">
-		<span class="menu"><h2>简介</h2></span>
-		<p>乱码问题集中在3个区域，如图：</p>
-	    <img src="java-Chinese-wild-codes-common-usercase.jpg"/>
 		<!-- 标签行BEGIN -->
 		<div id="techlib-tagsline">
 			<strong>标签：</strong>
-			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" 
+
+href="http://www.chinatarena.com/">达内</a>
 			<span id="tags">
 				<a class="search" href='#'>Java</a>
 				<a class="search" href='#'>中文乱码</a>
@@ -40,14 +40,14 @@
 		<span class="menu"><h2>常见情况</h2></span>
 		<ul>
 			<li>第一：数据库乱码</li>
-			<li>第二：JSP页面中的乱码问题</li>
+			<li>第二：JSP中的乱码问题</li>
 			<li>第三：java程序与其他媒介交互时乱码</li>
 			<li>具体情况如图，要保持下图中每个环节的编码都要一致：</li>
-			<img src="java-Chinese-wild-codes-common-logic.jpg"/>
+			<img width="680px" src="java-Chinese-wild-codes-common-logic.jpg"/>
 		</ul>
 		
 		<span class="menu"><h2>数据库乱码</h2></span>
-		<p>mysql终端使用set names gbk(与查看终端时的字符编码集相同)</p>
+		<p>mysql终端使用set names gbk(与从属性中显示的字符编码集相同)</p>
 		<p>mysql安装时指定编码为utf8</p>
 		<p>创建表时指定编码create table test(name varchar2(50)) default charset=utf8.</p>
 		<p>创建数据库时指定编码create database test  default character set utf8.</p>
@@ -62,7 +62,8 @@
 		</pre></code>
 		</ul>	
 		
-		<span class="menu"><h3>jsp页面中的乱码问题</h3></span>
+		<span class="menu"><h2>jsp中的乱码问题</h3></span>
+		<span class=中文"menu"><h3>jsp页面</h3></span>
 		<p>jsp页面中头中指明<%@ page contentType="test/html;charset=utf-8" pageEncoding="utf-8"%></p>
 		<p>静态html页面中的使用&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;</p>
 		<p>在servlet当中指定request对象解码时所用的的编码格式 request.setCharacterEncoding("utf-8");</p>
@@ -71,24 +72,63 @@
 			
 		
 		<span class=中文"menu"><h3>链接地址中文</h3></span>
-		<p>浏览器会对链接地址中的(包含其它ascii字符以外的字符，比如日文，部分的拉丁字符)进行编码，采用utf-8编码。服务器默认情况下采用ISO-8859-1解码。此时，可通过设置配置文件的方式，告诉服务器采用指定的编码来解码。
-		在tomcat_home/conf/server.xml文件&lt;Connector port="8080"位置中添加URIEncoding="utf-8",作用是告诉服务器对于get请求，都采用utf-8来解码</p>
+		<p>浏览器会对链接地址中的(包含其它ascii字符以外的字符，比如日文，部分的拉丁字符)进行编码，采用utf-8编码。服务器默认情况
+
+下采用ISO-8859-1解码。此时，可通过设置配置文件的方式，告诉服务器采用指定的编码来解码。
+		在tomcat_home/conf/server.xml文件&lt;Connector port="8080"位置中添加URIEncoding="utf-8",作用是告诉服务器对于get请求，都
+
+采用utf-8来解码</p>
 		<span class="menu"><h3>请求参数中的中文</h3></span>
 		<p>请求参数中包含中文，浏览器也会编码，所用的编码与打开该页面时的编码一致：</p>
 		<ul>
 				<li>方案一：保证页面打开时的编码与URIEncoding的设置一致</li>
 				<li>方案二：对请求参数直接编码&lt;a href="xxxx?"name=<%=URLEncoder.encode("中文","utf-8")%>"&gt;</li>
-			</ul>
+		</ul>
 
-		<span class="menu"><h3>表单用post请求时乱码问题</h3></span>
-		<p>用过滤器解决。</p>
-		<span class="menu"><h3>web容器以及web容器组件中文</h3></span>
-		<p>保持web容器与web容器组件的编码一致，而且还要保持与其他组件的边界处的编码一致，具体的设置就不一一说明了
-		在网上都有相关说明。（例如：工程编码要与全局编码一致以及tomcat响应结果的编码要一致，具体设置就不说了）
+		<span class="menu"><h3>表单提交乱码问题</h3></span>
+		<p>如果是get方法时，请求数据会放到请求行中的请求资源路径之后。直接在接收的组件中写request.setCharacterEncoding("utf-
+
+8");即可避免乱码。</p>
+		<p>
+		如果是post方法时，post请求时表单中的数据会放到实体内容里面。解决方案是自己写个过滤器:<br/>
+  		过滤器可以拦截服务器调用servlet的过程实现对response，request的编码修改。具体操作步骤如下：
 		</p>
-		<span class="menu"><h3>cmd控制台显示数据乱码</h3></span>
-		<p>设置控制台的编码如下，注意要与数据库返回的结果集编码一致：</p>
-		<p>要改注册表里控制台的编码</p>
+		<ul>
+			<li>第一步：写个java类CharacterEncodingFilter，实现filter接口
+			<li><p>第二步：在doFilter()方法中实现过滤逻辑。服务器会将HttpServletRequest，HttpServletResponse对象作为参数传递给该方法。</p>
+			<code>public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2) throws IOException, ServletException {<br/>
+			System.out.println("characterencoding doFilter...");<br/>
+			HttpServletRequest request = (HttpServletRequest)arg0;<br/>
+			HttpServletResponse response = (HttpServletResponse)arg1;<br/>
+			request.setCharacterEncoding("utf-8");<br/>
+			response.setContentType("text/html;charset=utf-8");<br/>
+			arg2.doFilter(request, response);<br/>
+			}
+</code>
+			<p>其中FilterChain接口当中定义了一个方法doFilter(ServletRequest,ServletResponse),其作用是，调用后续的过滤器，如果			没有过滤器了，则调用Servlet的service方法。</p>
+			<li>第三步：在web.xml中配置过滤器。配置filter,filter-mapping.
+			&lt;filter&gt;<br/>
+  				&lt;filter-name&gt;charcterEncodingFilter&lt;/filter-name&gt;<br/>
+  				&lt;filter-class&gt;web.CharacterEncodingFilter&lt;/filter-class&gt;<br/>
+ 			 &lt;/filter&gt;<br/>
+ 			 &lt;filter-mapping&gt;<br/>
+  				&lt;filter-name&gt;charcterEncodingFilter&lt;/filter-name&gt;<br/>
+  				&lt;url-pattern&gt;/*&lt;/url-pattern&gt;<br/>
+  			&lt;/filter-mapping&gt;<br/>
+
+		</ul>
+	<span class="menu"><h2>java程序与其他媒介交互时乱码</h2></span>
+	<span class="menu"><h3>java与数据库之间的乱码</h3></span>
+	<p>大部分数据库驱动，可以在驱动的url参数中指明编码方式，如jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8</p>
+	<span class="menu"><h3>java与文件流之间的乱码</h3></span>
+	<p>Java读写文件最常用的类是 FileInputStream/FileOutputStream和FileReader/FileWriter。其中FileInputStream 和FileOutputStream是基于字节流的，常用于读写二进制文件。</p>
+	<p>读写字符文件建议使用基于字符的FileReader和 FileWriter，省去了字节与字符之间的转换。但这两个类的构造函数默认使用系统的编码方式，如果文件内容与系统编码方式不一致，可能会出现乱码。</p>
+	<p>在这种情况下，建议使用FileReader和FileWriter的父类： InputStreamReader/OutputStreamWriter，它们也是基于字符的</p>
+	<p>但在构造函数中可以指定编码类型： InputStreamReader(InputStream in, Charset cs) 和OutputStreamWriter(OutputStream out, Charset cs)</p>
+
+	<span class="menu"><h2>总结</h2></span>
+	<p>本文主要介绍了常见的几种乱码问题的解决方案,核心思想是只要确保查看页面时的编码，页面保存时的编码方式，页面中内容的编码方式三者一致即可避免乱码问题.</p>
+
 	</div><!-- #techlib-topic-content 内容结束 -->
 </div><!-- #techlib-topic 结束 -->
 <!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
