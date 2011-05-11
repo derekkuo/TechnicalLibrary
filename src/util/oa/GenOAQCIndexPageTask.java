@@ -55,7 +55,7 @@ public class GenOAQCIndexPageTask extends TimerTask {
 		
 		
 		String htmlHead = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n" +
-		"<title>文章 - 技术资料库 Technical Library</title>"+  "\n" ;
+		"<title>QC</title>"+  "\n" ;
 
 		pw.write(htmlHead);
 
@@ -63,7 +63,7 @@ public class GenOAQCIndexPageTask extends TimerTask {
 		InputStream is = context.getResourceAsStream("/oa/common/techlib-htmlhead-oaqc.html");
 		HtmlUtil.printHtmlFromInputStream(pw, is);
 		
-		pw.println("<div id=\"techlib-head\"><h1>文章</h1></div>"+ "\n" +
+		pw.println("<div id=\"techlib-head\"><h1>QC</h1></div>"+ "\n" +
 				"<div id=\"techlib-content\">");
 		
 		//writeULStyle(allTopicHeader);
