@@ -1,0 +1,239 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>XML解析技术：Dom4j浅析</title>
+<link rel="stylesheet" type="text/css"
+	href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic"><!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+
+<div id="techlib-topic-head"><!-- 文章头 -->
+<div id="title">
+<h1>XML解析技术：Dom4j浅析</h1>
+</div>
+<!-- 标题 -->
+<div id="subtitle"></div>
+<!-- 副标题 -->
+<div id="authorline">作者：<a class="ad"
+	href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span> <span
+	id="author">张月</span>
+	&nbsp;&nbsp;发布日期：<span id="submitDate">2011-05-12</span>
+	</div>
+<!-- 作者信息 --></div>
+
+<div id="techlib-topic-rightbar">
+<div id="ad-topic-rightbar-bottom"><a class="ad"
+	href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+</div>
+<!-- 目录 将会由jquery程序填充 --> <!-- 正文内容开始 -->
+
+<div id="techlib-topic-content"><span class="menu">
+<h2>引言</h2>
+</span>
+<p>XML(eXtensible Markup Language，可扩展标记语言)是由World Wide
+Web联盟(W3C)定义的元语言，即一种关于语言的语言。</p>
+<p>然而XML本身只是以纯文本对数据进行编码的一种格式，要想利用XML，或者说利用XML文件中所编码的数据，必须先将数据从纯文本中解析出来，因此，必须有一个能够识别XML文档中信息的解析器，用来解释XML文档并提取其中的数据。然而，根据数据提取的不同需求，又存在着多种解析方式，不同的解析方式有着各自的优缺点和适用环境。主要包括
+：DOM，SAX，JDOM，DOM4J等。在这里我们对前三种解析技术做简单的描述，重点说一下DOM4J这种解析技术。</p>
+
+
+<!-- 标签行BEGIN -->
+<div id="techlib-tagsline"><strong>标签：</strong> <a class="ad"
+	href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad"
+	href="http://www.chinatarena.com/">达内</a> <span id="tags"> <a
+	class="search" href='#'>XML解析</a> <a class="search" href='#'>DOM4J</a>
+</span></div>
+<!-- 标签行END --> <span class="menu">
+<h2>XML解析技术分析</h2>
+</span>
+<p>所有的XML处理都从解析开始，无论是使用XSLT或Java语言，第一步都是要读入XML文件，解码结构和检索信息等等，这就是解析，即把代表XML文档的一个无结构的字符序列转换为满足XML语法的结构化组件的过程。</p>
+<p>1. DOM： Document Object Model</p>
+<ul>
+	<li>原理：xml文档是树形结构。整个树构造完毕以后才开始解析。在节点间移动。</li>
+	<li>优点：可以在节点间移动。获取数据，修改数据，增加节点，删除节点。</li>
+	<li>缺点：</li>
+	<p>1)如果文档过大，装载时间延迟明显。</p>
+	<p>2)如果只是读一小部分数据，装载整个文档浪费。</p>
+	<p>3)编码繁杂;api容易使用但罗嗦;程序员需要学习api的使用。</p>
+	<li>适合：文档比较小。</li>
+</ul>
+<p>2. SAX：Simple API for Xml</p>
+<ul>
+	<li>原理：流的方式。解析可以立即开始。不保存任何节点数据。只读。</li>
+	<li>优点：快。只读一小部分数据，不需要全部加载。</li>
+	<li>缺点：无法在节点间移动，无法修改节点。</li>
+	<li>适合：文档比较大，不涉及修改节点，只读一小部分数据的情况。</li>
+</ul>
+<p>3. JDOM</p>
+<ul>
+	<li>优点：Java API：改进DOM API，大量使用java api中的集合等现有的结构。</li>
+	<li>好处：程序员不需要学习新的语法。</li>
+</ul>
+
+<p>4. DOM4J (four = for)(较重要)</p>
+<ul>
+	<li>原理：把DOM与SAX进行了封装。</li>
+	<li>优点：JDOM的一个智能分支。扩充了灵活性。增加一些额外的功能。是目前性能最好的xml api。</li>
+	<li>hibernate 就是使用dom4j作为自己的xml解析器</li>
+</ul>
+
+
+<span class="menu">
+<h2>DOM4J解析技术</h2>
+</span>
+<span class="menu">
+<h3>一. Document对象相关</h3>
+</span>
+<p>(1) 读取XML文件,获得document对象</p>
+<pre><code>eg -> SAXReader reader = new SAXReader();
+      Document document = reader.read(new File(emp.xml"));
+	</code></pre>
+<p>(2) 解析XML形式的文本,得到document对象</p>
+<pre><code>eg -> String text = "元素";
+      Document document = DocumentHelper.parseText(text);
+	</code></pre>
+<p>(3) 主动创建document对象</p>
+<pre><code>eg -> Document document = DocumentHelper.createDocument();
+      Element root = document.addElement("members");// 创建根节点
+	</code></pre>
+<span class="menu">
+<h3>二. 节点相关</h3>
+</span>
+<p>(1) 获取文档的根节点.</p>
+<pre><code>eg -> SAXReader reader = new SAXReader();
+      Document document = reader.read(new File(emp.xml"));
+	</code></pre>
+<p>(2) 取得某节点的单个子节点</p>
+<pre><code>eg ->  Element memberElm=root.element("member");// "member"是节点名
+	</code></pre>
+<p>(3) 取得节点的文字</p>
+<pre><code>eg -> DString text=memberElm.getText();
+或者：
+eg ->String text=root.elementText("name");//这个是取得根节点下的name字节点的文字
+	</code></pre>
+	
+<p>(4) 取得某节点下名为"member"的所有字节点并进行遍历</p>
+<pre><code>eg -> List nodes = rootElm.elements("member");
+      for (Iterator it = nodes.iterator(); it.hasNext();) {
+          Element elm = (Element) it.next();
+          // do something
+      }
+	</code></pre>
+<p>(5)对某节点下的所有子节点进行遍历 </p>
+<pre><code>eg -> for(Iterator it=root.elementIterator();it.hasNext();){
+               Element element = (Element) it.next();
+               // do something
+          }
+	</code></pre>
+<p>(6) 在某节点下添加子节点</p>
+<pre><code>eg -> Element ageElm = newMemberElm.addElement("age");
+</code></pre>
+<p>(7)设置节点文字. </p>
+<pre><code>eg -> ageElm.setText("29");
+</code></pre>
+<p>(8) 删除某节点</p>
+<pre><code>eg -> parentElm.remove(childElm);// childElm是待删除的节点,parentElm是其父节点
+</code></pre>
+<p>(9)添加一个CDATA节点</p>
+<pre><code>eg -> Element contentElm = infoElm.addElement("content");
+      contentElm.addCDATA(diary.getContent());
+      contentElm.getText(); // 特别说明：获取节点的CDATA值与获取节点的值是一个方法
+      contentElm.clearContent(); //清除节点中的内容，CDATA亦可    
+       
+</code></pre>
+<span class="menu">
+<h3>三 . 属性相关</h3></span>
+<p>(1)取得某节点下的某属性 </p>
+<pre><code>eg ->  Element root=document.getRootElement();    
+       Attribute attribute=root.attribute("size");// 属性名name
+</code></pre>
+
+<p>(2)取得属性的文字 </p>
+<pre><code>eg -> String text=attribute.getText();
+      或者:
+eg -> String text2=root.element("name").attributeValue("firstname");
+      //这个是取得根节点下name字节点的属性firstname的值.
+
+</code></pre>
+
+<p>(3)遍历某节点的所有属性 </p>
+<pre><code>
+eg -> Element root=document.getRootElement();    
+      for(Iterator it=root.attributeIterator();it.hasNext();){
+         Attribute attribute = (Attribute) it.next();
+         String text=attribute.getText();
+         System.out.println(text);
+      }
+
+</code></pre>
+
+<p>(4)设置某节点的属性和文字 </p>
+<pre><code>eg -> newMemberElm.addAttribute("name", "sitinspring");
+</code></pre>
+
+<p>(5) 设置属性的文字</p>
+<pre><code>eg -> Attribute attribute=root.attribute("name");
+      attribute.setText("sitinspring");
+
+</code></pre>
+
+<p>(6)删除某属性</p>
+<pre><code>eg -> Attribute attribute=root.attribute("size");// 属性名name
+      root.remove(attribute);
+
+</code></pre>
+
+<span class="menu">
+<h3>四 . 将文档写入XML文件</h3></span>
+<p>(1)文档中全为英文,不设置编码,直接写入的形式</p>
+<pre><code>eg -> XMLWriter writer = new XMLWriter(new FileWriter("output.xml"));
+      writer.write(document);
+      writer.close();
+}
+
+</code></pre>
+
+<p>(2)文档中含有中文,设置编码格式写入的形式</p>
+<pre><code>eg ->  OutputFormat format = OutputFormat.createPrettyPrint();
+       format.setEncoding("GBK");    // 指定XML编码        
+       XMLWriter writer = new XMLWriter(new FileWriter("output.xml"),format);
+             
+       writer.write(document);
+       writer.close();
+
+</code></pre>
+
+<span class="menu">
+<h3>五 . 字符串与XML的转换</h3></span>
+<p>(1)将字符串转化为XML</p>
+<pre><code>eg -> String text = "<members> <member>sitinspring</member> </members>";
+      Document document = DocumentHelper.parseText(text);
+
+</code></pre>
+
+<p>(2)将文档或节点的XML转化为字符串</p>
+<pre><code>eg -> SAXReader reader = new SAXReader();
+      Document   document = reader.read(new File("input.xml"));            
+      Element root=document.getRootElement();                
+      String docXmlText=document.asXML();
+      String rootXmlText=root.asXML();
+      Element memberElm=root.element("member");
+      String memberXmlText=memberElm.asXML();
+
+</code></pre>
+
+<span class="menu">
+<h2>小结</h2>
+</span>
+<p>xml的解析方式多种多样，大家可以根据自己的需要进行选择。本文主要介绍的是dom4j，介绍了一下dom4j的一些使用，即如何用该解析器创建和修改xml文档。</p>
+
+</div>
+<!-- #techlib-topic-content 内容结束 --></div>
+<!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 -->
+<div style="PAGE-BREAK-AFTER: always; margin-bottom: 50px;"></div>
+<!-- 打印时分页 -->
+<!-- 此行不用编辑 -->
+<div id="techlib-topic-notelist"></div>
+<!-- 这个区域用于抽取正文中NOTE内容 -->
