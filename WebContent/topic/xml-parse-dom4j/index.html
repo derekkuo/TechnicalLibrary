@@ -29,9 +29,7 @@
 </div>
 <!-- 目录 将会由jquery程序填充 --> <!-- 正文内容开始 -->
 
-<div id="techlib-topic-content"><span class="menu">
-<h2>引言</h2>
-</span>
+<div id="techlib-topic-content"><span class="menu"><h2>引言</h2></span>
 <p>XML(eXtensible Markup Language，可扩展标记语言)是由World Wide
 Web联盟(W3C)定义的元语言，即一种关于语言的语言。</p>
 <p>然而XML本身只是以纯文本对数据进行编码的一种格式，要想利用XML，或者说利用XML文件中所编码的数据，必须先将数据从纯文本中解析出来，因此，必须有一个能够识别XML文档中信息的解析器，用来解释XML文档并提取其中的数据。然而，根据数据提取的不同需求，又存在着多种解析方式，不同的解析方式有着各自的优缺点和适用环境。主要包括
@@ -41,12 +39,12 @@ Web联盟(W3C)定义的元语言，即一种关于语言的语言。</p>
 <!-- 标签行BEGIN -->
 <div id="techlib-tagsline"><strong>标签：</strong> <a class="ad"
 	href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad"
-	href="http://www.chinatarena.com/">达内</a> <span id="tags"> <a
-	class="search" href='#'>XML解析</a> <a class="search" href='#'>DOM4J</a>
+	href="http://www.chinatarena.com/">达内</a> <span id="tags">
+	<a class="search" href='#'>XML</a>
+	<a class="search" href='#'>XML解析</a>
+	<a class="search" href='#'>DOM4J</a>
 </span></div>
-<!-- 标签行END --> <span class="menu">
-<h2>XML解析技术分析</h2>
-</span>
+<!-- 标签行END --> <span class="menu"><h2>XML解析技术分析</h2></span>
 <p>所有的XML处理都从解析开始，无论是使用XSLT或Java语言，第一步都是要读入XML文件，解码结构和检索信息等等，这就是解析，即把代表XML文档的一个无结构的字符序列转换为满足XML语法的结构化组件的过程。</p>
 <p>1. DOM： Document Object Model</p>
 <ul>
@@ -79,12 +77,8 @@ Web联盟(W3C)定义的元语言，即一种关于语言的语言。</p>
 </ul>
 
 
-<span class="menu">
-<h2>DOM4J解析技术</h2>
-</span>
-<span class="menu">
-<h3>一. Document对象相关</h3>
-</span>
+<span class="menu"><h2>DOM4J解析技术</h2></span>
+<span class="menu"><h3>一. Document对象相关</h3></span>
 <p>(1) 读取XML文件,获得document对象</p>
 <pre><code>eg -> SAXReader reader = new SAXReader();
       Document document = reader.read(new File(emp.xml"));
@@ -97,9 +91,7 @@ Web联盟(W3C)定义的元语言，即一种关于语言的语言。</p>
 <pre><code>eg -> Document document = DocumentHelper.createDocument();
       Element root = document.addElement("members");// 创建根节点
 	</code></pre>
-<span class="menu">
-<h3>二. 节点相关</h3>
-</span>
+<span class="menu"><h3>二. 节点相关</h3></span>
 <p>(1) 获取文档的根节点.</p>
 <pre><code>eg -> SAXReader reader = new SAXReader();
       Document document = reader.read(new File(emp.xml"));
@@ -142,9 +134,7 @@ eg ->String text=root.elementText("name");//这个是取得根节点下的name�
       contentElm.clearContent(); //清除节点中的内容，CDATA亦可    
        
 </code></pre>
-<span class="menu">
-<h3>三 . 属性相关</h3></span>
-<p>(1)取得某节点下的某属性 </p>
+<span class="menu"><h3>三 . 属性相关</h3></span><p>(1)取得某节点下的某属性 </p>
 <pre><code>eg ->  Element root=document.getRootElement();    
        Attribute attribute=root.attribute("size");// 属性名name
 </code></pre>
@@ -184,8 +174,7 @@ eg -> Element root=document.getRootElement();
 
 </code></pre>
 
-<span class="menu">
-<h3>四 . 将文档写入XML文件</h3></span>
+<span class="menu"><h3>四 . 将文档写入XML文件</h3></span>
 <p>(1)文档中全为英文,不设置编码,直接写入的形式</p>
 <pre><code>eg -> XMLWriter writer = new XMLWriter(new FileWriter("output.xml"));
       writer.write(document);
@@ -204,8 +193,7 @@ eg -> Element root=document.getRootElement();
 
 </code></pre>
 
-<span class="menu">
-<h3>五 . 字符串与XML的转换</h3></span>
+<span class="menu"><h3>五 . 字符串与XML的转换</h3></span>
 <p>(1)将字符串转化为XML</p>
 <pre><code>eg -> String text = "<members> <member>sitinspring</member> </members>";
       Document document = DocumentHelper.parseText(text);
@@ -223,9 +211,7 @@ eg -> Element root=document.getRootElement();
 
 </code></pre>
 
-<span class="menu">
-<h2>小结</h2>
-</span>
+<span class="menu"><h2>小结</h2></span>
 <p>xml的解析方式多种多样，大家可以根据自己的需要进行选择。本文主要介绍的是dom4j，介绍了一下dom4j的一些使用，即如何用该解析器创建和修改xml文档。</p>
 
 </div>
