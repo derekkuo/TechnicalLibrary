@@ -2,6 +2,33 @@
 <script type="text/javascript">
  */
 	$(function(){
+		//对文章中图片的处理
+		var $imgs = $('img');
+
+		$imgs.each(function(i){
+			var $img = $(this);
+			var imgWidth = $img.width();
+			if( $img.width()>680 )
+				$img.width(680);
+			$img.attr("title","双击，放大两倍");
+			$img.bind('click', function() {
+				$img.attr("title","双击，放大两倍");
+				$img.width( imgWidth );
+				if( $img.width()>680 ){
+					$img.width(680);
+				}
+			});
+			$img.bind('dblclick', function() {
+				$img.attr("title","单击，还原大小");
+				if( imgWidth > 680)
+					$img.width( 680*1.8 );
+				else
+					$img.width( imgWidth*2 );
+				
+			});
+
+		});		
+		
 		var $refCSS = $('<link rel="stylesheet" type="text/css" href="../../css/techlib-topbar.css">');
 		$refCSS.insertBefore($("head"));
 		
