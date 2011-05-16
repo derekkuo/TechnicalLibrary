@@ -1,0 +1,172 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>内部类浅析</title>
+<link rel="stylesheet" type="text/css"
+	href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic"><!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+ 
+<div id="techlib-topic-head"><!-- 文章头 -->
+<div id="title"><h1>内部类浅析</h1></div>
+<!-- 标题 -->
+<div id="subtitle"></div>
+<!-- 副标题 -->
+<div id="authorline">作者：<a class="ad"
+	href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span> <span
+	id="author">董正</span>
+	&nbsp;&nbsp;发布日期：<span id="submitDate">2011-05-16</span>
+	</div>
+<!-- 作者信息 --></div>
+ 
+<!-- 此行不用编辑 -->
+<div id="techlib-topic-rightbar">
+<div id="ad-topic-rightbar-bottom"><a class="ad"
+	href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+</div>
+<!-- 目录 将会由jquery程序填充 --> <!-- 正文内容开始 -->
+<div id="techlib-topic-content"><span class="menu"><h2>引言</h2></span>
+<p>内部类从表面上看，就是在类中又定义了一个类，而实际上并没有那么简单，
+乍看上去内部类似乎有些多余，它的用处对于初学者来说可能并不是那么显著，
+但是随着对它的深入了解，你会发现Java的设计者在内部类身上的确是用心良苦。
+学会使用内部类，是掌握Java高级编程的一部分，它可以让你更优雅地设计你的程序结构。
+这里我先对内部类做一个简单介绍。</p>
+
+<!-- 标签行BEGIN -->
+<div id="techlib-tagsline"><strong>标签：</strong> <a class="ad"
+	href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad"
+	href="http://www.chinatarena.com/">达内</a>
+	<span id="tags">
+		<a class="search" href="#">java</a>
+		<a class="search" href="#">Inner Class</a>
+		<a class="search" href="#">内部类</a>
+	</span></div>
+<!-- 标签行END --> <span class="menu"><h2>一、内部类的定义</h2></span>
+<p>内部类指的是在类的内部嵌套定义的类。</p>	
+
+<span class="menu"><h2>二、内部类的分类</h2></span>
+<p>内部类一般分为四种：成员内部类、静态嵌套类（静态内部类）、方法内部类(局部内部类)、匿名内部类。</p>	
+
+<span class="menu"><h2>三、内部类的共性</h2></span>
+<p>	1、内部类仍然是一个独立的类，在编译之后会内部类会被编译成独立的.class文件，但是前面冠以外部类的类命和$符号。</p>
+<p> 2、内部类不能用普通的方式访问。内部类是外部类的一个成员，因此内部类可以自由地访问外部类的成员变量，无论是否是private的。(但在静态内部类内部，不能访问外部类的非静态成员)。</p>	
+
+<span class="menu"><h2>四、内部类的特点及应用</h2></span>
+<span class="menu"><h3>1. 成员内部类</h3></span>
+<p>声明在类体中，不使用static，具有类的成员特征，
+也就是，必须有类的实例才能创建内部类实例。内部类实例可以访问共享外部类的成员变量。
+成员内部类的实例一定要绑定在外部类的实例上，如果从外部类中初始化一个内部类对象，
+那么内部类对象就会绑定在外部类对象上。内部类初始化方式与其他类初始化方式相同，
+都是使用new关键字。</p>	
+<pre><code>例如：
+	public class InnerClassDemo {
+	  public static void main(String[] args) {
+	    Goo g = new Goo();
+	    g.test();
+	  }
+	}
+	class Goo{
+	  int a = 1;
+	  public void test(){ //可以在内部的成员方法中访问
+	    Koo koo = new Koo();//创建内部类实例
+	    System.out.println(koo.getA()); 
+	  }
+	  class Koo{//成员内部类
+	    public int getA(){ return a;}
+	  }
+	}
+</code></pre>
+
+<span class="menu"><h3>2. 静态内部类</h3></span>
+<p>使用static修饰，声明在类体中，可以使用外部类类名访问，
+在类内部可以省略类名。静态内部类中可以访问外部类的静态成员。生成一个静态内部类不需要外部类成员：
+这是静态内部类和成员内部类的区别。静态内部类的对象可以直接生成：
+Outer.Inner in = new Outer.Inner();而不需要通过生成外部类对象来生成。</p>	
+<pre><code>例如：
+	public class StaticDemo2 {
+		public static void main(String[] args) {
+			Uoo.Koo in = new Uoo.Koo();
+			System.out.println(in.getB());
+			Uoo.test();
+		}
+	}
+	class Uoo{
+		int a=1;
+		static int b=3;
+		static void test(){
+			Koo koo=new Koo();
+			System.out.println(koo.getB());
+		}
+		static class Koo{//静态内部类
+	//		public int getA(){//错，不能访问外部类的非静态成员
+	//			return a;
+	//		}
+			public int getB(){
+				return b;
+			}
+			
+		}
+	}
+</code></pre>
+
+<span class="menu"><h3>3. 局部内部类</h3></span>
+<p>在方法中定义的内部类称为局部内部类，作用域类似局部变量。</p>	
+<pre><code>例如：
+	public class LocalDemo {
+	  public static void main(String[] args){
+	    final int a = 2;
+	    //局部内部类， 可以访问final局部变量， 
+	    class Foo{
+	      void test(){
+	        System.out.println(a); 
+	      }
+	    }
+	    Foo foo = new Foo();
+	    foo.test();
+	  }
+	}
+</code></pre>
+
+
+<span class="menu"><h3>4. 匿名内部类</h3></span>
+<p>语法象是创建对象。匿名内部类是一种特殊的局部内部类，它是通过匿名类实现接口。</p>	
+<pre><code>例1：
+	public class test {
+		public static void main(String[] args) {
+			Xoo xoo=new Xoo(){};//new Xoo(){}是继承Xoo的匿名类实例
+		}
+	}
+	class Xoo{	
+	}
+例2：
+	public class Threadtest {
+		public static void main(String[] args) {
+			test1();
+		}
+		private static void test1(){
+			Thread t=new Thread(){
+				public void run(){
+					for(int i=1;i<=1000;i++){
+						System.out.println("t线程："+i);
+					}
+				}
+			};
+			t.start();
+		}
+	}
+</code></pre>
+
+<span class="menu"><h2>小结</h2></span>
+<p>本文对内部类做了简单介绍，由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。</p>
+
+</div>
+<!-- #techlib-topic-content 内容结束 --></div>
+<!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 -->
+<div style="PAGE-BREAK-AFTER: always; margin-bottom: 50px;"></div>
+<!-- 打印时分页 -->
+<!-- 此行不用编辑 -->
+<div id="techlib-topic-notelist"></div>
+<!-- 这个区域用于抽取正文中NOTE内容 -->	
