@@ -1,0 +1,110 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3G航空订票系统（二）</title>
+<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title"><h1>3G航空订票系统（二）</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">叶朋</span>
+			&nbsp;&nbsp;发布日期：<span id="submitDate">2011-05-26</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+	
+	<!-- 正文内容开始 -->
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>简介</h2></span>
+		<p>在上一期的文章中大致的介绍了一下，此系统的结构为C/S结构。系统的服务端原本已经写好，
+		本系统的主要开发的部分是客户端以及服务端与客户端通信。</p>
+
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<span id="tags">
+				<a class="search" href='#'>Android</a>
+				<a class="search" href='#'>项目</a>
+				<a class="search" href='#'>3GABS</a>
+			</span>
+		</div><!-- 标签行END -->
+		 <span class="menu"><h2>客户端核心类</h2></span>
+		 <p>客户端采用的MVC结构，而且还有缓存，缓存的作用主要是能快速取得数据以及方便各个活动传送参数信息,具体类的信息如下</p>
+	    <span class="menu"><h3>ClientContext</h3></span>
+		<p>ClientContext类是客户端的缓存，在其中有很多的Map，每个Map对应这每个页面需要的公共数
+		据，数据的来自于手机端与服务端。</p>
+		<span class="menu"><h3>ClientServiceImplForNet</h3></span>
+		<p>ClientServiceImplForNet是接口ClientService的实现，主要的作用是处理业务事件相当
+		于服务端的一个代理。每个业务方法的实现都是从活动页面接收值，然后通过Socket通信的方式把信息
+		提供给服务端，具体的实现是由通信模块来实现的。</p>
+		<span class="menu"><h3>ClientController</h3></span>
+		<p>3.由于客户端采用的是MVC设计模式，而MVC的最核心的地方是控制器。ClientController就是控制器，
+		它负责每个活动页面也业务层的交流，以使活动页面与业务层简单的分离，为了保证内存中ClientController是单例的我们首先为ClientController定义了一个获取本身实例的方法，这个方法保证了控制器的获取是线程安全的，简单的代码
+		块如下：</p>
+		<pre><code>
+			private static List<Activity> activities;
+			private Activity currentActivity;
+			private static ClientController controller = null;
+			private ClientController(Activity act){
+				this.currentActivity = act;
+			}
+			public synchronized static ClientController getClientController(Activity act){
+				if(controller == null)
+					controller = new ClientController(act);
+				else
+					controller.setCurrentAcitivity(act);
+				if(null != act)
+					activities.add(act);
+				return controller;
+			}
+			//get/set方法
+		</pre></code>
+		<p>如上代码getClientController方法用来让每个活动获取控制器，在获取控制器的同时会将当前活动注入到控制器内。这样控制器就可以接收当前活动参数，并调用相应的业务方法。ClientController会记录每个使用过它的活动页面，并把他们放到一个集合中，当用户退出软件时，会将所有的活动页面都停止，具体的代码块如下</p>
+		<pre><code>
+		public void exit() {
+		try {
+				service.exit();
+				for (int i = activities.size() - 1; i >= 0; i--) {
+					Activity a = activities.get(i);
+					a.finish();
+				}
+			} catch (Exception e) {
+				 forwardErrorPage(currentActivity, e);
+			}
+		}
+		<code></pre>
+		<span class="menu"><h2>通信模块核心类</h2></span>
+		<p>通信模块核心类分散和客户端与服务端，但是大体上结构都差不多，
+		都是用Socket进行通信的，而且为了减缓通信的压力两端都加了缓存。</p>
+		<span class="menu"><h3>客户端通信</h3></span>
+		<p>客户端通信的核心类比较简单，因为只需要发送和接收消息就可以了，核心类分以下几个。</p>
+		<span class="menu"><h4>Response</h4></span>
+		<p>封装了一些响应信息以及一些异常状态的处理</p>
+		<span class="menu"><h4>Request</h4></span>
+		<p>封装了一些请求信息以及请求类型等</p>
+		<span class="menu"><h4>SocketUtil</h4></span>
+		<p>主要的功能为发送Request对象，接收Response对象</p>
+		<span class="menu"><h3>服务端通信</h3></span>
+		<span class="menu"><h4>Response</h4></span>
+		<p>同客户端Request的作用一样</p>
+		<span class="menu"><h4>Request</h4></span>
+		<p>同客户端Response的作用一样</p>
+		<span class="menu"><h4>ServerService</h4></span>
+		<p>开启服务端socket通信接口，然后监听请求，为每一个请求分配一个线程去处理结果反还给客
+		户端。</p>
+		<span class="menu"><h2>总结</h2></span>
+		<p>在第三个版本中我会着重的介绍一下客户端的一些难点，并会把相应的例子拿出来。还有服务端的session机制的实现思路以及服务端的一些代码优化详细的分析一下！</p>
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
