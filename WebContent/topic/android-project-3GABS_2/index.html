@@ -26,7 +26,7 @@
 	<div id="techlib-topic-content">
 		<span class="menu"><h2>简介</h2></span>
 		<p>在上一期的文章中大致的介绍了一下，此系统的结构为C/S结构。系统的服务端原本已经写好，
-		本系统的主要开发的部分是客户端以及服务端与客户端通信。</p>
+		本系统的主要开发的部分是客户端、服务端与客户端的通信、服务端事务的控制</p>
 
 		<!-- 标签行BEGIN -->
 		<div id="techlib-tagsline">
@@ -102,7 +102,127 @@
 		<span class="menu"><h4>ServerService</h4></span>
 		<p>开启服务端socket通信接口，然后监听请求，为每一个请求分配一个线程去处理结果反还给客
 		户端。</p>
-		<span class="menu"><h2>总结</h2></span>
+       <span class="menu"><h2>服务端事务控制</h2></span>
+	   <p>服务端的实现事务的传播方式与Spring实现通用性事务方式大同小异，不过实现的很简陋，首先来看一下服务端实现事务管理的核心部分的代码：</p>
+	   <pre><code>
+		public class DBUtil {
+		
+			private static ThreadLocal<Connection> holder = 
+				new ThreadLocal<Connection>();
+			
+			public static Connection getConnection(){
+				Connection conn = null;
+				if(holder.get() == null){
+					conn = getConn();
+					holder.set(conn);
+				}else{
+					conn = holder.get();
+				}
+				return conn;
+			}
+			private static Connection getConn(){
+				Connection conn = null;
+				String url = "jdbc:mysql://localhost:3306/tx";
+				String username = "root";
+				String password = "123";
+				try{
+					Class.forName("com.mysql.jdbc.Driver");
+					conn = DriverManager.
+						getConnection(url,username,password);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				return conn;
+			}
+		}
+	   </code></pre>
+	   <p>DBUtil是个用来获取数据库连接的工具类，为了使事务具有传播性，也就是能使事务的控制粒度扩大到业务层，使用了ThreadLocal这个工具类，这个类会为每个线程在内存中开辟一块区域，从而保持了当前线程获取数据库连接的一致性，下面我们分析一下ThreadLocal这个类</p>
+	     <span class="menu"><h3>ThreadLocal类的分析</h3></span>
+		 <p>ThreadLocal主要是提供了保持对象的方法和避免参数传递的方便的对象访问方式。归纳了两点： 
+			1。每个线程中都有一个自己的ThreadLocalMap类对象，可以将线程自己的对象保持到其中，各管各的，线程可以正确的访问到自己的对象。 
+			2。将一个共用的ThreadLocal静态实例作为key，将不同对象的引用保存到不同线程的ThreadLocalMap中，然后在线程执行的各处通过这个静态ThreadLocal实例的get()方法取得自己线程保存的那个对象，避免了将这个对象作为参数传递的麻烦。ThreadLocal源码如下：</p>
+	   <pre><code>
+	public class ThreadLocal<T> {   
+	   
+		private static int nextHashCode = 0;   
+		private static final int HASH_INCREMENT = 0x61c88647;   
+
+		private static synchronized int nextHashCode() {   
+			int h = nextHashCode;   
+			nextHashCode = h + HASH_INCREMENT;   
+			return h;   
+		}   
+	   
+		public ThreadLocal() {   
+		}   
+		
+		public T get() {   
+			Thread t = Thread.currentThread();   
+			ThreadLocalMap map = getMap(t);   
+			if (map != null)   
+				return (T)map.get(this);   
+			T value = initialValue();   
+			createMap(t, value);   
+			return value;   
+		}   
+	  
+		public void set(T value) {   
+			Thread t = Thread.currentThread();   
+			ThreadLocalMap map = getMap(t);   
+			if (map != null)   
+				map.set(this, value);   
+			else  
+				createMap(t, value);   
+		}   
+	  
+		ThreadLocalMap getMap(Thread t) {   
+			return t.threadLocals;   
+		}   
+	 
+		void createMap(Thread t, T firstValue) {   
+			t.threadLocals = new ThreadLocalMap(this, firstValue);   
+		}   
+	  
+		.......   
+	   
+		static class ThreadLocalMap {   
+	  
+		........   
+	  
+		}   
+  
+	}
+	   </code></pre>
+	   <p>可以看到ThreadLocal类中的变量只有这3个int型：</p>
+	   <pre><code>
+		private final int threadLocalHashCode = nextHashCode();   
+		private static int nextHashCode = 0;   
+		private static final int HASH_INCREMENT = 0x61c88647;  
+		</code></pre>
+		<p>而作为ThreadLocal实例的变量只有 threadLocalHashCode 这一个，nextHashCode 和HASH_INCREMENT 是ThreadLocal类的静态变量，实际上HASH_INCREMENT是一个常量，表示了连续分配的两个ThreadLocal实例的threadLocalHashCode值的增量，而nextHashCode 的表示了即将分配的下一个ThreadLocal实例的threadLocalHashCode 的值。</p>
+		
+		<p>可以来看一下创建一个ThreadLocal实例即new ThreadLocal()时做了哪些操作，从上面看到构造函数ThreadLocal()里什么操作都没有，唯一的操作是这句:</p>
+		<pre><code>
+		ThreadLocalMap map = Thread.currentThread().threadLocals; 
+		</code></pre>
+		<p>这个ThreadLocalMap 类是ThreadLocal中定义的内部类，但是它的实例却用在Thread类中</p>
+		<pre><code>
+		public class Thread implements Runnable {   
+			......   
+		  
+			/* ThreadLocal values pertaining to this thread. This map is maintained  
+			 * by the ThreadLocal class. */  
+			ThreadLocal.ThreadLocalMap threadLocals = null;     
+			......   
+		} 
+		</code></pre>
+		<p>再看这句:</p>
+		<pre><code>
+		if (map != null)   
+			map.set(this, value);  
+		</code></pre>
+		<p>也就是将该ThreadLocal实例作为key，要保持的对象作为值，设置到当前线程的ThreadLocalMap 中，get()方法也是一样的道理。</p>
+	   <span class="menu"><h2>总结</h2></span>
 		<p>在第三个版本中我会着重的介绍一下客户端的一些难点，并会把相应的例子拿出来。还有服务端的session机制的实现思路以及服务端的一些代码优化详细的分析一下！</p>
 	</div><!-- #techlib-topic-content 内容结束 -->
 </div><!-- #techlib-topic 结束 -->
