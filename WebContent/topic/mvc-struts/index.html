@@ -1,0 +1,122 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>浅析mvc和Struts框架</title>
+	<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+	<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 --> 
+		<div id="title"><h1>浅析mvc和Struts框架</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">姜延鑫</span>
+			&nbsp;&nbsp;发布日期：<span id="submitDate">2011-05-31</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<!-- 此行不用编辑 -->
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+		
+	<!-- 正文内容开始 -->
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>引言</h2></span>
+		<p>
+			MVC模式是WEB程序设计中很重要的设计模式之一，struts框架在WEB应用中很普遍。本篇文章针对这两个知识点做了简要介绍。
+		</p>
+	
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<span id="tags">
+				<a class="search" href="#">mvc</a>
+				<a class="search" href="#">Struts</a>
+			</span>
+		</div><!-- 标签行END -->
+	
+		<span class="menu"><h2>MVC部分</h2></span>
+		<span class="menu"><h3>什么是MVC模式</h3></span>
+		<p>MVC是一种软件架构模式，其主要思想是将软件的组成部分划分为三种不同类型的模块：分别是模型(封装业务逻辑)、视图(表示逻辑)、控制器(流程控制逻辑)。</p>
+			<span class="menu"><h3>各模块功能</h3></span>
+				<ul>
+					<li>模型，负责业务逻辑：业务数据的加工规则以及保障业务逻辑能够正常执行所添加的一些基础服务，比如事务、安全、日志、性能等等。</li>
+				    <li>视图，负责表示逻辑：业务数据的展现以及用户操作的界面。</li>
+				    <li>控制器，负责流程控制逻辑：视图向控制器发送请求，控制器依据一定的规则，调用对应的模型来处理请求；模型处理的结果发送给控制器，控制器选择合适的视图，生成相应的界面，提供给用户。</li>
+			     </ul>
+			     <span class="menu"><h3>MVC的优点</h3></span>
+				<ul>
+					<li>可以实现模型的共享，即一个模型可以被多个不同的视图来调用，模型产生的数据，也可以由不同的视图来展现(模型的复用)。</li>
+				    <li>方便测试(比如在web应用当中，如果将业务逻辑写在servlet当中，必须启动服务器，重新部署，才能测试，如果写在java类当中，则可以直接测试)。</li>
+				    <li>模型返回的数据与显示逻辑分离。模型数据可以应用任何的显示技术，例如，使用JSP页面、Velocity模板或者直接产生Excel文档等。</li>
+			    	<li>应用被分隔为三层，降低了各层之间的耦合，提供了应用的可扩展性。</li>
+			     </ul>
+			     <span class="menu"><h3>MVC在WEB中的应用</h3></span>
+				<p>模型：使用java类或者容器管理的bean(比如ejb容器管理的ejb,spring容器管理的javabean)来实现。</p>
+				<p>视图：jsp(html,css,js,少量的java代码)。</p>
+				<p>控制器:servlet/filter来实现。</p>
+				<p>视图向控制器发送请求，控制器分析请求，调用模型来处理，处理的结果返回给控制器，由控制器选择一个合适的视图生成对应的界面展示给用户。</p>
+		<span class="menu"><h2>Struts部分</h2></span>
+		<span class="menu"><h3>Struts1的介绍</h3></span>
+		<p>Struts 1以ActionServlet作为核心控制器，由ActionServlet负责拦截用户的所有请求。</p>
+		<p>Struts 1框架有3个重要组成部分：Action、ActionForm和ActionForward对象。</p>
+		<p>	ActionForm必须实现ActionForm的基类,设计上并不是真正的POJO。</p>
+		<p>	ActionForward就是一个逻辑视图，通过在配置文件中定义ActionFoward的映射，完成逻辑视图名和实际视图资源之间的映射。</p>
+		<p>	Action类通过调用execute方法来处理用户请求。该方法与Servlet API耦合(ActionServlet继承自HttpServlet)。</p>
+			<span class="menu"><h3>struts1的缺陷</h3></span>
+				<ul>
+					<li>(1).只支持JSP作为表现层技术,不能与Velocity,FreeMarker等技术整合。</li>
+				    <li>(2).与Servlet API严重耦合,难于测试一个exeute有四个参数ActionMappingActionForHttpServletRequest和HttpServletResponse,初始化困难。</li>
+				    <li>(3).侵入式设计,严重依赖于Struts1API,如如ActionMapping、ActionForm和ActionForward类.一旦系统需要重构时,这些类完全没有利用价值,导致较低的代码复用。</li>
+			     </ul>
+			     <span class="menu"><h3>Struts1的流程图</h3></span>
+					<img src="struts1.JPG">
+	<span class="menu"><h3>Struts2的介绍</h3></span>
+		<p>struts2核心控制器：FilterDispatcher。Struts 2用于处理用户请求的Action实例，并不是用户实现的业务控制器，而是Action代理——因为用户实现的业务控制器并没有与Servlet API耦合，显然无法处理用户请求。</p>
+		<p>Struts 2框架提供了系列拦截器，该系列拦截器负责将HttpServletRequest请求中的请求参数解析出来，传入到Action中，并回调Action的execute方法来处理用户请求。上面的处理过程是典型的AOP（面向切面编程）处理方式。</p>
+			<span class="menu"><h3>struts1的特点</h3></span>
+				<ul>
+					<li>(1).Action类完全是一个POJO，因此具有很好的代码复用性。</li>
+				    <li>(2).Action类无需与Servlet API耦合，因此进行单元测试非常简单。</li>
+				    <li>(3).Action类的execute方法仅返回一个字符串作为处理结果，该处理结果可映射到任何的视图，甚至是另一个Action。</li>
+			     </ul>
+			  <span class="menu"><h3>Struts2的配置文件</h3></span>
+				<p>Struts 2的配置文件有两份：</p>
+				<p>配置Action的struts.xml文件。</p>
+				<p>配置Struts 2全局属性的struts.properties文件。</p>
+				<p>下面是struts.xml配置文件的示例：</p>
+			<span >XML代码</span>
+				<img src="xmlcode.JPG">
+			</span>
+		</div>
+		<span class="menu"><h3>struts2的流程图</h3></span>
+		<img src="struts2.JPG">
+		<span class="menu"><h3>Struts2与struts1的比较</h3></span>
+				<p>(1)在Action实现类方面的对比：Struts 1要求Action类继承一个抽象基类；Struts 1的一个具体问题是使用抽象类编程而不是接口。
+				Struts 2 Action类可以实现一个Action接口，也可以实现其他接口，使可选和定制的服务成为可能。
+				Struts 2提供一个ActionSupport基类去实现常用的接口。即使Action接口不是必须实现的，只有一个包含execute方法的POJO类都可以用作Struts 2的Action。</p>
+				<p>(2)线程模式方面的对比：Struts 1 Action是单例模式并且必须是线程安全的，因为仅有Action的一个实例来处理所有的请求。
+				单例策略限制了Struts 1 Action能做的事，并且要在开发时特别小心。
+				Action资源必须是线程安全的或同步的；Struts 2 Action对象为每一个请求产生一个实例，因此没有线程安全问题。</p>
+				<p>(3)Servlet依赖方面的对比：Struts 1 Action依赖于Servlet API，因为Struts 1 Action的execute方法中有HttpServletRequest和HttpServletResponse方法。
+				Struts 2 Action不再依赖于Servlet API，从而允许Action脱离Web容器运行，从而降低了测试Action的难度。 
+				当然，如果Action需要直接访问HttpServletRequest和HttpServletResponse参数，Struts 2 Action仍然可以访问它们。</p>
+				<p>(4)可测性方面的对比：测试Struts 1 Action的一个主要问题是execute方法依赖于Servlet API，这使得Action的测试要依赖于Web容器。
+				为了脱离Web容器测试Struts 1的Action，必须借助于第三方扩展：Struts TestCase，该扩展下包含了系列的Mock对象（模拟了HttpServetRequest和HttpServletResponse对象），从而可以脱离Web容器测试Struts 1的Action类。
+				Struts 2 Action可以通过初始化、设置属性、调用方法来测试。 </p>
+				<p>(5) 封装请求参数的对比：Struts 1使用ActionForm对象封装用户的请求参数，所有的ActionForm必须继承一个基类：ActionForm。
+				普通的JavaBean不能用作ActionForm，因此，开发者必须创建大量的ActionForm类封装用户请求参数。
+				虽然Struts 1提供了动态ActionForm来简化ActionForm的开发，但依然需要在配置文件中定义ActionForm；。
+				Struts 2直接使用Action属性来封装用户请求属性，避免了开发者需要大量开发ActionForm类的烦琐，实际上，这些属性还可以是包含子属性的Rich对象类型。如果开发者依然怀念Struts 1 ActionForm的模式。
+				Struts 2提供了ModelDriven模式，可以让开发者使用单独的Model对象来封装用户请求参数，但该Model对象无需继承任何Struts 2基类，是一个POJO，从而降低了代码污染。</p>
+		<span class="menu"><h2>小结</h2></span>
+		<p>本文主要介绍了MVC和struts框架的基础知识，包括ＭＶＣ模式的应用和优点。以及struts1和struts的介绍和优缺点的比较。但是这部分知识重在在程序中应用去体会。</p>
+	
+	</div><!-- #techlib-topic-content 内容结束 -->
+
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->

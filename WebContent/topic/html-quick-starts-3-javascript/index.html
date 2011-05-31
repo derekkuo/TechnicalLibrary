@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>网页开发之快速入门3：JavaScript篇</title>
+	<link rel="stylesheet" type="text/css"
+		href="../../css/techlib-topic.css">
+	<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+<div id="techlib-topic">
+	<a name="top"></a>
+	<div id="techlib-topic-head">
+
+		<div id="title">
+			<h1>网页开发之快速入门3：JavaScript篇</h1>
+		</div>
+		
+		<div id="subtitle"></div>
+		
+		<div id="authorline">
+			作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp; 
+			<span id="author">胡秭江</span>
+			&nbsp;&nbsp;发布日期：<span id="submitDate">2011-05-31</span>
+		</div>
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom">
+			<a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a>
+		</div>
+	</div>
+	
+	<span class="menu"><h2>引言</h2></span>
+	<p>JavaScript是什么？用来干什么？怎么用它实现实现对页面的控制？</p>
+	<p>针对这些问题，本文做出一些简单的介绍。希望能够迅速的解开javaScript在读者眼中的神秘面纱，让读者能读懂网页源码，并可以制作简单的动态网页</p>
+	
+	<div id="techlib-tagsline"><strong>标签：</strong> 
+		<a class="ad"href="http://www.chinatarena.com/">Java培训</a>
+			&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a> 
+		<span id="tags">
+			<a class="search" href='#'>JavaScript</a> <a class="search" href='#'>网页开发</a>
+		</span>
+	</div>
+	
+	<span class="menu"><h2>JavaScript基础知识</h2></span> 
+	<span class="menu"><h3>什么是JavaScript？javaScript干什么？</h3></span>
+	
+	<p>JavaScript是一种基于对象和事件驱动并具有相对安全性的客户端脚本语言。同时也是一种广泛用于客户端Web开发的脚本语言.以下简称JS。</p>
+	<p>JS主要是用来完成一下功能：</p>
+	<ul>
+		<li>前端验证（就是对用户提交的表单中的数据进行验证，比如验证用户名是否为空,如果验证通不过，则浏览器不会将数据提交给服务器）。</li>
+		<li>ajax核心技术之一，用于异步向服务器发送请求并动态更新页面。</li>
+		<li>与页面进行交互，生成动态的效果。</li>
+		<li>获得浏览器相关的信息</li>
+	</ul>
+	
+	<span class="menu"><h3>JS在哪里执行？JS可以写在哪里？JQuery和propertype是什么？</h3></span>
+	<p>js程序在浏览器端执行,可以写在.js结尾的文件里或者HTML，jsp的页面头中。</p>
+	<p>Jquery和Propertype是JS的框架。这里的框架一词大家不要想得太夸张，我们理解为很多用JS写的方法的集合体（JS文件）即可，你也可以轻松的写一个JS框架的，只不过可靠性似乎…</p>
+	
+	<span class="menu"><h3>JavaScript文件的基本结构:</h3></span>
+	<p>JavaScript是采用事件调用机制进行触发的。每个函数的都有自己的函数名称。返回类型，函数体。我们来看看下面这个函数：</p>
+	<pre><code>
+		function  sayHello{
+			alert（”hello”）；
+		}
+	</code></pre>
+	<p>当某个事件调用sayHello这个函数的时候，这个函数会说：“hello”.当然，我们还可以做一些别的事情。比如说对页面的某些东西进行更改。</p>
+	
+	<span class="menu"><h3>JavaScript数据类型和语法:</h3></span>
+	<p>看了上面的sayHello(),大家可能已经跃跃欲试。在此之间，我们还是不得看看基础知识。</p>
+	<p>首先我们来看看javascript中的数据类型：</p>
+	<ul>
+		<li><span><h4>基本数据类型</h4></span></li>
+			<p>number:数字类型</p>
+			<p>string:字符串</p>
+			<p>boolean: true/false 布尔类型</p>
+			<p>null:变量没有存放任何对象的地址</p>
+			<p>undefined:未定义;</p>
+					
+		<li><span><h4>引用类型变量</h4></span></li>
+			<p>Object:对象</p>
+			<p>Array:数组</p>
+			<p>Date:日期</p>
+		<p>通过对上面的观察，可能大家心里有一些疑问：为什么没有int、byte、long?为什么没有double？</p>
+		<p>这里不得不说：JavaScript是一种弱类型语言。在Java中的大部分基本类型都用number表示了。</p>
+		<p>什么是弱类型语言呢？</p>
+		<p>这没有准确的定义。但是就JavasScript而言：弱类型就是变量的类型在运行时确认，并且可以随时转换。</p>
+		
+		<li><span><h4>变量的作用域：</h4></span></li>
+		<p>在函数内部，不使用var声明的变量是一个全局变量，没有语句块作用域</p>
+		
+		<li><span><h4>还有一些常识的知识：</h4></span></li>
+		<p>javascript大小写敏感。</p>
+		<p>标识符不能使用关键字和保留字</p>
+		<p>标识符首字母只能是 A$_开头，首字母以外，可以包含数字。如下例：  </p>
+		<pre>
+			 <code>
+				var f = 1ab error! 
+				var f = ab3; ok!
+				var s = _ab ok!
+		     </code>
+		</pre>
+	</ul>
+	
+	<span class="menu"><h3>数组与对象:</h3></span>
+	<ul>
+		<li><span><h4>数组</h4></span></li>
+		<ul>
+			<li>特点：<p>js中的数组长度可变，存放的数据类型可以是任意的。</p></li>
+			
+				
+			<li>数组的创建：			
+				<pre>
+					<code>
+						var arr = new Array();
+						arr[0] = 1;
+						arr[3] = 2;
+						alert(arr.length);
+						var arr = [1,2];
+					</code>
+				</pre>
+			</li>
+
+			<li>数组对象的常用方法和属性</li>
+				<p>length 属性返回数组的长度</p>
+				<p>toString()方法, 返回数组的字符串表示</p>
+				<p>concat方法, 用于连接两个数组</p>
+				<p>join()方法，用于将数组中的各个元素连接成字符串。</p>
+				<p>reverse()方法，将数组反转</p>
+				<p>slice()用于截取数组的一部分并以数组的形式返回</p>
+				<p>sort()排序，可通过如下形式来重新定义排序方式：</p>
+			<pre>
+				<code>
+				var arr4 = arr3.sort(function(a1,a2){
+					return -a1.length + a2.length;
+				});		
+				</code>
+			</pre>
+			
+			<li>数组可以当作堆栈和队列来使用</li>
+			<pre>
+				<code>
+					push();
+					pop();
+					shift();
+				</code>
+			</pre>
+		</ul>
+		
+		<li><span><h4>字符串的常用方法和属性</h4></span></li>
+		<p>length属性 返回字符串的长度</p>
+		<p>charAt(index) 返回指定位置的字符</p>
+		<p>substring(from, to) 返回子字符串</p>
+		<p>indexOf(str) 指定字符串在原字符串中第一次出现的位置</p>
+		<p>lastIndexOf(str) 指定字符串在原字符串中最后一次出现的的位置</p>
+		<p>match(regexp) 返回匹配指定正则表达式的字符串，返回的结果是一个数组。如下例：
+			<pre>
+				<code>
+					var str2 = 'asd212abc345';
+					var reg2 = /[0-9]+/g; 
+					var arr = str2.match(reg2);
+				</code>
+			</pre>
+		</p>
+		<p>search(regexp) 返回按照正则表达式检索到的字符串位置</p>
+		<p>toLowerCase/toUpperCase 返回小写/大写形式</p>
+		<p>replace(regexp,'abc'); 替换符合reg正则表达式规定的字符串.如下例：
+			<pre>
+				<code>
+					str2 = str2.replace(reg2,'888');
+				</code>
+			</pre>
+		</p>
+		<p>split(','):	分解,返回的是一个数组</p>
+		<p></p>
+	</ul>
+	
+	<span class="menu"><h2>JavaScript的简单示例：</h2></span> 
+	<p>看了这么多的基础知识，相信大家都比较烦躁了。不着急，我们马上就开始我们的第一个应用。在此之间，我们必须解释一下什么是事件调用。在我们以前的HTML文件中，某些元素有一些属性：比如onclick（）这个表示被该组件单击时采取什么行动。所以：事件调用是由于某个事件而引发一系列操作的过程。我们看下面的这个例子：</p>
+	<pre>
+		<code>
+		<xmp>
+			<html>
+				<head>
+					<script>
+						function f4(){
+							var str1 = "123";
+							var str2 = "123";
+							var str3 = 123;
+							if(str1 == str2){
+								alert('str1等于str2');
+							}
+							if(str1 === str3){
+								alert('str1等于str3');
+							}
+							var s1 = null;
+							var s2;
+							alert(s1 == s2);
+						}
+					</script>
+				</head>
+				<body style="font-size:30pt;">
+					<a href="#" onclick="f4();">test</a>
+				</body>
+			</html>	
+		</xmp>
+		</code>
+	</pre>
+	<p>在上面的例子中，我们定义了一个JS函数f4，我们在HTML页面元素中的一个连接定义了函数调用：</p>
+	<pre>
+		<code>
+			<xmp>
+				<a href="#" onclick="f4();">test</a>  
+			</xmp>
+		</code>
+	</pre>
+	<p>当这个连接的被单击的时候，产生了一个onclick（）事件。按照上面元素中的声明，产生的这个事件将调用f4函数。所以f4函数体中的操作将被执行。</p>
+	<p>某些同学比较细心，注意到了”onclick="f4();"”中的f4();为什么有个“；”?这里不得不说，一个事件可以调用多个函数。多个函数之间用“；”分隔开来。如下例：</p>
+	<pre>
+		<code>
+			<xmp>
+				<html>
+					<head>
+						<script>
+							function f1(){
+								alert("1");
+							}	
+							function f2(){
+								alert("2");
+							}
+						</script>
+			
+					</head>
+					<body style="font-size:30px;">
+						<a href="#" onclick="f1();f2();">test</a>
+					</body>
+				</html>
+			</xmp>
+		</code>
+	</pre>
+	<p>单击将弹出1,2的提示框。</p>
+	<p>某些同学又想，函数与函数之间可以互相调用吗？答案是肯定的。如下例：</p>
+	<pre>
+		<code>
+			<xmp>
+				<html>
+					<head>
+						<script>
+							function f1(){
+								alert("1");
+								f2();
+							}	
+							function f2(){
+								alert("2");
+								f1();
+							}
+							</script>
+					</head>
+					<body style="font-size:30px;">
+						<a href="#" onclick="f2();">test</a>
+					</body>
+				</html>
+			</xmp>
+		</code>
+	</pre>
+	<p>这个例子则实现了函数之间的相互调用，用一次上面的例子，相信一定会对JS函数之间的相互调用记忆深刻。</p>
+	
+	<span class="menu"><h2>小结</h2></span>
+	<p>本文主要介绍了JavaScript的一些基础知识和简单示例，内容简单易懂。</p>
+	<p>在JS方面，还有一些比较高级的内容：比如用js实现Ajax技术等等。</p>
+	<p>如果想要进行JS方面的学习，本文还是远远不够的。由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指正。</p>
+	
+	
+</div>
+</html>

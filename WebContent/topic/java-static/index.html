@@ -1,0 +1,243 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>static变量方法浅析</title>
+	<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+	<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 -->
+	<a name="top"></a>
+	<!-- 文件顶部锚点 -->
+
+	<div id="techlib-topic-head">
+		<!-- 文章头 -->
+		<div id="title">
+			<h1>
+				static关键字浅析
+			</h1>
+		</div>
+		<!-- 标题 -->
+		<div id="subtitle"></div>
+		<!-- 副标题 -->
+		<div id="authorline">
+			作者：
+			<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;
+			</span>
+			<span id="author">郭健</span>
+			&nbsp;&nbsp;发布日期：<span id="submitDate">2011-05-31</span>
+		</div>
+		<!-- 作者信息 -->
+	</div>
+
+	<!-- 此行不用编辑 -->
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom">
+			<a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a>
+		</div>
+	</div>
+	<!-- 目录 将会由jquery程序填充 -->
+	<!-- 正文内容开始 -->
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>
+				引言
+			</h2> </span>
+		<p>
+			static(静态的)
+			关键字修饰的类成员完全独立于该类的任何对象。它能够在它的类的任何对象创建之前被访问，而不必引用任何对象实例。static
+			成员的最常见的例子是main( )。因为在程序开始执行时必须调用main()，所以它被声明为static。
+		</p>
+
+
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;
+			<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<span id="tags">
+				<a class="search" href="#">java</a>
+				<a class="search" href="#">static</a>
+			</span>
+		</div>
+		<!-- 标签行END -->
+		<span class="menu"><h2>
+				静态变量
+			</h2> </span>
+		<p>
+			1 静态变量只有一份被类的所有实例共享
+		</p>
+		<p>
+			2 静态变量的声明在编译时已经明确了内存的位置
+		</p>
+		<p>
+			3 延迟初始化是改变静态变量的值
+		</p>
+
+		<pre><code>下面看一个例子:
+    public class StaticDemo {
+       public static void main(String[] args) {
+         System.out.println(A.x); //static 静态变量可以直接引用,默认赋值为零
+         A.x = 2;//
+         A a = new A();
+         System.out.println(a.x); // 用对象引用方法
+         System.out.println(new A().x); //静态方法的引用
+         System.out.println(a.id + "," + a.i);
+       }
+     }
+     class A{
+       public static int x; //定义一个静态整形变量
+       public static int i;
+       public int id;
+       public A() {
+        id = i++;
+       }
+     }
+</code></pre>
+
+
+		<span class="menu"><h2>
+				静态方法
+			</h2> </span>
+		<p>
+			1、在静态方法里只能直接调用同类中其它的静态成员（包括变量和方法）。这是因为，对于非静态方法和变量，需要先创建类的实例对象后才可使用，而静态方法在使用前不用创建任何对象。
+		</p>
+		<p>
+			2、静态方法不能以任何方式引用this和super关键字。因为静态方法在使用前不用创建任何实例对象，当静态方法被调用时，this所引用的对象根本就没有产生。
+		</p>
+		<p>
+			3、main()方法是静态的，因此JVM在执行main方法时不创建main方法所在类的实例对象，因而在main()方法中，我们不能直接访问该类中的非静态成员，必须创建该类的一个实例对象后，才能通过这个对象去访问类中的非静态成员。
+		</p>
+
+<pre><code>请看下面案例：
+		
+    class StaticCode{ 
+      static String country;
+      static { 
+        country = "china";//静态变量初始化
+        System.out.println("StaticCode is loading");   
+      }
+     }
+     class TestStaticDemo{
+       static{
+         System.out.println("StaticDemo is loading");
+       }
+       public static void main(String[] args){ 
+         System.out.println("begin executing main method");
+          new StaticCode();//只加载一次
+           new StaticCode(); 
+       }
+      }
+		</code>
+		</pre>
+		<span class="menu"><h2>
+				静态代码块
+			</h2> </span>
+		<p>
+			1、一个类中可以使用不包含在任何方法中的静态代码块（static
+			block），当类被载入时，静态代码块被执行，且只被执行一次,静态块经常来进行类属性的初始化。
+		</p>
+		<p>
+			2、类中的静态代码块被自动执行，尽管我们产生了类的多个实例对象，但其中的静态代码块只被执行了一次。当一个程序中用到了其他的类，类是在第一次被使用的时候才被装载，而不是在程序启动时就装载程序中所有可能要用到的类。
+		</p>
+		<pre>
+<code>例如：
+    class B{
+      public void b(){ System.out.print("000");}
+      public static void e(){} 
+      public void c(){
+        b();
+        e();
+      }  //类中的非静态方法可以调用该类中的其它非静态方法，和静态方法
+    }
+
+    class A{
+      public static void main(String[] args){
+        new B().c();
+      } 
+    }
+
+		</code></pre>
+		<span class="menu"><h2>
+				静态内部类
+			</h2> </span>
+		<p>
+			  如果你不需要内部类对象与其外围类对象之间有联系，那你可以将内部类声明为static。静态内部类可以不依赖于外部类实例被实例化。而通常的内部类需要在外部类实例化后才能实例化。普通的内部类对象隐含地保存了一个引用，指向创建它的外围类对象。然而，当内部类是static的时，就不是这样了。
+		</p>
+		<pre><code>如下所示代码为定义一个静态内部类 ：
+
+public class StaticTest{
+
+   private static String name = "woobo";
+   private String num = "X001";
+   
+   static class Person{ // 静态内部类可以用public,protected,private修饰  
+                        // 静态内部类中可以定义静态或者非静态的成员  
+     private String address = "China";
+     private Static String x="as";
+     public String mail = "guojian@yahoo.com.cn";//内部类公有成员
+     
+     public void display(){
+      //System.out.println(num);//不能直接访问外部类的非静态成员
+      // 静态内部类不能访问外部类的非静态成员(包括非静态变量和非静态方法)
+      System.out.println(name);//只能直接访问外部类的静态成员
+      //静态内部类只能访问外部类的静态成员(包括静态变量和静态方法)
+      System.out.println("Inner " + address);//访问本内部类成员
+     }
+   }
+   
+   public void printInfo(){
+     Person person = new Person();//外部类访问内部类的非静态成员:实例化内部类即可  
+     person.display();
+     //System.out.println(mail);//不可访问
+     //System.out.println(address);//不可访问
+     System.out.println(person.address);//可以访问内部类的私有成员
+     System.out.println(Person.x);// 外部类访问内部类的静态成员：内部类.静态成员
+     System.out.println(person.mail);//可以访问内部类的公有成员  
+   }
+   
+   public static void main(String[] args){
+     StaticTest staticTest = new StaticTest();
+     staticTest.printInfo();
+   }
+}
+		</code>
+		</pre>
+		<p>
+			在静态内部类内部, 不能访问外部类的非静态成员, 这是由Java语法中"静态方法不能直接访问非静态成员"所限定.注意,
+			外部类访问内部类的的成员有些特别, 不能直接访问, 但可以通过静态内部类实例来访问,
+			这是因为静态内部内的所有成员和方法默认为静态的了。同时注意, 内部静态类Person只在类StaticTest范围内可见,
+			若在其它类中引用或初始化, 均是错误的。
+		</p>
+		<p>
+			一 . 静态内部类可以有静态成员，而非静态内部类则不能有静态成员。
+		</p>
+		<p>
+			二 . 静态内部类的非静态成员可以访问外部类的静态变量，而不可访问外部类的非静态变量；
+		</p>
+		<p>
+			三 . 非静态内部类的非静态成员可以访问外部类的非静态变量。
+		</p>
+		<p>
+			生成一个静态内部类不需要外部类成员：这是静态内部类和成员内部类的区别。静态内部类的对象可以直接生成：Outer.Inner in =
+			new Outer.Inner();而不需要通过生成外部类对象来生成。这样实际上使静态内部类成为了一个顶级类(正常情况下，你不能在接口内部放置任何代码，但内部类可以作为接口的一部分，因为它是static
+			的。只是将内部类置于接口的命名空间内，这并不违反接口的规则）
+		</p>
+		<span class="menu"><h2>
+				小结
+			</h2> </span>
+		<p>
+			本文分别简要介绍了static关键字在变量，方法中的使用方法，以及静态内部类的应用；
+			由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。
+		</p>
+
+	</div>
+	<!-- #techlib-topic-content 内容结束 -->
+</div>
+<!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 -->
+<div style="PAGE-BREAK-AFTER: always; margin-bottom: 50px;"></div>
+<!-- 打印时分页 -->
+<!-- 此行不用编辑 -->
+<div id="techlib-topic-notelist"></div>
+<!-- 这个区域用于抽取正文中NOTE内容 -->
