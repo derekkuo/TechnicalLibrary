@@ -8,7 +8,7 @@
 		<phone>13911607119</phone>
 		<qq-msn>1069423425</qq-msn>
 		<email>guodx@tarena.com.cn</email>
-		<summary></summary>
+		<summary>SD1105_02</summary>
 	</employee>
 
 	<employee>
@@ -184,6 +184,15 @@
 		<phone>13552083165</phone>
 		<qq-msn>34459462</qq-msn>
 		<email>qianxs@tarena.com.cn</email>
-		<summary>3g</summary>
+		<summary>SD1105</summary>
+	</employee>
+	
+	<employee>
+		<id>BJ1000</id>
+		<name>付宗立</name>
+		<phone>18911599529</phone>
+		<qq-msn></qq-msn>
+		<email>fuzl@tarena.com.cn</email>
+		<summary>SD1105_01</summary>
 	</employee>
 </employees>
