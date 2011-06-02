@@ -70,8 +70,9 @@ public class GenTopicIndexPageTask extends TimerTask {
 		InputStream is = context.getResourceAsStream("/common/techlib-htmlhead.html");
 		HtmlUtil.printHtmlFromInputStream(pw, is);
 		
-		pw.println("<div id=\"techlib-head\"><h1>文章</h1></div>"+ "\n" +
-				"<div id=\"techlib-content\">");
+		pw.println("<div id=\"techlib-head\"><h1>文章</h1></div>" +"\n" +
+				"<div id=\"techlib-content\">文章总数： "+ allTopicHeader.size()
+		);
 		
 		//writeULStyle(allTopicHeader);
 		writeTableStyle(allTopicHeader);
@@ -85,7 +86,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
 		pw.println("<thead><tr>");
-		pw.println("<th scope=\"col\"></th><th scope=\"col\" width=\"480px\">标题</th><th scope=\"col\">类别</th><th scope=\"col\">发布日期</th>");
+		pw.println("<th scope=\"col\"></th><th scope=\"col\" width=\"480px\">标题<span class=\"techlib-little-gray\">（点击排序）</span></th><th scope=\"col\">类别</th><th scope=\"col\">发布日期</th>");
 		pw.println("</tr></thead><tbody>");
 		int topicId = 0;
 		while(it.hasNext()){
