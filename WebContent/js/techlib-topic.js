@@ -8,7 +8,12 @@
 		$imgs.each(function(i){
 			var $img = $(this);
 			var imgWidth = $img.width();
-			if( $img.width()>680 )
+			if( imgWidth == 0 )
+				imgWidth = 680;
+			if( $img.width()>680 ){
+				$img.width(680);
+			}
+			if( $img.width()==0)// for google chrome
 				$img.width(680);
 			$img.attr("title","双击，放大两倍");
 			$img.bind('click', function() {
