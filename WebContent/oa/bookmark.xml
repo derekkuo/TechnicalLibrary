@@ -56,7 +56,7 @@
 	</bookmark>
 
 	<bookmark>
-		<id>2</id>
+		<id>9</id>
 		<url>http://student.tarena.com.cn</url>
 		<title>学生考试系统</title>
 		<resource-type>学员</resource-type>
@@ -84,6 +84,16 @@
 		<summary>
 			mstsc&lt;br/&gt;
 			192.168.160.30
+		</summary>
+	</bookmark>
+	<bookmark>
+		<id>2</id>
+		<url>http://10.1.1.78</url>
+		<title>课件点播服务器</title>
+		<resource-type>课件</resource-type>
+		<summary>
+			http://10.1.1.78 &lt;br/&gt;
+			需要使用IE浏览器，按照提示安装插件
 		</summary>
 	</bookmark>
 
