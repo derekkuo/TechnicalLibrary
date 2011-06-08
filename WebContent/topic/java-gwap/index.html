@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title> GWAP</title>
+	<link rel="stylesheet" type="text/css"
+		href="../../css/techlib-topic.css">
+	<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+<div id="techlib-topic">
+		<a name="top"></a>
+	<div id="techlib-topic-head">
+
+		<div id="title">
+			<h1>GWAP</h1>
+		</div>
+		
+		<div id="subtitle"></div>
+		
+		<div id="authorline">
+			作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp; 
+			<span id="author">岳城阳</span>
+			&nbsp;&nbsp;发布日期：<span id="submitDate">2011-06-07</span>
+		</div>
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom">
+			<a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a>
+		</div>
+	</div>
+	
+	<span class="menu"><h2>引言</h2></span>
+	<p>GWAP为达内TTS教程系统下的一个中期项目，以B/S架构模拟当前网络购物平台---当当网门户页面。其较为综合的融合了JAVASE基本知识，全面运用了WEB2.0新技术的标准。通过该项目的练习可使学员对于电子商务平台有初步了解，积累一定的企业级开发经验。</p>
+	
+	<span class="menu"><h2>1． 性能环境</h2></span> 
+	<ul>
+		<li>操作系统：Red Had Linux9或 WINDOWS XP</li>
+		<li>虚拟机：jdk-6-linux-i586或jdk-6-win-i586</li>
+		<li>浏览器：FireFox2.0或IE6</li>
+		<li>Web服务器：Apache Tomcat 6.0</li>
+		<li>数据库：MySql 5.5</li>
+	</ul>
+	
+	
+	
+	<span class="menu"><h2>2． 功能描述</h2></span> 
+	<p>通用WEB应用系统，包括交易系统和管理系统两个独立的子系统，主要包括：商品展示、购物车管理、我的订单、用户管理四个功能模块。</p>
+	
+	
+	<span class="menu"><h4>交易系统功能描述</h4></span>
+	<ul>
+		<li>商品展示：实现商品预览、商品明细、分类检索功能。</li>
+		<li>购物车：实现添加商品、删除列表、恢复列表、数量修改、清空购物车、结算功能。</li>
+		<li>我的订单：实现订单确认、订单列表、删除订单、查询明细功能。</li>
+		<li>用户管理：实现登入/登出、用户注册、信息修改功能。</li>
+	</ul>
+	
+	
+	<span class="menu"><h4>管理系统管理描述</h4></span>
+	<ul>
+		<li>用户管理：对于系统管理员提供用户删除、用户查询功能。</li>
+		<li>商品管理：实现商品列表、商品发布、商品删除、商品修改功能。</li>
+	</ul>
+	
+	<p align="center"><img alt="" src="gwap1.bmp"/></p>
+	<p align="center">系统基本架构</p>
+	
+	<p align="center"><img alt="" src="gwap2.bmp"/></p>
+	<p align="center">各数据表的E-R关系图</p>
+	
+	
+	
+	<span class="menu"><h2>3．用户管理模块基本实现</h2></span> 
+	
+	<span class="menu"><h3>1. 登入/登出</h3></span> 
+	<ul>
+		<li>功能简述: 
+			<ul>
+				<li>注册用户登入</li>
+				<li>登陆用户登出</li>
+			</ul>
+		</li>
+		
+		<li>前置条件:用已经注册</li>
+		
+		<li>基本流程:
+			<ul>
+				<li>主页面登陆接口进入</li>
+				<li>未登陆用户“详细信息”页面登入</li>
+				<li>登入画面</li>
+				<li>登入后页头提示（登入后页头显示，登出入后）</li>
+			</ul>
+		</li>
+		
+		<li>分支与异常:未注册用户提示注册</li>
+		<li>后置条件:
+			<li>登入页头提示（显示欢迎信息</li>
+			<li>登出页头提示（显示“登入”入口</li>
+		</li>
+	</ul>
+	
+	
+	<p>使用者在登录时会验证邮箱是否已激活，若未激活则先跳转到激活页面。这其中激活操作是通过在注册时系统会生成一激活码并发送到数据库端进行存储，用需要用这个激活码与邮箱中接收到激活码进行比照来确定激活与否。以下代码封装对激活码的一些操作：
+	</p>
+	
+	
+	<pre><code>
+		public class VerifyUtil {
+		/**
+	 	* 获取Email验证码
+	 	* @param id 用户ID
+	 	* @return Email验证码
+	 	*/
+		public static String getEmailVerifyCode(int id){
+			return getUUID()+"_"+id;
+		}
+		/**
+		* 根据Email验证码获取UUID部分
+	 	* @param code Email验证码
+	 	* @return UUID
+	 	*/
+		public static String getUUID(){
+			UUID uuid=UUID.randomUUID();		
+			return uuid.toString();
+		}
+		/**
+	 	* 根据Email验证码获取UserID部分
+		 * @param code Email验证码
+		 * @return UserID
+		 */
+		public static String getUserID(String code){
+			return code.substring(code.lastIndexOf("_")+1);
+		}
+	}
+	</code></pre>
+	
+	
+	<span class="menu"><h3>2 用户注册</h3></span> 
+	<ul>
+		<li>功能简述: 
+			<ul>
+				<li>用户注册</li>
+				<li> Email验证</li>
+			</ul>
+		</li>
+		
+		<li>前置条件:系统不存在的用户</li>
+		
+		<li>基本流程:
+			<ul>
+				<li>进入注册页面</li>
+				<li>填写基本信息</li>
+				<li>验证用户名是否重复</li>
+				<li>提交确认EMAIL信息</li>
+				<li>输入验证码注册</li>
+			</ul>
+		</li>
+		
+		<li>分支与异常:
+			<ul>
+				<li>用户已经存在</li>
+				<li>不选择EMAIL验证</li>
+			</ul>
+		</li>
+	</ul>
+	
+	<p>用户在注册时需要用ajax向服务器发送请求检查用户名是否已被占用，注册时用户需要加密处理才写入数据库中.</p>
+	<pre>
+		<code>
+		public static String md5(String s){
+		if(s == null){
+			return "";
+		}
+		try {
+			//md5算法加密
+			MessageDigest digest = MessageDigest.getInstance("MD5");
+			byte[] bys = digest.digest(s.getBytes());
+			//base64算法，将加密后的数据转换为可识别的几个常用字符
+			BASE64Encoder encode = new BASE64Encoder();
+			return encode.encode(bys);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return s;
+		}
+		}
+		</code>
+	</pre>
+	
+	<p>在数据库交互时，为避免频繁的连接和断开数据库而增加系统开销，特采用了数据连接池技术，以配置文件的形式将连接参数、可用活动的连接数、最大等待时间等封装在一个文件可在程序启动时加载。</p>
+	<p>在事务处理方面，有时多步操作需共享同一个事务，即：操作成功事务提交，若多步操作任一环节出现问题则事务回滚。为这一目标的实现可能会采用将一个连接在多个操作中传递，这样就降低了程序了可读性，也不利于后期代码的维护。</p>
+	<p>为此本示例采用连接的线程绑定来解决这些问题，详细代码如下：</p>
+	
+	<pre>
+		<code>
+	public class DbUtil {
+		private static DataSource dataSource;
+		private static ThreadLocal<Connection> connLocal = new ThreadLocal<Connection>();
+	
+		static{
+			try {
+				Properties prop=new Properties();
+				prop.load(DbUtil.class.getClassLoader().getResourceAsStream("dbcp.properties"));
+				dataSource=BasicDataSourceFactory.createDataSource(prop);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		public static Connection getConnection(){
+			Connection conn=connLocal.get();
+			if(conn==null){
+				try {
+					conn=dataSource.getConnection();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				connLocal.set(conn);
+			}
+			return conn;
+		}
+		public static void closeConnection(){
+			Connection conn=connLocal.get();
+			try {
+				if(conn!=null&&!(conn.isClosed())){
+					conn.close();
+					connLocal.set(null);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		</code>
+	</pre>
+	
+	<p>使用线程绑定可以很好地解决多步操作需要同一对象问题，初学者可能对于ThreadLocal类难以理解的，其实ThreadLocal底层也是一个集合容器通过键值向集合中取放元素。</p>
+	<p>以下代码模拟ThreadLocal类写一个简单的MyThreadLocal类来实现其基本功能，通知感知底层代码来掌握ThreadLocal类的基本原理.</p>
+	
+	<pre>
+		<code>
+		public class MyThreadLocal<T> {
+			private  Map<Thread,T> myThreadLocal=new HashMap<Thread, T>(); 
+
+			public T get(){	
+				return myThreadLocal.get(Thread.currentThread());
+			}
+			public void set(T t){
+				myThreadLocal.put(Thread.currentThread(), t);
+			}
+		}
+		</code>
+	</pre>
+	
+	
+</div>
+</html>

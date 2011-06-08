@@ -1,0 +1,232 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0053)http://xiangmu.tarena.com.cn/topic/java-io/index.html -->
+<HTML><HEAD><TITLE>ajax编程</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+<!-- 此行不用编辑 --><!-- 文件顶部锚点 --><!-- 文章头 -->
+<META content="MSHTML 6.00.6000.17097" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=techlib-topic><A name=top></A>
+<DIV id=techlib-topic-head>
+<DIV id=title>
+<H1>ajax编程</H1></DIV><!-- 标题 -->
+<DIV id=subtitle></DIV><!-- 副标题 -->
+<DIV id=authorline>作者：<A class=ad 
+href="http://www.chinatarena.com/">达内总部中关村中心</A>&nbsp;</SPAN> <SPAN 
+id=author>滕宝鑫</SPAN> &nbsp;&nbsp;发布日期：<SPAN id=submitDate>2011-06-06</SPAN> 
+</DIV><!-- 作者信息 --></DIV><!-- 此行不用编辑 -->
+<DIV id=techlib-topic-rightbar>
+<DIV id=ad-topic-rightbar-bottom><A class=ad 
+href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</A></DIV></DIV><!-- 目录 将会由jquery程序填充 --><!-- 正文内容开始 -->
+<DIV id=techlib-topic-content><SPAN class=menu>
+<H2>引言</H2></SPAN>
+<p>什么是ajax?</p>
+<p>ajax全称asynchronous javascript and xml。是为了解决传统的
+	web应用当中的一个弊端“请求-等待-请求-等待”的模式而
+	开发的一种技术（浏览器需要通过表单提交的方式向服务器
+	发请求，请求一旦发送，浏览器会当前整个页面抛弃，服务器
+	处理完请求之后，需要返回一个新的完整的页面，用户在等待
+	服务器的响应期间，不能做其它的事件，会有页面刷新）。
+	解决方式：通过使用javascript调用浏览器内置的一个特殊
+	对象(XmlHttpRequest)向服务器异步发送请求（在发送请求
+	期间，浏览器不会抛弃当前页面，用户可以继承操作当前页面）。
+	服务器在处理完请求之后，只需要发送部分数据给XmlHttpRequest
+	对象。然后，通过使用javascript从XmlHttpRequest接收数据并
+	更新页面。在整个过程当中，页面无刷新。</p>
+<P>下面针对这些知识逐一浅析、讲解。</P><!-- 标签行BEGIN -->
+<DIV id=techlib-tagsline><STRONG>标签：</STRONG> <A class=ad 
+href="http://www.chinatarena.com/">Java培训</A>&nbsp;<A class=ad 
+href="http://www.chinatarena.com/">达内</A> <SPAN id=tags><A class=search 
+href="http://xiangmu.tarena.com.cn/topic/java-io/index.html#">Java</A> <A 
+class=search 
+href="http://xiangmu.tarena.com.cn/topic/java-io/index.html#">IO</A> <A 
+class=search 
+href="http://xiangmu.tarena.com.cn/topic/java-io/index.html#">File</A> 
+</SPAN></DIV><!-- 标签行END --><SPAN class=menu>
+<H2>ajax核心对象XmlHttpRequest</H2></SPAN>
+<P>由浏览器提供，其作用是，异步向服务器发送请求，也可以接收服务器返回的数据，在与服务器通讯的整个过程中，可以通过访问其属性，来获得通讯的状态。</P>
+<P>1. 如何获得XmlHttpRequest对象。</P>
+<ul>
+<li>IE浏览器中的XMLHttpRequest对象获得使用new ActiveXObject("Microsoft.XMLHTTP");。</li> 	
+<li>旧版本的IE浏览器中的XMLHttpRequest对象获得使用new ActiveXObject("Msxml2.XMLHTTP");。</li> 	
+<li>Others浏览器中的XMLHttpRequest对象获得使用new XMLHttpRequest()。</li>	
+</ul>
+<p>2.重要属性和方法</p>
+<ul>
+<li>onreadystatechange:注册一个监听器（回调函数），该监听器会监听Xhr对象的状态。一旦状态发生改变，Xhr对象就会产生readystatechange事件。监听器代码就会得到执行。</li>
+<li>responseText:服务器返回的文本。</li>
+<li>responseXml:服务器返回的xml文档。</li>
+<li>abort()：停止当前请求。</li>
+<li>getAllResponseHeaders()：作为字符串返问完整的headers。</li>
+<li>getResponseHeader("headerLabel")：作为字符串返问单个的header标签。</li>
+<li>open() 设置未决的请求的目标 URL, 方法, 和其他参数
+	<PRE><CODE>open（‘GET’，url,true）请求方式GET/POST
+如果是POST请求，要发送消息头 
+xmlHttpRequest. setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+url请求地址 
+true异步,当时false为同步 
+</PRE></CODE>
+</li>
+<li>send(content) 发送请求</li>
+<li>setRequestHeader("label", "value")  设置header并和请求一起发送</li>
+<li>readyState:用于获取Xhr对象当前的通讯状态。
+	<PRE><CODE>0-未初始化，请求没有发出（在调用 open() 之前）。 
+1-请求已经建立但还没有发出（调用 send() 之前）。 
+2-请求已经发出正在处理之中（这里通常可以从响应得到内容头部）。 
+3-请求已经处理，响应中通常有部分数据可用，但是服务器还没有完成响应。 
+4-响应已完成，可以访问服务器响应并使用它。</PRE></CODE></li>
+<li>status:服务器返回的状态码(下面是常见的状态码)。
+	<PRE><CODE>200 OK 一切正常，对GET和POST请求的应答文档跟在后面。
+202 Accepted 已经接受请求，但处理尚未完成。
+300 Multiple Choices 客户请求的文档可以在多个位置找到，这些位置已经在返回的文档内列出。如果服务器要提出优先选择，则应该在Location应答头指明。 
+404 Not Found 无法找到指定位置的资源。 
+500 Internal Server Error 服务器遇到了意料不到的情况，不能完成客户的请求。 
+503 Service Unavailable 服务器由于维护或者负载过重未能应答。例如，Servlet可能在数据库连接池已满的情况下返回503。服务器返回503时可以提供一个Retry-After头 。
+504 Gateway Timeout 由作为代理或网关的服务器使用，表示不能及时地从远程服务器获得应答。
+505 HTTP Version Not Supported 服务器不支持请求中所指明的HTTP版本。</PRE></CODE></li>	
+</ul>
+<SPAN class=menu>
+<H2>ajax编程代码实现例子</H2></SPAN>
+<P>1．javascript实现ajax-get请求：</P>
+<PRE><CODE>例如：
+	function valiusername(){
+			var xhr = getXmlHttpRequest();
+			var url = 'valiusername.do?username=' + $F('username') + '&age=22';
+			xhr.open('get',encodeURI(url),true);
+			//var param = encodeURIComponent($F('username') + '&age=22');
+			//var url = 'valiusername.do?username=' + param;
+			//xhr.open('get',url,true);
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						var txt = xhr.responseText;
+						$('username_msg').innerHTML = txt;
+					}else{
+						$('username_msg').innerHTML = '系统错误';
+					}
+					
+				}else{
+					$('username_msg').innerHTML = '正在验证...';
+				}
+			};
+			xhr.send(null);
+		}
+</CODE></PRE>
+<P>2．javascript实现ajax-post请求：</P>
+<CODE><PRE>
+	function valiusername(){
+			var xhr = getXmlHttpRequest();
+			var url='valiusername.do';
+			xhr.open('post',url,true);
+			xhr.setRequestHeader("Content-Type",
+        "application/x-www-form-urlencoded");
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						var txt = xhr.responseText;
+						$('username_msg').innerHTML = txt;
+					}else{
+						$('username_msg').innerHTML = '系统错误';
+					}
+				}else{
+					$('username_msg').innerHTML = '正在验证...';
+				}
+			};
+			xhr.send('username=' + $F('username'));
+		}
+</CODE></PRE>
+
+<P>3.jQuery实现ajax请求：</P>
+<p>使用jQuery.validata表单验证实现ajax请求</P>
+<PRE><CODE>例如：
+	$(function(){
+  $("#loginForm").validate({
+     rules:{
+           name:{
+             remote: {//发出ajax请求
+			    url: "check.jsp?dt="+new Date().getTime(),    //后台处理程序
+			    type: "post",              //数据发送方式
+			    dataType: "json",          //接受数据格式    
+			    data: {                    //要传递的数据
+			        name: function(){
+			          // alert($("#name").val());
+			           return $("#name").val();
+			          }
+			    }
+           }
+        }
+     },
+     messages:{
+       name:{
+         "remote":"用户名不可用!"
+       }
+     }
+  });
+});
+</CODE></PRE>
+
+<DIV class=note><SPAN class=note-head>注意</SPAN> <SPAN class=note-body>
+<P>jQuery实现ajax请求，上述方式服务器端验证是否成功要返回写出true后false。 
+</P></SPAN></DIV>
+
+<CODE><PRE>    PrintWriter pw = response.getWriter();
+      if("tom".equals(name)){
+        pw.print("false");
+        System.out.println("用户名不可用!");
+      }else{
+        pw.print("true");
+        System.out.println("用户名可用!");
+      }
+    pw.close();
+ </CODE></PRE>   
+    <p>使用jQuery中的$.ajax()实现ajax编程</P>
+<CODE><PRE>
+$(function(){
+	$('#username').blur(function(){
+	$.ajax({
+		url:'valiusername.do',
+		type:'post',
+		//data:{'username':$('#username').val()},
+		//data:$('#username').serialize(),//序列表表格内容为字符串。
+		data:$('#username').serializeArray(),
+		//序列化表格元素 (类似 '.serialize()' 方法) 返回 JSON 数据结构数据。
+		dataType:'xml',
+		success:function(data,status){
+			$('#username_msg').html($(data).find('msg').text());
+		},
+		error:function(xhr,status,error){
+			$('#username_msg').html('系统错误');
+		}
+	});
+	});
+});
+</CODE></PRE>
+<p>后台servlet中的核心代码</P>
+<CODE><PRE>      PrintWriter out = response.getWriter();
+      String username = request.getParameter("username");
+			System.out.println("username:" + username);
+			String xml = "<msg>";
+			if(username == null || username.equals("")){
+				xml +="用户名为空</msg>";
+			}else{
+				if(username.equals("zs")){
+					xml +="用户名已经存在</msg>";
+				}else{
+					xml +="用户名可以使用</msg>";
+				}
+			}
+			out.println(xml);
+			System.out.println(xml);
+		}
+		out.close();
+</CODE></PRE>
+
+
+<SPAN class=menu>
+<H2>小结</H2></SPAN>
+<P>本文介绍了javascript中的ajax编程，并简单介绍了jQuery中实现ajax请求的实现。常见的Ajax使用场景，表单驱动的交互(提示错误信息)，快速的用户与用户间的交流响应，类似投票yes/no等场景，对数据进行过滤和操纵相关数据的场景，普通的文本输入提示和自动完成的场景实
+现流程等；这样可以大大减轻服务器端得负担，同时带来更好的用户体验度。</p>
+<p>由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。</P></DIV><!-- #techlib-topic-content 内容结束 --></DIV><!-- #techlib-topic 结束 --><!-- 此行不用编辑 -->
+<DIV style="MARGIN-BOTTOM: 50px; PAGE-BREAK-AFTER: always"></DIV><!-- 打印时分页 --><!-- 此行不用编辑 -->
+<DIV id=techlib-topic-notelist></DIV><!-- 这个区域用于抽取正文中NOTE内容 --></BODY></HTML>
