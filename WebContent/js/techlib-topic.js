@@ -53,7 +53,8 @@
 		//添加可搜索文字的链接
 		var $search = $("#tags > .search");
 		$search.each(function(i){
-			$(this).attr("href","search?topictag="+$(this).text());
+//			$(this).attr("href","search?topictag="+$(this).text());
+			$(this).attr("href","../index-"+$(this).text()+".html");
 		});
 		
 		//生成文章末尾的NOTE部分BEGIN

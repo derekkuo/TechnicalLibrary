@@ -14,14 +14,23 @@ p{
 	padding: 0 0 10px 0;
 }
 
+#techlib-topic-list-tagsline{
+	margin-bottom: 5px;
+}	
+#techlib-topic-index-bottom-tags{
+	margin-top: 95px;
+	margin-bottom: 10px;
+	padding: 5 5 5 5;
+	border:1px solid;
+}
 .techlib-topic-list-tags, .techlib-topic-list-author{
 	color:#777;
 	font-size: 12px;
 }
-.techlib-topic-list-tags, .techlib-topic-list-tags a{
+.techlib-topic-list-tags-collect, .techlib-topic-list-tags, .techlib-topic-list-tags a{
 	color:#a0a0a0;
 }
-.techlib-topic-list-tags a:hover, .topicFirstTag a:hover, .selected a{
+.techlib-topic-list-tags-collect a:hover,.techlib-topic-list-tags a:hover, .topicFirstTag a:hover, .selected a{
 	background-position: right bottom;
 	color:#fff;
 	background-color: blue;	  

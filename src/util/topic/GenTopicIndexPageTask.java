@@ -5,19 +5,22 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.TimerTask;
 
 import javax.servlet.ServletContext;
 
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import util.HtmlUtil;
 
 public class GenTopicIndexPageTask extends TimerTask {
+	private static final String MAIN_TAGS = "mainTags";
+	private static final String ALL_TAGS = "allTags";
 	private static boolean isRunning = false;
 	private static ServletContext context;
 	private String workspacePath;
@@ -39,8 +42,38 @@ public class GenTopicIndexPageTask extends TimerTask {
 			String topicIndexHtmlPath = workspacePath+context.getContextPath()+"/WebContent/topic/index.html";
 			List<TopicHeader> allTopicHeader = TopicUtil.getAllTopicHeader( context );
 			gipt.writeTopicIndexHtml( topicIndexHtmlPath, allTopicHeader );
+			
+			String basePath = workspacePath+context.getContextPath()+"/WebContent/topic/";
+			Map<String, TopicTag> allTopicTags = null;
+			try {
+				allTopicTags = TopicUtil.getAllTopicTags();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			gipt.writeCategoryTopicIndexHtml( basePath, allTopicTags );
+			
 		}
 	}
+	
+	public void writeCategoryTopicIndexHtml( String basePath, Map<String, TopicTag> allTopicTags ){
+		
+		Set allTopicTagsSet = allTopicTags.keySet();
+		Iterator it = allTopicTagsSet.iterator();
+		
+		List<TopicHeader> showTopicHeaders = new ArrayList<TopicHeader>();
+		while(it.hasNext()){
+			TopicTag topicTag = (TopicTag)allTopicTags.get( it.next() );
+//			System.out.println(topicTag.getName());
+//			if(topicTag.getParentId()!=null && topicTag.getParentId()==1)
+//			System.out.println(">>>>>>>>>>>>>>>>>"+topicTag.getTopicHeaders().size());
+				writeTopicIndexHtml(basePath+"index-"+topicTag.getName()+".html", topicTag.getTopicHeaders());
+		}
+		
+		
+	}
+	
+	
+	
 	
 	public <E> void writeTopicIndexHtml(String path, List<TopicHeader> allTopicHeader){
 
@@ -70,18 +103,70 @@ public class GenTopicIndexPageTask extends TimerTask {
 		InputStream is = context.getResourceAsStream("/common/techlib-htmlhead.html");
 		HtmlUtil.printHtmlFromInputStream(pw, is);
 		
-		pw.println("<div id=\"techlib-head\"><h1>文章</h1></div>" +"\n" +
-				"<div id=\"techlib-content\">文章总数： "+ allTopicHeader.size()
+		pw.println("<div id=\"techlib-head\"><h1>文章</h1></div>" 
+//				+"<div id=\"techlib-content\">文章总数："+ allTopicHeader.size()
 		);
+		
+		writeTagsStyle(allTopicHeader, MAIN_TAGS);
 		
 		//writeULStyle(allTopicHeader);
 		writeTableStyle(allTopicHeader);
 		
+		pw.write("<div id=\"techlib-topic-index-bottom-tags\">");
+//		pw.wirte("技术标签：");
+		writeTagsStyle(allTopicHeader, ALL_TAGS);
+		pw.write("</div>");
 		pw.write("</div></div>");
 		pw.flush();
 		pw.close();
 	}
 
+	public String writeTagsStyle(List<TopicHeader> allTopicHeader, String tagsStyle){
+		Map<String, TopicTag> allTopicTags = null;
+		StringBuffer sb = new StringBuffer();
+		sb.append("<div id=\"techlib-topic-list-tagsline\"><span class=\"techlib-topic-list-tags-collect\">");
+
+		try {
+			allTopicTags = TopicUtil.getAllTopicTags();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Set allTopicTagsSet = allTopicTags.keySet();
+//		List allTopicTagsList = new ArrayList(allTopicTagsSet);
+//		Collections.sort(allTopicTagsList);
+//		Iterator it = allTopicTagsList.iterator();
+		Iterator it = allTopicTagsSet.iterator();
+		List<TopicTag> showTopicTags = new ArrayList<TopicTag>();
+
+		while(it.hasNext()){
+			TopicTag topicTag = (TopicTag)allTopicTags.get( it.next() );
+			if(tagsStyle.equals(ALL_TAGS)){
+//				if(topicTag.getTopicNum()>=2){
+					showTopicTags.add(topicTag);
+//				}else
+//					continue;
+			}else if(tagsStyle.equals(MAIN_TAGS)){
+				if(topicTag.getParentId()!=null && topicTag.getParentId()==1){
+					showTopicTags.add(topicTag);
+				}else
+					continue;				
+			}
+
+
+		}
+		sb.append("<a href=\"index.html\">"+"全部"+"</a>"+" ");
+		Collections.sort(showTopicTags);
+		Iterator showIt = showTopicTags.iterator();
+		while(showIt.hasNext()){
+			TopicTag topicTag = (TopicTag)showIt.next();
+			sb.append("<a href=\"index-"+topicTag.getName()+".html\">"+topicTag.getName()+"</a>"+"("+topicTag.getTopicNum()+")");
+			sb.append(" ");
+		}
+		sb.append("</span>"+allTopicHeader.size()+"</div>");
+		pw.println(sb.toString());
+		return sb.toString();
+	}
+	
 	public void writeTableStyle(List<TopicHeader> allTopicHeader){
 		pw.println("<table id=\"mytable\" cellspacing=\"0\">");
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
@@ -91,7 +176,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		int topicId = 0;
 		while(it.hasNext()){
 			TopicHeader topicHeader = it.next();
-			topicHeader.setPath(topicHeader.getPath().substring(7,topicHeader.getPath().length()));
+//			topicHeader.setPath(topicHeader.getPath().substring(7,topicHeader.getPath().length()));
 			if(topicHeader.getPath().indexOf("index.html") >-1)
 				continue;
 			pw.println("<tr>");
@@ -111,7 +196,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 				while(tagsIt.hasNext()){
 					String tag = ((String)(tagsIt.next())).trim();
 					tagsSB.append( tag  + " ");
-					styleTagsSB.append( "<a class=\"techlib-a-topicTag\" href=\"search?topictag="+tag+"\">"+tag+"</a>&nbsp;" );
+					styleTagsSB.append( "<a class=\"techlib-a-topicTag\" href=\"index-"+tag+".html\">"+tag+"</a>&nbsp;" );
 				}
 			}else{
 				tagsSB.append("&nbsp;");
@@ -131,20 +216,18 @@ public class GenTopicIndexPageTask extends TimerTask {
 
 
 
-			String titleTagA = "<a class=\"topicFirstTag\" href=\"search?topictag="+topicHeader.getTags().get(0)+"\">"+topicHeader.getTags().get(0)+"</a>";
+			String titleTagA = "<a class=\"topicFirstTag\" href=\"index-"+topicHeader.getTags().get(0)+".html\">"+topicHeader.getTags().get(0)+"</a>";
 			pw.println("<td class=\"row\">");
 			pw.println(titleTagA);
 			pw.println("</td>");
 
 			pw.println("<td class=\"row\">");
 			if( !topicHeader.getSubmitDate().equals(""))
-				pw.println("<span class=\"techlib-little-gray\">"+topicHeader.getSubmitDate()+"</span>"
-						+"<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>"	
-				);
+				pw.println("<span class=\"techlib-little-gray\">"+topicHeader.getSubmitDate()+"</span>");
 			else
-				pw.println("<span class=\"techlib-little-gray\">"+"&nbsp;"+"</span>"
-						+"<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>"	
-				);
+				pw.println("<span class=\"techlib-little-gray\">"+"&nbsp;"+"</span>");
+//			pw.println( "<br/><span class=\"techlib-topic-list-author\"><a href=\"index-"+topicHeader.getAuthor()+".html\">"+topicHeader.getAuthor()+"</a></span>" );
+			pw.println( "<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>" );
 			pw.println("</td>");
 		
 			pw.println("</tr>");
