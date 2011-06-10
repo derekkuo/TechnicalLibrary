@@ -51,7 +51,7 @@ public class TopicUtil {
 				Elements menu = document.select(".menu");
 				String submitDate = document.select("#submitDate").text();
 				TopicHeader topicHeader = new TopicHeader(path, title, subtitle, author, tags, summary, menu, submitDate);
-				//System.out.println(topicHeader);
+				//System.out.println("---TopicUtil.getAllTopicHeader()---"+topicHeader);
 				allTopicHeader.add( topicHeader );
 			} catch (Exception e1) {
 				e1.printStackTrace();
