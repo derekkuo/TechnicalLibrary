@@ -22,6 +22,7 @@ p{
 	margin-bottom: 10px;
 	padding: 5 5 5 5;
 	border:1px solid;
+	text-align: center;
 }
 .techlib-topic-list-tags, .techlib-topic-list-author{
 	color:#777;

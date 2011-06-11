@@ -113,7 +113,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 		writeTableStyle(allTopicHeader);
 		
 		pw.write("<div id=\"techlib-topic-index-bottom-tags\">");
-//		pw.wirte("技术标签：");
+//		pw.write("标签云");
 		writeTagsStyle(allTopicHeader, ALL_TAGS);
 		pw.write("</div>");
 		pw.write("</div></div>");

@@ -23,7 +23,11 @@ public class TopicTag implements Serializable,Comparable{
 
 	@Override
 	public int compareTo(Object o) {
-		return ((TopicTag)o).getTopicNum() - this.getTopicNum();
+		TopicTag otherTag = (TopicTag)o; 
+		if( otherTag.getTopicNum() - this.getTopicNum() == 0 )
+			return -1*otherTag.getName().compareTo( this.getName() );
+		else
+			return otherTag.getTopicNum() - this.getTopicNum(); 
 	}
 	
 	public TopicTag() {
