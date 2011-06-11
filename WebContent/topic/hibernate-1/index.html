@@ -1,0 +1,252 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> Hibernate之开发过程详解（一）</title>
+<link rel="stylesheet" type="text/css"
+	href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+
+</head>
+
+<div id="techlib-topic"><!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+
+<div id="techlib-topic-head"><!-- 文章头 -->
+<div id="title">
+<h1> Hibernate之开发过程详解（一）</h1>
+</div>
+<!-- 标题 -->
+<div id="subtitle"></div>
+<!-- 副标题 -->
+<div id="authorline">作者：<a class="ad"
+	href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span> <span
+	id="author">张月</span>
+	&nbsp;&nbsp;发布日期：<span id="submitDate">2011-06-10</span>
+	</div>
+<!-- 作者信息 --></div>
+
+<div id="techlib-topic-rightbar">
+<div id="ad-topic-rightbar-bottom"><a class="ad"
+	href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+</div>
+<!-- 目录 将会由jquery程序填充 --> <!-- 正文内容开始 -->
+
+<div id="techlib-topic-content"><span class="menu"><h2>引言</h2></span>
+<p>当我们用JDBC连接数据库进行操作时，往往会遇到一个问题，即每次对数据进行增删改查都需要写大量的重复代码，
+这就增加了程序员的工作量，所以有一个简单、灵活的对数据库进行操作的框架就应运而生，
+即我们即将要谈到的Hibernate（ORM轻量级框架）。</p>
+
+
+<!-- 标签行BEGIN -->
+<div id="techlib-tagsline"><strong>标签：</strong> <a class="ad"
+	href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad"
+	href="http://www.chinatarena.com/">达内</a> <span id="tags">
+	<a class="search" href='#'>hibernate</a>
+	<a class="search" href='#'>framework</a>
+</span></div>
+<p></p>
+<!-- 标签行END --> <span class="menu"><h2>对象的持久化</h2></span>
+
+<p>1. 对象持久化：内存中的对象转存到外部持久设备上，在需要的时候还可以恢复。</p>
+<p>2. 对象持久化的原因(目标)</p>
+<ul>物理
+	<li>内存不能持久，需要在硬盘上持久保存</li>
+	<li>内存容量有限，需要在容量更大的硬盘上保存</li>
+</ul>
+<ul>应用
+	<li>共享(Internet的本质：信息的收集、整理、发布) //最重要的原因</li>
+	<li>检索(大规模) //也很重要</li>
+	<li>管理(备份、安全) </li>
+</ul>
+
+<p>3. 怎样进行对象持久化？(仅从JAVA方面讲) </p>
+<ul>物理
+	<li>对象序列化</li>
+	<li> DB技术(JDBC 数据库)</li>
+</ul>
+
+<p>4. 怎样利用数据库做对象持久化？</p>
+<ul>1) JDBC
+	<li>优点：功能完备、理论上效率高</li>
+	<li>缺点：复杂(难)、代码量大、面向R(过程；二维表关系) </li>
+</ul>
+<ul>2) 仅讲Entity Bean
+	<li>优点：封装JDBC</li>
+	<li>缺点：更复杂的API、重量级(侵入式)、功能不完备、难共享</li>
+	<li>缺点的后果：开发周期长、测试困难、面向过程</li>
+</ul>
+<div class="note">
+			<span class="note-head">注意</span>
+			<span class="note-body">
+				<p>以上是 2.0之前的版本，但 3.0跟Hibernate基本一样
+				</p>
+			</span>
+</div>
+<ul>3) ORM 轻量级框架(Hibernate) 
+	<li>现阶段最佳的持久化工具：文档齐全、服务很好、工业标准、大量应用、易学</li>
+	<li>优点：封装JBDC、简单的API、轻量级(只做持久化)(用类库)、PO(持久对象)->POJO(纯JAVA)、开源 </li>
+	<li>缺点：不够JDBC灵活,不适合做大量数据的处理或者统计工作</li>
+</ul>
+<p>5. 结论<p>
+<ul><li>对象持久化是必须的</li>
+	<li>必须使用DB来实现</li>
+	<li>Hibernate必须的(现阶段最佳选择) </li>
+	<p>开源工具的通常问题：1.文档不全；2.服务不全；3.标准化不够，而Hibernate避免了所有这些问题</p>
+</ul>
+
+<span class="menu"><h2>Hibernate开发过程</h2></span>
+<span class="menu"><h3>一.首先搭建开发环境</h3></span>
+<p>(1) 导入jar包：hibernate3.jar;  lib包;  ojdbc14.jar</p>
+<p>(2) 导入配置文件：hibernate.cfg.xml</p>
+<span class="menu"><h3>二.具体操作（ORMapping）</h3></span>
+<p>步骤一： O 创建操作的对象，这里我们假定创建User.java类</p>
+<p>步骤二： R 创建数据对应的表，假定为 t_user表</p>
+<p>步骤三： M 写映射文件，一个实体对应一个xml文件，组件用id,非组件用property</p>
+   <ul>
+     &nbsp;类&nbsp;&nbsp;&nbsp;---- 表</br>
+	 属性 ---- 列
+   </ul>
+<p>这里，由于各个表之间的关系不通，所以进行的配置也不尽相同，在此不做叙述，等在以后的文章中对此进行详细介绍。这里先大体介绍一下单个表(t_user)的映射文件的写法。</p>  
+<p>(1) 文件名称xxx.hbm.xml</p>  
+<p>其中hbm 即 hibernate mapping 该文件配置持久化和数据库表之间的映射关系</p> 
+<p>(2) 具体实例</p>  
+<pre><code>
+<xmp>
+<hibernate-mapping>
+   <class name="day1.User" table="t_zhangyue">
+      <id name="id" column="t_id" type="java.lang.Integer">
+        <generator class="increment"></generator>
+      </id>
+      <property name="name" column="t_name" type="java.lang.String"/>
+      <property name="birthday" column="t_birthday" type="java.util.Date"></property>
+      <property name="age" column="t_age" type="java.lang.Integer"></property>
+   </class>
+</hibernate-mapping>
+</xmp>
+</code></pre>
+<p>步骤四：在hibernate.cfg.xml中进行映射文件的注册</p>
+<p>在此简要介绍一下hibernate.cfg.xml文件的各个组成部分</p>
+<p>(1) 连接获取相关的参数</p>
+<p> connection.driver_class；connection.url； connection.username；connection.password</p>
+<p>(2) 自身属性相关的参数</p>
+<p> dialect：通过dialect告知hibernate所连接数据库的种类, hibernate会根据数据库的特点进行调优</p>
+<ul>
+   <li>Oracle数据库方言：org.hibernate.dialect.OracleDialect</li>
+   <li>MySql数据库方言：org.hibernate.dialect.MySQLDialect</li>
+</ul>
+<p>show_sql: true|false:通过show_sql可以看见hibernate所执行的sql语句</p>
+<p>format_sql:true|false: 格式化控制台的sql语句</p>
+<p>(3) 映射文件注册</p>
+<p> <xmp><mapping resource="day1/User.hbm.xml"/></xmp></p>
+<p>hibernate.cfg.xml样板</p>
+<pre><code>
+<xmp>
+<!DOCTYPE hibernate-configuration PUBLIC 
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >
+<hibernate-configuration>
+	<session-factory>
+	    <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
+	    <property name="connection.url">jdbc:oracle:thin:@192.168.0.20:1521:tarena</property>
+	    <property name="connection.username">sd1103</property>
+	    <property name="connection.password">sd1103</property>
+	    
+	    <property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>
+	    <property name="show_sql">true</property>
+	    <property name="format_sql">true</property>
+		
+	    <mapping resource="day1/User.hbm.xml"/>
+	    <mapping resource="day2/o2opk.hbm.xml"/>
+	    <mapping resource="day2/o2ouq.hbm.xml" />
+	    <mapping resource="day2/o2m.hbm.xml" />
+	    <mapping resource="day3/m2m.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>
+</xmp>
+</code></pre>
+
+<p>步骤五：Hibernate Core API进行程序的处理</p>
+<p>配置完毕以后就要进行程序的开发了。在开发过程中主要用到的核心API有以下几种。</p>
+<p>(1)  Configuration类 作用：读取配置文件</p>
+<p>Configuration对象用于配置和启动Hibernate。Hibernate应用通过Configuration实例来指定对象-关系映射文件的位置或者动态配置Hibernate的属性，然后创建SessionFactory实例。</p>
+<p>(2)  SessionFactory接口</p>
+<p>一个SessionFactory实例对应一个数据存储源。应用从SessionFactory中获取Session实例。</p>
+<ul>
+  <li>它是线程安全的，这意味着它的一个实例能够被应用的多个线程共享。</li>
+  <li>
+它是重量级的，这意味着不能随意创建或者销毁，一个数据库只对应一个SessionFactory。 </li>
+</ul>
+<p>通常构建SessionFactory是在某对象Bean的静态初始化代码块中进行。</p>
+<p>如果应用只是访问一个数据库，只需创建一个SessionFactory实例，并且在应用初始化的时候创建该实例。 如果应用有同时访问多个数据库，则需为每个数据库创建一个单独的SessionFactory。</p>
+<p>(3)Session接口</p>
+<p>是Hibernate应用最广泛的接口。它提供了和持久化相关的操作，如添加，删除，更改，加载和查询对象。内部封装了一个Connection对象</p>
+<ul>
+  <li>它是线程不安全的，因此在设计软件架构时，应尽量避免多个线程共享一个Session实例。</li>
+  <li>Session实例是轻量级的，这意味着在程序可以经常创建和销毁Session对象 </li>
+</ul>
+<p>例如为每个客户请求分配单独的Session实例。</p>
+<p>原则：一个线程一个Session；一个事务一个Session。</p>
+<p>session进行增删改查的方法</p>
+<p>session.save() ; session.get() ; session.delete() ; session.update()</p>
+<span class="note-head">注意</span>
+			<span class="note-body">
+				<p>还有一种查询方式是session.load()方法，具体内容将在后续文章Hibernate的高级特性中讲解。
+				</p>
+			</span>
+<p>(4)  Session的辅助接口</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--  Transaction 事务  专门控制事务，所有hibernate程序必须控制事务</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- Query 查询 专门进行复杂查询(非主键的查询)</p>
+<pre><code>Query query = session.createQuery("HQL查询语句");
+
+</code></pre>
+<span class="note-head">注意</span>
+			<span class="note-body">
+				<p>由于HQL知识比较多，具体内容会在以后的文章中提到。
+				</p>
+			</span>
+<p>API实例：</p>
+<pre><code>
+public class Test {
+	public static void main(String args[]) {
+		// 1 创建User对象
+		User u = new User();
+		u.setName("zhangy");
+		u.setBirthday(new java.util.Date());
+		u.setAge(12);
+		Session session = null;
+		Transaction tx = null;
+		// 2 Hibernate 通用API进行开发
+		try {
+			// 1 读取配置文件 Configuration
+			Configuration cfg = new Configuration();
+			cfg.configure();
+			// 2 获得 Configration---->SessionFactory对象
+			SessionFactory sf = cfg.buildSessionFactory();
+			// 3 创建Session
+			session = sf.openSession();
+			// 4 调用session方法进行处理
+			tx = session.getTransaction();
+			tx.begin();//开始事务
+			session.save(u);//执行插入操作
+			tx.commit();//关闭事务
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(tx!=null)tx.rollback();
+		}finally{
+			if(session!=null)session.close();
+		}
+	}
+}
+</code></pre>
+
+<span class="menu"><h2>小结</h2></span>
+<p>以上是使用Hibernate框架开发的详细过程，具体的各种表关系的xml文档的配置以及后续的一些具体应用会在以后的Hibernate专题中进行讲解。</p>
+
+</div>
+<!-- #techlib-topic-content 内容结束 --></div>
+<!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 -->
+<div style="PAGE-BREAK-AFTER: always; margin-bottom: 50px;"></div>
+<!-- 打印时分页 -->
+<!-- 此行不用编辑 -->
+<div id="techlib-topic-notelist"></div>
+<!-- 这个区域用于抽取正文中NOTE内容 -->
