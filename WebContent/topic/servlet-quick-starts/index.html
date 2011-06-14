@@ -1,0 +1,237 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Servlet入门(一)</title>
+<link rel="stylesheet" type="text/css"
+	href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+ 
+<div id="techlib-topic"><!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+ 
+<div id="techlib-topic-head"><!-- 文章头 -->
+<div id="title"><h1>Servlet入门(一)</h1></div>
+<!-- 标题 -->
+<div id="subtitle"></div>
+<!-- 副标题 -->
+<div id="authorline">作者：<a class="ad"
+	href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span> <span
+	id="author">董正</span>
+	&nbsp;&nbsp;发布日期：<span id="submitDate">2011-06-13</span>
+<!-- 作者信息 --></div>
+ 
+<!-- 此行不用编辑 -->
+<div id="techlib-topic-rightbar">
+<div id="ad-topic-rightbar-bottom"><a class="ad"
+	href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+</div>
+<!-- 目录 将会由jquery程序填充 --> <!-- 正文内容开始 -->
+<div id="techlib-topic-content"><span class="menu"><h2>引言</h2></span>
+<p>Servlet是一种服务器端的Java应用程序，具有独立于平台和协议的特性,可以生成动态的Web页面。
+ 它担当客户请求（Web浏览器或其他HTTP客户程序）与服务器响应（HTTP服务器上的数据库或应用程序）的中间层。
+  Servlet是位于Web 服务器内部的服务器端的Java应用程序，与传统的从命令行启动的Java应用程序不同，
+  Servlet由Web服务器进行加载，该Web服务器必须包含支持Servlet的Java虚拟机。</p>
+ 
+ 
+<!-- 标签行BEGIN -->
+<div id="techlib-tagsline"><strong>标签：</strong> <a class="ad"
+	href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad"
+	href="http://www.chinatarena.com/">达内</a>
+	<span id="tags">
+		<a class="search" href="#">servlet</a>
+	</span></div>
+ 
+<!-- 标签行END --> <span class="menu"><h2>一、servlet的命名</h2></span>
+<p>	Server + Applet =Servlet 意为服务器端的小程序</p>
+ 
+<span class="menu"><h2>二、Servlet 生命周期</h2></span>
+<h4><p>1、加载和实例化</p></h4>
+<p>
+	Servlet容器负责加载和实例化Servlet。一般情况下,容器检测到需要这个Servlet来响应第一个请求时，
+	创建Servlet实例。如果想要在Servlet容器启动时创建Servlet实例，
+</p>
+
+<P>可以在web.xml中这样配制:</P>
+<pre><code><xmp><servlet>
+	<servlet-name>a</servlet-name>
+	<servlet-class>包名.类名</servlet-class>
+	<load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+	<servlet-name>a</servlet-name>
+	<url-pattern>/a</url-pattern>
+</servlet-mapping>
+</xmp></code></pre>
+
+<p>
+因为容器是通过Java的反射API来创建Servlet实例，调用的是Servlet的默认构造方
+法（即不带参数的构造方法），所以我们在编写Servlet类的时候，不应该提供带参数的构造方法。
+</p>
+<h4><p>2、初始化</p></h4>
+<p>
+	在Servlet实例化之后，容器将调用Servlet的init()方法初始化这个对象。
+	初始化的目的是为了让Servlet对象在处理客户端请求前完成一些初始化的工作，
+	如建立数据库的连接，获取配置信息等。对于每一个Servlet实例，init()方法只被调用一次。
+	在初始化期间，Servlet实例可以使用容器为它准备的ServletConfig对象从web.xml中
+	获取初始化的参数信息。
+</p>
+<pre><code>例:
+   private ServletConfig config;
+   private String name;
+   public void init(ServletConfig config)throws
+   ServletException{
+	   this.config = config;
+       name=config.getInitParameter("username");
+  }
+  </code></pre>
+<h4><p>3、请求处理</p></h4>
+<p>
+	Servlet容器调用Servlet的service()方法对请求进行处理。在service()方法中，
+	Servlet实例通过ServletRequest对象得到客户端的相关信息和请求信息，在对请求进行处理后，
+	调用ServletResponse对象的方法设置响应信息。在service()方法执行期间，如果发生错误，
+	Servlet实例可以抛出ServletException异常或者UnavailableException异常。
+	如果UnavailableException异常指示了该实例永久不可用，Servlet容器将调用实例的destroy()方法，
+	释放该实例。此后对该实例的任何请求，都将收到容器发送的HTTP 404（请求的资源不可用）响应。
+	如果UnavailableException异常指示了该实例暂时不可用，那么在暂时不可用的时间段内，
+	对该实例的任何请求，都将收到容器发送的HTTP 503（服务器暂时忙，不能处理请求）响应。
+</p>
+<h4><p>4、服务终止</p></h4>
+<p>	
+	当容器检测到一个Servlet实例应该从服务中被移除的时候，容器就会调用实例的destroy()方法，
+	以便让该实例可以释放它所使用的资源，保存数据到持久存储设备中。当需要释放内存或者容器关闭时，
+	容器就会调用Servlet实例的destroy()方法。在destroy()方法调用之后，容器会释放这个Servlet实例，
+	该实例随后会被Java的垃圾收集器所回收。如果再次需要这个Servlet处理请求，Servlet容器会创建一个新的Servlet实例。</p>	
+ 
+<span class="menu"><h2>三、servlet开发步骤(使用eclipse开发)</h2></span>
+<p>常见开发servlet有三种方法:实现servlet接口,继承GenericServlet,继承HttpServlet类.</p>
+<h4><p>	1、实现servlet接口</p></h4>
+<p> (1)新建一个Web Project</p>	
+<p> (2)在某某包下建类实现javax.servlet.Servlet接口，并实现其5个方法；</p>	
+ 
+<pre><code>例：
+package test;
+
+import java.io.IOException;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+public class TestServlet implements Servlet{
+
+	public void destroy() {
+	}
+	public ServletConfig getServletConfig() {
+		return null;
+	}
+	public String getServletInfo() {
+		return null;
+	}
+	public void init(ServletConfig config) throws
+          ServletException {
+		
+	}
+	public void service(ServletRequest req, ServletResponse
+        res)throws ServletException, IOException {	
+	}
+}
+</code></pre>
+<p> (3)配制web.xml</p>
+<p>例：</p>
+<xmp>
+  <servlet>
+     <servlet-name>test</servlet-name>
+     <servlet-class>test.TestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+     <servlet-name>test</servlet-name>
+     <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+</xmp>	
+<p> (4)把项目部署到服务器</p>	
+
+
+<h4><p>	2、继承GenericServlet</p></h4>
+<p> (1)新建一个Web Project</p>	
+<p> (2)在某某包下建类继承javax.servlet.GenericServlet；</p>	
+ 
+<pre><code>例：
+package test;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+public class TestGenericServlet extends GenericServlet{
+   public void service(ServletRequest reques,ServletResponse response)
+                       throws ServletException,IOException{
+	   response.setContentType("text/html");
+	   PrintWriter out = response.getWriter();
+	   out.println("XXXXXXXXXXXXXXXXXXXXXXXXX");
+	   out.flush();	   
+   }
+}
+</code></pre>
+<p> (3)配制web.xml</p>
+	
+<p> (4)把项目部署到服务器</p>	
+
+
+
+<h4><p>	3、 继承HttpServlet类</p></h4>
+<p> (1)新建一个Web Project</p>	
+<p> (2)在某某包下建类继承javax.servlet.http.HttpServlet；</p>	
+ 
+<pre><code>例：
+package test;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class TestServlet extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		   response.setContentType("text/html");
+		   PrintWriter out = response.getWriter();
+		out.println("XXXXXXXXXXXXXXXXXXXXXXXXX");
+		   out.flush();	   
+	}
+}
+</code></pre>
+<p> (3)配制web.xml</p>	
+<p> (4)把项目部署到服务器</p>	
+
+<span class="menu"><h2>四、Servlet中的常见对象的获得方法</h2></span>
+<p>PrintWriter out = response.getWriter();</p>
+<p> Cookie c = new Cookie("name",name);</p>	
+<p>	Cookie[ ] cookies = request.getCookies();</p>
+
+<p>HttpSession session = request.getSession();</p>
+<p>ServletContext application=this.getServletContext();</p>
+
+
+
+ 
+
+ 
+<span class="menu"><h2>小结</h2></span>
+<p>本文对servlet做了简单介绍，由于本人知识水平有限，文章中倘若有错误的地方，欢迎联系我批评指证。</p>
+ 
+</div>
+<!-- #techlib-topic-content 内容结束 --></div>
+<!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 -->
+<div style="PAGE-BREAK-AFTER: always; margin-bottom: 50px;"></div>
+<!-- 打印时分页 -->
+<!-- 此行不用编辑 -->
+<div id="techlib-topic-notelist"></div>
+<!-- 这个区域用于抽取正文中NOTE内容 -->	
