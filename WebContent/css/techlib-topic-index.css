@@ -16,7 +16,12 @@ p{
 
 #techlib-topic-list-tagsline{
 	margin-bottom: 5px;
-}	
+}
+#techlib-topic-index-bottom-tags-author{
+	margin-bottom: 50px;
+	padding: 5 5 5 5;
+	text-align: center;
+}
 #techlib-topic-index-bottom-tags{
 	margin-top: 95px;
 	margin-bottom: 10px;

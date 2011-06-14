@@ -15,6 +15,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import util.pinyin.Pinyin4j;
+
 public class TopicUtil {
 	private static List<TopicHeader> allTopicHeader;
 	private static Map<String, TopicTag> allTopicTags;
@@ -121,12 +123,25 @@ public class TopicUtil {
 		Iterator<TopicHeader> it = allTopicHeader.iterator();
 		while(it.hasNext()){
 			TopicHeader topicHeader = it.next();
-
+			
+			TopicTag authorTopicTag = new TopicTag();
+			String author = topicHeader.getAuthor();
+			authorTopicTag.setName(author);
+			Iterator authorSetIt = Pinyin4j.getPinyin(author).iterator(); 
+			authorTopicTag.setEnName( (String)authorSetIt.next() );
+			authorTopicTag.setParentId(2);
+			authorTopicTag.getTopicHeaders().add(topicHeader);
+			saveTopicTagToMap(authorTopicTag, topicHeader, false);
+			
 			Iterator<String> tagsIt = topicHeader.getTags().iterator();
 			TopicTag topicFirstTag = null;
 			while(tagsIt.hasNext()){
 				TopicTag topicTag = new TopicTag();
-				topicTag.setName(tagsIt.next().trim().toLowerCase());
+				String name = tagsIt.next().trim().toLowerCase();
+				topicTag.setName( name );
+				Set set = Pinyin4j.getPinyin(name);
+				Iterator setIt = set.iterator();
+				topicTag.setEnName( (String)setIt.next() );
 				topicTag.getTopicHeaders().add(topicHeader);
 				boolean isMainTag = false;
 				if(topicFirstTag == null){
@@ -145,8 +160,9 @@ public class TopicUtil {
 	}
 	
 	public static void saveTopicTagToMap( TopicTag topicTag, TopicHeader topicHeader, boolean isMainTag ){
-		if(allTopicTags.containsKey(topicTag.getName().trim().toLowerCase())){
-			TopicTag existTopicTag = allTopicTags.get(topicTag.getName().trim().toLowerCase()); 
+		
+		if(allTopicTags.containsKey(topicTag.getEnName().trim().toLowerCase())){
+			TopicTag existTopicTag = allTopicTags.get(topicTag.getEnName().trim().toLowerCase()); 
 			existTopicTag.getTopicHeaders().add(topicHeader);
 			existTopicTag.setTopicNum(existTopicTag.getTopicNum()+1);
 			if(isMainTag)
@@ -154,9 +170,8 @@ public class TopicUtil {
 		}
 		else{
 			topicTag.setTopicNum(1);
-			allTopicTags.put(topicTag.getName().trim().toLowerCase(), topicTag);
+			allTopicTags.put(topicTag.getEnName().trim().toLowerCase(), topicTag);
 		}
-		
 	}
 
 	

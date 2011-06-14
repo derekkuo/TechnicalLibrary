@@ -17,10 +17,12 @@ import java.util.TimerTask;
 import javax.servlet.ServletContext;
 
 import util.HtmlUtil;
+import util.pinyin.Pinyin4j;
 
 public class GenTopicIndexPageTask extends TimerTask {
-	private static final String MAIN_TAGS = "mainTags";
-	private static final String ALL_TAGS = "allTags";
+	private static final String TECHNOLOGY_MAIN_TAGS = "mainTags";
+	private static final String TECHNOLOGY_ALL_TAGS = "allTags";
+	private static final String AUTHOR_ALL_TAGS = "allAuthorTags";
 	private static boolean isRunning = false;
 	private static ServletContext context;
 	private String workspacePath;
@@ -66,7 +68,7 @@ public class GenTopicIndexPageTask extends TimerTask {
 //			System.out.println(topicTag.getName());
 //			if(topicTag.getParentId()!=null && topicTag.getParentId()==1)
 //			System.out.println(">>>>>>>>>>>>>>>>>"+topicTag.getTopicHeaders().size());
-				writeTopicIndexHtml(basePath+"index-"+topicTag.getName()+".html", topicTag.getTopicHeaders());
+				writeTopicIndexHtml(basePath+"index-"+topicTag.getEnName()+".html", topicTag.getTopicHeaders());
 		}
 		
 		
@@ -107,15 +109,21 @@ public class GenTopicIndexPageTask extends TimerTask {
 //				+"<div id=\"techlib-content\">文章总数："+ allTopicHeader.size()
 		);
 		
-		writeTagsStyle(allTopicHeader, MAIN_TAGS);
+		writeTagsStyle(allTopicHeader, TECHNOLOGY_MAIN_TAGS);
 		
 		//writeULStyle(allTopicHeader);
 		writeTableStyle(allTopicHeader);
 		
 		pw.write("<div id=\"techlib-topic-index-bottom-tags\">");
 //		pw.write("标签云");
-		writeTagsStyle(allTopicHeader, ALL_TAGS);
+		writeTagsStyle(allTopicHeader, TECHNOLOGY_ALL_TAGS);
 		pw.write("</div>");
+		
+//		pw.write("<div id=\"techlib-topic-index-bottom-tags-author\">");
+//		pw.write("标签云作者");
+//		writeTagsStyle(allTopicHeader, AUTHOR_ALL_TAGS);
+//		pw.write("</div>");		
+		
 		pw.write("</div></div>");
 		pw.flush();
 		pw.close();
@@ -140,26 +148,29 @@ public class GenTopicIndexPageTask extends TimerTask {
 
 		while(it.hasNext()){
 			TopicTag topicTag = (TopicTag)allTopicTags.get( it.next() );
-			if(tagsStyle.equals(ALL_TAGS)){
-//				if(topicTag.getTopicNum()>=2){
+			if(tagsStyle.equals(TECHNOLOGY_ALL_TAGS)){
+				if(topicTag.getParentId()==null || (topicTag.getParentId()!=2) ){
 					showTopicTags.add(topicTag);
-//				}else
-//					continue;
-			}else if(tagsStyle.equals(MAIN_TAGS)){
+				}else
+					continue;
+			}else if(tagsStyle.equals(TECHNOLOGY_MAIN_TAGS)){
 				if(topicTag.getParentId()!=null && topicTag.getParentId()==1){
 					showTopicTags.add(topicTag);
 				}else
 					continue;				
+			}else if(tagsStyle.equals(AUTHOR_ALL_TAGS)){
+				if(topicTag.getParentId()!=null && topicTag.getParentId()==2){
+					showTopicTags.add(topicTag);
+				}else
+					continue;
 			}
-
-
 		}
 		sb.append("<a href=\"index.html\">"+"全部"+"</a>"+" ");
 		Collections.sort(showTopicTags);
 		Iterator showIt = showTopicTags.iterator();
 		while(showIt.hasNext()){
 			TopicTag topicTag = (TopicTag)showIt.next();
-			sb.append("<a href=\"index-"+topicTag.getName()+".html\">"+topicTag.getName()+"</a>"+"("+topicTag.getTopicNum()+")");
+			sb.append("<a href=\"index-"+topicTag.getEnName()+".html\">"+topicTag.getName()+"</a>"+"("+topicTag.getTopicNum()+")");
 			sb.append(" ");
 		}
 		sb.append("</span>"+allTopicHeader.size()+"</div>");
@@ -195,8 +206,13 @@ public class GenTopicIndexPageTask extends TimerTask {
 				Iterator tagsIt = topicHeader.getTags().iterator();
 				while(tagsIt.hasNext()){
 					String tag = ((String)(tagsIt.next())).trim();
+					
+					Set set = Pinyin4j.getPinyin(tag);
+					Iterator setIt = set.iterator();
+					String tagEnName = (String)setIt.next();
+					
 					tagsSB.append( tag  + " ");
-					styleTagsSB.append( "<a class=\"techlib-a-topicTag\" href=\"index-"+tag+".html\">"+tag+"</a>&nbsp;" );
+					styleTagsSB.append( "<a class=\"techlib-a-topicTag\" href=\"index-"+tagEnName+".html\">"+tag+"</a>&nbsp;" );
 				}
 			}else{
 				tagsSB.append("&nbsp;");
@@ -226,8 +242,14 @@ public class GenTopicIndexPageTask extends TimerTask {
 				pw.println("<span class=\"techlib-little-gray\">"+topicHeader.getSubmitDate()+"</span>");
 			else
 				pw.println("<span class=\"techlib-little-gray\">"+"&nbsp;"+"</span>");
-//			pw.println( "<br/><span class=\"techlib-topic-list-author\"><a href=\"index-"+topicHeader.getAuthor()+".html\">"+topicHeader.getAuthor()+"</a></span>" );
-			pw.println( "<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>" );
+			
+			String authorName = topicHeader.getAuthor();
+			Set set = Pinyin4j.getPinyin(authorName);
+			Iterator setIt = set.iterator();
+			authorName = (String)setIt.next();
+			
+			pw.println( "<br/><span class=\"techlib-topic-list-author\"><a href=\"index-"+authorName+".html\">"+topicHeader.getAuthor()+"</a></span>" );
+//			pw.println( "<br/><span class=\"techlib-topic-list-author\">"+topicHeader.getAuthor()+"</span>" );
 			pw.println("</td>");
 		
 			pw.println("</tr>");
