@@ -1,0 +1,180 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Hibernate之lazyload</title>
+<link rel="stylesheet" type="text/css" href="../../css/techlib-topic.css">
+<script type="text/javascript" src="../../js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="../../js/techlib-topic.js"></script>
+</head>
+
+<div id="techlib-topic">
+	<!-- 此行不用编辑 --><a name="top"></a><!-- 文件顶部锚点 -->
+	
+	<div id="techlib-topic-head"><!-- 文章头 -->
+		<div id="title"><h1>Hibernate之lazyload</h1></div><!-- 标题 -->
+		<div id="subtitle"></div><!-- 副标题 -->
+		<div id="authorline">作者：<a class="ad" href="http://www.chinatarena.com/">达内总部中关村中心</a>&nbsp;</span>
+			<span id="author">叶朋</span>
+			&nbsp;&nbsp;发布日期：<span id="submitDate">2011-06-26</span>
+		</div><!-- 作者信息 -->
+	</div>
+	
+	<div id="techlib-topic-rightbar">
+		<div id="ad-topic-rightbar-bottom"><a class="ad" href="http://www.chinatarena.com/">北京达内：www.chinatarena.com</a></div>
+	</div><!-- 目录 将会由jquery程序填充 -->
+	
+	<!-- 正文内容开始 -->
+	<div id="techlib-topic-content">
+		<span class="menu"><h2>简介</h2></span>
+		<p>hibernate的性能优化是一个亮点，它的使用粒度很细密，类中的成员属性和属性的属性进行延迟加载。</p>
+
+		<!-- 标签行BEGIN -->
+		<div id="techlib-tagsline">
+			<strong>标签：</strong>
+			<a class="ad" href="http://www.chinatarena.com/">Java培训</a>&nbsp;<a class="ad" href="http://www.chinatarena.com/">达内</a>
+			<span id="tags">
+				<a class="search" href='#'>lazyload</a>
+				<a class="search" href='#'>open session in view</a>
+			</span>
+		</div><!-- 标签行END -->
+		<span class="menu"><h2>一个简单的例子</h2></span>
+		<span class="menu"><h3>表关系图</h3></span>
+		<p>两种加载方
+式的例子如下：首先有4个表，分别为d_product、d_book、d_category、d_category_product，他们分别是产品信息
+表、图书信息表、产品类别表，产品类别与产品关系表，他们的关系如图:</p>
+<img src="er.png"/>
+<span class="menu"><h3>hibernate关系配置</h3></span>
+		<p>从上图中我们可知道3点:
+	1.d_product与d_book之间的关系为继承关系，d_product记录一些产品的共用信息，而d_book记录的为书产品的个性信息。
+	2.d_catetory与d_product之间的关系为多对多关系，因为一种产品可能属于多种类型，而一种类别又可能包含多种产品。
+	3.d_category与d_product的多对多关系是由d_category_product维护的。
+针对如上3种关系分别对应hibernate的关系配置如下：</p>
+Product.hbm.xml:
+<pre><code>
+&lthibernate-mapping package="tarena.db.pojo"&gt
+	&ltclass name="Product" table="d_product"&gt
+		&ltid name="id" type="integer"&gt
+			&ltcolumn name="id"&gt&lt/column&gt
+			&ltgenerator class="native"&gt&lt/generator&gt
+		&lt/id&gt
+		&ltproperty name="name" type="string"&gt
+			&ltcolumn name="product_name"&gt&lt/column&gt
+		&lt/property&gt
+		&ltproperty name="price" type="double"&gt
+			&ltcolumn name="dang_price"&gt&lt/column&gt
+		&lt/property&gt
+		&ltproperty name="fix_price" type="double"&gt
+			&ltcolumn name="fix_price"&gt&lt/column&gt
+		&lt/property&gt
+		&lt!-- product到category的多对多 --&gt
+		&ltset name="cats" table="d_category_product" lazy='false'&gt
+			&lt!-- 与当前表关联的外键 --&gt
+			&ltkey column="product_id"&gt&lt/key&gt
+			&ltmany-to-many class="Category" column="id"&gt&lt/many-to-many&gt
+		&lt/set&gt
+		&lt!--Book继承映射--&gt
+		&ltjoined-subclass name="Book" table="d_book"&gt
+			&ltkey column="id"&gt&lt/key&gt
+			&ltproperty name="author" type="string"&gt
+				&ltcolumn name="author"&gt&lt/column&gt
+			&lt/property&gt
+			&ltproperty name="publish" type="string"&gt
+				&ltcolumn name="publishing"&gt&lt/column&gt
+			&lt/property&gt
+		&lt/joined-subclass&gt
+		
+	&lt/class&gt
+&lt/hibernate-mapping&gt
+</pre></code>
+Category.hbm.xml:
+<pre><code>
+&lt?xml version="1.0"?&gt
+&lt!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"&gt
+&lthibernate-mapping package="tarena.db.pojo"&gt
+	&ltclass name="Category" table="d_category"&gt
+		&ltid name="id" type="integer"&gt
+			&ltcolumn name="id"&gt&lt/column&gt
+			&ltgenerator class="native"&gt&lt/generator&gt
+		&lt/id&gt
+		&ltproperty name="name" type="string"&gt
+			&ltcolumn name="name"&gt&lt/column&gt
+		&lt/property&gt
+		&lt!-- category到product的多对多 --&gt
+		&ltset name="pros" table="d_category_product" lazy='false'&gt
+			&lt!-- 与当前表关联的外键 --&gt
+			&ltkey column="cat_id"&gt&lt/key&gt
+			&ltmany-to-many class="Product" column="id"&gt&lt/many-to-many&gt
+		&lt/set&gt
+	&lt/class&gt
+&lt/hibernate-mapping&gt
+</pre></code>
+    <span class="menu"><h3>类关系图</h3></span>
+	    <img src="logicalView.png"/>
+	    <p>我们从上图中可以知道3点信息：
+		1.图书类继承产品类。
+		2.产品里包含类别的集合。
+		3.类别中包含所拥有产品的集合。</p>
+		这样我们的基本配置就完成了，可以运用hibernate完成orm功能，以让我们用面向对象的思维去对数据库中的表的信息
+进行更直观的操作，具体的操作代码就不写了，有兴趣的人可以查看官方文档，里面有详细的说明。
+		<span class="menu"><h2>延迟加载（lazy load）</h2></span>	
+		<span class="menu"><h3>延迟加载是什么？</h3></span>
+		<p>下面我们就对这个小例子利用lazy load进行优化，首先我们先来了解什么是lazy load？
+Hibernate中的lazy(默认true)网上很多人都把它叫懒加载，主要是告诉Hibernate获取数据时在什么时候去读库，
+而且总是比上下文中获取的数据的时间晚一些，数据获取的时间总是在必要的时候才去获取。</p>
+		<span class="menu"><h3>延迟加载应用场景？</h3></span>
+		<p>在文章中的第一行中我们了解
+到lazy的配置主要在两方面一个是在类上，一个是更细粒度在属性上。只要合理的应用这两方面，我们就可以大大的减少
+服务端的压力。那我们什么时候该用这个特性呢？下面我模拟几种状况：</br>
+1.客户在浏览购买书的网站的时候，只需要知道这个站点买那些种书，那么我们就不需要把类别下的图书信息也传送过去，
+我们可以在Category.hbm.xml的第十五行配置改为:
+<pre></code>&ltset name="pros" table="d_category_product" lazy='true'&gt
+</pre></code>
+这样客户看到的类别信息所对应内存中的类别对象的商品集合就没有信息，这样能减少服务端内存的负荷量。</br>
+</br>
+</br>
+2.客户在浏览类别下的某个图书时候不需要知道书的出版商，那么我们就可以把Product.hbm.xml中的十七行改为:
+<pre><code>&ltproperty name="fix_price" type="double" lazy='true'&gt</pre></code></p>
+<span class="menu"><h3>Open Session In View</h3></span>
+<p>
+从以上的例子中我们明白了如何对hibernate进行简单的性能优化，但是我们在进行优化的时候应该注意一些问题，
+下面就列举一下错误的使用例子：
+<pre><code>
+Category category = (Category)SessionUtil.getSession().get(Category.class, 2);
+Set&ltProduct&gt pros = category.getPros();
+SessionUtil.close();
+for(Product pro:pros){
+	System.out.println(pro.getId()+" "+pro.getName()+" "+pro.getPrice());
+}
+</pre></code>
+	&nbsp&nbsp&nbsp&nbsp当运行这段代码的时候就会发生org.hibernate.LazyInitializationException的异常，发生异常的原因
+是session已经关闭，所以缓存中的商品ID已经被销毁或是已经不可再获取，为了使数据可被再次复用我们可以把以上
+的代码该成这样：
+<pre><code>
+Category category = (Category)SessionUtil.getSession().get(Category.class, 2);
+Set&ltProduct&gt pros = category.getPros();
+Hibernate.initialize(pros);
+SessionUtil.close();
+for(Product pro:pros){
+	System.out.println(pro.getId()+" "+pro.getName()+" "+pro.getPrice());
+}
+</pre></code>
+	&nbsp&nbsp&nbsp&nbsp在一个典型的（Web）应用中常见的一个问题是在主要的逻辑动作完成之后渲染页面，同时，因为逻辑动作的完成，
+Hibernate Session 已被关闭，数据库事务也已结束。如果你在你的 JSP 中（或者其它视图渲染机制）访问已被
+Session 加载的 Detached Object 的话，你可能会遇到一个没有被初始化的未加载的 Collection 或 代理。
+这时，你将会得到一个 LazyInitializationException: Session has been closed，或类似的消息。
+当然，这是可预见的，毕竟，你已经结束了你的工作单元了。为了解决这个问题就要用到Open Session In View.
+首先我们会在web的filter的init方法中获取创建session的工厂，在doFilter中加上如下几段代码：
+<pre><code>
+sf.getCurrentSession().beginTransaction();     
+chain.doFilter(request, response);      
+sf.getCurrentSession().getTransaction().commit();
+</pre></code>
+通过如上的改进，我们就可以把session的生命周期延长到一次请求之内，真正的解决了实际开发中遇到真实的问题。
+</p>
+		<span class="menu"><h2>总结</h2></span>
+		<p>在下一节中我会着重介绍hibernate的抓取策略的优化。</p>
+	</div><!-- #techlib-topic-content 内容结束 -->
+</div><!-- #techlib-topic 结束 -->
+<!-- 此行不用编辑 --><div style="PAGE-BREAK-AFTER: always; margin-bottom:50px;"></div><!-- 打印时分页 -->
+<!-- 此行不用编辑 --><div id="techlib-topic-notelist"></div><!-- 这个区域用于抽取正文中NOTE内容 -->
